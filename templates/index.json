@@ -40,6 +40,24 @@
             "button_url": ""
           }
         },
+        "component_card_twhJXH": {
+          "type": "component_card",
+          "settings": {
+            "title": "Component Name",
+            "description": "Description of the component and its features",
+            "button_text": "View Component",
+            "button_url": ""
+          }
+        },
+        "component_card_zNcU7A": {
+          "type": "component_card",
+          "settings": {
+            "title": "Component Name",
+            "description": "Description of the component and its features",
+            "button_text": "View Component",
+            "button_url": ""
+          }
+        },
         "component_card_HDTkRE": {
           "type": "component_card",
           "settings": {
@@ -54,6 +72,8 @@
         "component_card_n6kcTP",
         "component_card_dxa9Qq",
         "component_card_rfdcdN",
+        "component_card_twhJXH",
+        "component_card_zNcU7A",
         "component_card_HDTkRE"
       ],
       "settings": {
