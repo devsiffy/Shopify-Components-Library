@@ -268,6 +268,7 @@
 
     {%- comment -%} Get the component data from page metafield {%- endcomment -%}
     {%- assign component_metaobject = page.metafields.custom.component_reference.value -%}
+    {{ "Hello World" }}
     {{ page.metafields }}
 
       {%- if component_metaobject -%}
