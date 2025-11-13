@@ -22,15 +22,6 @@
             "button_url": ""
           }
         },
-        "component_card_rfdcdN": {
-          "type": "component_card",
-          "settings": {
-            "title": "Component Name",
-            "description": "Description of the component and its features",
-            "button_text": "View Component",
-            "button_url": ""
-          }
-        },
         "component_card_n6kcTP": {
           "type": "component_card",
           "settings": {
@@ -38,6 +29,15 @@
             "title": "Footer",
             "description": "5 Components",
             "button_text": "View",
+            "button_url": ""
+          }
+        },
+        "component_card_rfdcdN": {
+          "type": "component_card",
+          "settings": {
+            "title": "Component Name",
+            "description": "Description of the component and its features",
+            "button_text": "View Component",
             "button_url": ""
           }
         },
@@ -71,8 +71,8 @@
       },
       "block_order": [
         "component_card_dxa9Qq",
-        "component_card_rfdcdN",
         "component_card_n6kcTP",
+        "component_card_rfdcdN",
         "component_card_twhJXH",
         "component_card_zNcU7A",
         "component_card_HDTkRE"
