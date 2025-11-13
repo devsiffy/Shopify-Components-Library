@@ -135,7 +135,8 @@
 
   .variant-preview-wrapper {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: 600px;
+    max-height: 70vh;
     background: #ffffff;
     display: flex;
     align-items: center;
@@ -248,7 +249,8 @@
 
   .variant-code-wrapper {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: 600px;
+    max-height: 70vh;
     background: #0f172a;
     padding: 32px;
     overflow: auto;
@@ -361,6 +363,12 @@
     .variant-card-header {
       padding: 20px 24px;
     }
+
+    .variant-preview-wrapper,
+    .variant-code-wrapper {
+      height: 500px;
+      max-height: 65vh;
+    }
   }
 
   @media (max-width: 768px) {
@@ -406,6 +414,12 @@
       text-align: center;
       padding: 10px 16px;
       font-size: 13px;
+    }
+
+    .variant-preview-wrapper,
+    .variant-code-wrapper {
+      height: 400px;
+      max-height: 60vh;
     }
 
     .variant-preview-wrapper {
@@ -489,6 +503,12 @@
     .variant-tab-btn {
       padding: 9px 12px;
       font-size: 12px;
+    }
+
+    .variant-preview-wrapper,
+    .variant-code-wrapper {
+      height: 350px;
+      max-height: 55vh;
     }
 
     .variant-preview-wrapper {
@@ -614,7 +634,7 @@
                         src="{{ variant.preview_image.value | image_url: width: 1400 }}"
                         alt="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
                         width="1400"
-                        height="1400"
+                        height="900"
                         loading="lazy"
                         class="variant-preview-image"
                       >
@@ -641,7 +661,7 @@
                         src="{{ variant.preview_image.value | image_url: width: 1400 }}"
                         alt="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
                         width="1400"
-                        height="1400"
+                        height="900"
                         loading="lazy"
                         class="variant-preview-image"
                       >
