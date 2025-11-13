@@ -1,269 +1,399 @@
 <style>
-  .header-showcase-section {
+  .component-showcase-section {
     width: 100%;
-    padding: 60px 0;
-    background: #ffffff;
+    padding: 80px 0;
+    background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
   }
 
-  .header-showcase-container {
-    max-width: 1440px;
+  .component-showcase-container {
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 32px;
+    padding: 0 40px;
   }
 
-  .header-showcase-title {
-    font-size: 36px;
+  .component-showcase-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .component-showcase-title {
+    font-size: 48px;
     font-weight: 700;
-    color: #000000;
-    margin: 0 0 16px;
+    color: #0f172a;
+    margin: 0 0 20px;
     line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
-  .header-showcase-description {
-    font-size: 16px;
+  .component-showcase-description {
+    font-size: 18px;
     font-weight: 400;
-    color: #6b7280;
-    margin: 0 0 48px;
-    line-height: 1.6;
-    max-width: 800px;
+    color: #64748b;
+    margin: 0 auto;
+    line-height: 1.7;
+    max-width: 700px;
   }
 
-  .header-showcase-variant-wrapper {
-    margin-bottom: 60px;
+  .component-variant-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
+    margin-bottom: 48px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
   }
 
-  .header-showcase-variant-wrapper:last-child {
+  .component-variant-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .component-variant-card:last-child {
     margin-bottom: 0;
   }
 
-  .header-showcase-box-header {
+  .variant-card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
+    padding: 24px 32px;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
     gap: 20px;
   }
 
-  .header-showcase-box-title {
-    font-size: 18px;
+  .variant-card-title-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+  }
+
+  .variant-card-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .variant-card-icon svg {
+    width: 20px;
+    height: 20px;
+    color: #ffffff;
+  }
+
+  .variant-card-title {
+    font-size: 20px;
     font-weight: 600;
-    color: #000000;
+    color: #0f172a;
     margin: 0;
     line-height: 1.3;
   }
 
-  .header-showcase-box-actions {
-    display: flex;
+  .variant-tab-controls {
+    display: inline-flex;
     align-items: center;
     gap: 0;
+    background: #f1f5f9;
+    border-radius: 10px;
+    padding: 4px;
   }
 
-  .header-showcase-tab-btn {
-    padding: 8px 16px;
+  .variant-tab-btn {
+    padding: 10px 20px;
     font-size: 14px;
     font-weight: 500;
-    color: #6b7280;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
+    color: #64748b;
+    background: transparent;
+    border: none;
     cursor: pointer;
     transition: all 0.2s ease;
+    border-radius: 7px;
+    position: relative;
   }
 
-  .header-showcase-tab-btn:first-child {
-    border-radius: 6px 0 0 6px;
+  .variant-tab-btn:hover {
+    color: #0f172a;
   }
 
-  .header-showcase-tab-btn:last-child {
-    border-radius: 0 6px 6px 0;
-    border-left: none;
+  .variant-tab-btn.active {
+    color: #0f172a;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   }
 
-  .header-showcase-tab-btn:hover {
-    color: #000000;
-    background: #f9fafb;
+  .variant-content-box {
+    position: relative;
+    background: #fafbfc;
+    overflow: hidden;
   }
 
-  .header-showcase-tab-btn.active {
-    color: #ffffff;
-    background: #000000;
-    border-color: #000000;
-    z-index: 1;
-  }
-
-  .header-showcase-preview-box {
+  .variant-preview-wrapper {
     width: 100%;
     min-height: 600px;
     background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  }
-
-  .header-showcase-content-wrapper {
-    width: 100%;
-    height: 100%;
-    min-height: 600px;
-  }
-
-  .header-showcase-iframe-wrapper {
-    width: 100%;
-    height: 100%;
-    min-height: 600px;
-    background: #fafafa;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
 
-  .header-showcase-iframe-wrapper iframe {
+  .variant-preview-wrapper iframe {
     width: 100%;
     height: 100%;
     border: none;
+    display: block;
   }
 
-  .header-showcase-iframe-wrapper img {
+  .variant-preview-wrapper img {
     max-width: 100%;
     height: auto;
     display: block;
   }
 
-  .header-showcase-code-wrapper {
+  .variant-code-wrapper {
     width: 100%;
-    height: 100%;
     min-height: 600px;
-    background: #1e1e1e;
-    padding: 24px;
+    background: #0f172a;
+    padding: 32px;
     overflow: auto;
     display: none;
+    position: relative;
   }
 
-  .header-showcase-code-wrapper.active {
+  .variant-code-wrapper.active {
     display: block;
   }
 
-  .header-showcase-code-wrapper pre {
+  .variant-code-wrapper pre {
     margin: 0;
-    color: #d4d4d4;
+    color: #e2e8f0;
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 1.7;
     white-space: pre-wrap;
     word-wrap: break-word;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
   }
 
-  .header-showcase-placeholder {
+  .variant-code-wrapper code {
+    font-family: inherit;
+  }
+
+  .copy-code-btn {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .copy-code-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .variant-placeholder {
     text-align: center;
-    padding: 60px 40px;
+    padding: 80px 40px;
   }
 
-  .header-showcase-placeholder svg {
-    width: 180px;
-    height: 180px;
-    opacity: 0.3;
-    margin-bottom: 20px;
+  .variant-placeholder svg {
+    width: 140px;
+    height: 140px;
+    opacity: 0.15;
+    margin-bottom: 24px;
   }
 
-  .header-showcase-placeholder p {
-    font-size: 15px;
-    color: #9ca3af;
+  .variant-placeholder p {
+    font-size: 16px;
+    color: #94a3b8;
     margin: 0;
+    line-height: 1.6;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 100px 40px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 2px dashed #e2e8f0;
+  }
+
+  .empty-state svg {
+    width: 160px;
+    height: 160px;
+    opacity: 0.2;
+    margin-bottom: 24px;
+  }
+
+  .empty-state h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0 0 12px;
+  }
+
+  .empty-state p {
+    font-size: 16px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
   }
 
   @media (max-width: 1024px) {
-    .header-showcase-container {
-      padding: 0 24px;
+    .component-showcase-container {
+      padding: 0 32px;
+    }
+
+    .component-showcase-title {
+      font-size: 40px;
+    }
+
+    .variant-card-header {
+      padding: 20px 24px;
+    }
+
+    .variant-preview-wrapper,
+    .variant-code-wrapper {
+      min-height: 500px;
     }
   }
 
   @media (max-width: 768px) {
-    .header-showcase-section {
-      padding: 40px 0;
+    .component-showcase-section {
+      padding: 60px 0;
     }
 
-    .header-showcase-container {
-      padding: 0 20px;
+    .component-showcase-container {
+      padding: 0 24px;
     }
 
-    .header-showcase-title {
-      font-size: 28px;
-      margin-bottom: 12px;
+    .component-showcase-header {
+      margin-bottom: 48px;
     }
 
-    .header-showcase-description {
-      font-size: 15px;
+    .component-showcase-title {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .component-showcase-description {
+      font-size: 16px;
+    }
+
+    .component-variant-card {
       margin-bottom: 32px;
+      border-radius: 12px;
     }
 
-    .header-showcase-variant-wrapper {
-      margin-bottom: 40px;
-    }
-
-    .header-showcase-box-header {
+    .variant-card-header {
       flex-direction: column;
       align-items: flex-start;
-      gap: 12px;
+      gap: 16px;
+      padding: 20px;
     }
 
-    .header-showcase-box-actions {
+    .variant-tab-controls {
       width: 100%;
     }
 
-    .header-showcase-tab-btn {
+    .variant-tab-btn {
       flex: 1;
       text-align: center;
+      padding: 10px 16px;
+      font-size: 13px;
     }
 
-    .header-showcase-preview-box {
-      min-height: 500px;
+    .variant-preview-wrapper,
+    .variant-code-wrapper {
+      min-height: 450px;
     }
 
-    .header-showcase-content-wrapper {
-      min-height: 500px;
+    .variant-code-wrapper {
+      padding: 20px;
     }
 
-    .header-showcase-iframe-wrapper {
-      min-height: 500px;
-    }
-
-    .header-showcase-code-wrapper {
-      min-height: 500px;
-      padding: 16px;
+    .copy-code-btn {
+      top: 16px;
+      right: 16px;
+      padding: 8px 12px;
+      font-size: 12px;
     }
   }
 
   @media (max-width: 480px) {
-    .header-showcase-container {
+    .component-showcase-section {
+      padding: 40px 0;
+    }
+
+    .component-showcase-container {
       padding: 0 16px;
     }
 
-    .header-showcase-title {
-      font-size: 24px;
+    .component-showcase-title {
+      font-size: 28px;
     }
 
-    .header-showcase-tab-btn {
-      padding: 7px 12px;
-      font-size: 13px;
+    .component-showcase-description {
+      font-size: 15px;
     }
 
-    .header-showcase-preview-box {
-      min-height: 450px;
+    .component-variant-card {
+      border-radius: 10px;
     }
 
-    .header-showcase-content-wrapper {
-      min-height: 450px;
+    .variant-card-header {
+      padding: 16px;
     }
 
-    .header-showcase-iframe-wrapper {
-      min-height: 450px;
+    .variant-card-icon {
+      width: 36px;
+      height: 36px;
     }
 
-    .header-showcase-code-wrapper {
-      min-height: 450px;
-      padding: 12px;
+    .variant-card-icon svg {
+      width: 18px;
+      height: 18px;
     }
 
-    .header-showcase-code-wrapper pre {
+    .variant-card-title {
+      font-size: 18px;
+    }
+
+    .variant-tab-btn {
+      padding: 9px 12px;
       font-size: 12px;
+    }
+
+    .variant-preview-wrapper,
+    .variant-code-wrapper {
+      min-height: 400px;
+    }
+
+    .variant-code-wrapper {
+      padding: 16px;
+    }
+
+    .variant-code-wrapper pre {
+      font-size: 12px;
+    }
+
+    .copy-code-btn {
+      padding: 7px 10px;
+      font-size: 11px;
     }
   }
 </style>
@@ -271,39 +401,48 @@
 {% if page.metafields.custom.component_reference.value %}
   {% assign component = page.metafields.custom.component_reference.value %}
 
-  <section class="header-showcase-section">
-    <div class="header-showcase-container">
-      <h2 class="header-showcase-title">
-        {% if component.component_name.value != blank %}
-          {{ component.component_name.value }}
-        {% else %}
-          {{ section.settings.section_title }}
-        {% endif %}
-      </h2>
+  <section class="component-showcase-section">
+    <div class="component-showcase-container">
+      <div class="component-showcase-header">
+        <h1 class="component-showcase-title">
+          {% if component.component_name.value != blank %}
+            {{ component.component_name.value }}
+          {% else %}
+            {{ section.settings.section_title }}
+          {% endif %}
+        </h1>
 
-      <p class="header-showcase-description">
-        {% if component.component_description.value != blank %}
-          {{ component.component_description.value }}
-        {% else %}
-          {{ section.settings.section_description }}
-        {% endif %}
-      </p>
+        <p class="component-showcase-description">
+          {% if component.component_description.value != blank %}
+            {{ component.component_description.value }}
+          {% else %}
+            {{ section.settings.section_description }}
+          {% endif %}
+        </p>
+      </div>
 
       {% if component.variants.value %}
         {% for variant in component.variants.value %}
-          <div class="header-showcase-variant-wrapper" data-variant-index="{{ forloop.index }}">
-            <div class="header-showcase-box-header">
-              <h3 class="header-showcase-box-title">
-                {% if variant.variant_name.value != blank %}
-                  {{ variant.variant_name.value }}
-                {% else %}
-                  Variant {{ forloop.index }}
-                {% endif %}
-              </h3>
+          <div class="component-variant-card" data-variant-index="{{ forloop.index }}">
+            <div class="variant-card-header">
+              <div class="variant-card-title-section">
+                <div class="variant-card-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                  </svg>
+                </div>
+                <h2 class="variant-card-title">
+                  {% if variant.variant_name.value != blank %}
+                    {{ variant.variant_name.value }}
+                  {% else %}
+                    Variant {{ forloop.index }}
+                  {% endif %}
+                </h2>
+              </div>
 
-              <div class="header-showcase-box-actions">
+              <div class="variant-tab-controls">
                 <button
-                  class="header-showcase-tab-btn {% if forloop.first %}active{% endif %}"
+                  class="variant-tab-btn active"
                   type="button"
                   data-tab="preview"
                   data-variant="{{ forloop.index }}"
@@ -311,7 +450,7 @@
                   {{ section.settings.preview_button_text }}
                 </button>
                 <button
-                  class="header-showcase-tab-btn"
+                  class="variant-tab-btn"
                   type="button"
                   data-tab="code"
                   data-variant="{{ forloop.index }}"
@@ -321,81 +460,62 @@
               </div>
             </div>
 
-            <div class="header-showcase-preview-box">
-              <div class="header-showcase-content-wrapper">
-                <div
-                  class="header-showcase-iframe-wrapper"
-                  data-content="preview"
-                  data-variant="{{ forloop.index }}"
-                  style="min-height: {{ section.settings.iframe_height }}px;"
-                >
-                  {% if variant.demo_url.value != blank %}
-                    <iframe
-                      src="{{ variant.demo_url.value }}"
-                      width="100%"
-                      height="{{ section.settings.iframe_height }}"
-                      title="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
-                      loading="lazy"
-                    ></iframe>
-                  {% elsif variant.preview_image.value %}
-                    {% assign preview_img = variant.preview_image.value %}
-                    <img
-                      src="{{ preview_img | image_url: width: 1200 }}"
-                      alt="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
-                      width="1200"
-                      height="800"
-                      loading="lazy"
-                    >
-                  {% else %}
-                    <div class="header-showcase-placeholder">
-                      {{ 'lifestyle-2' | placeholder_svg_tag }}
-                      <p>Add a Demo URL or Preview Image to this variant</p>
-                    </div>
-                  {% endif %}
-                </div>
+            <div class="variant-content-box">
+              <div
+                class="variant-preview-wrapper"
+                data-content="preview"
+                data-variant="{{ forloop.index }}"
+                style="min-height: {{ section.settings.iframe_height }}px;"
+              >
+                {% if variant.demo_url.value != blank %}
+                  <iframe
+                    src="{{ variant.demo_url.value }}"
+                    width="100%"
+                    height="{{ section.settings.iframe_height }}"
+                    title="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
+                    loading="lazy"
+                  ></iframe>
+                {% elsif variant.preview_image.value %}
+                  {% assign preview_img = variant.preview_image.value %}
+                  <img
+                    src="{{ preview_img | image_url: width: 1400 }}"
+                    alt="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
+                    width="1400"
+                    height="900"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <div class="variant-placeholder">
+                    {{ 'lifestyle-2' | placeholder_svg_tag }}
+                    <p>Add a Demo URL or Preview Image to display this variant</p>
+                  </div>
+                {% endif %}
+              </div>
 
-                <div
-                  class="header-showcase-code-wrapper"
-                  data-content="code"
-                  data-variant="{{ forloop.index }}"
-                  style="min-height: {{ section.settings.iframe_height }}px;"
-                >
-                  {% if variant.code_snippet.value != blank %}
-                    <pre><code>{{ variant.code_snippet.value }}</code></pre>
-                  {% else %}
-                    <div class="header-showcase-placeholder">
-                      {{ 'code' | placeholder_svg_tag }}
-                      <p>Add Code Snippet to this variant</p>
-                    </div>
-                  {% endif %}
-                </div>
+              <div
+                class="variant-code-wrapper"
+                data-content="code"
+                data-variant="{{ forloop.index }}"
+                style="min-height: {{ section.settings.iframe_height }}px;"
+              >
+                {% if variant.code_snippet.value != blank %}
+                  <button class="copy-code-btn" type="button" data-variant="{{ forloop.index }}">Copy Code</button>
+                  <pre><code id="code-block-{{ forloop.index }}">{{ variant.code_snippet.value }}</code></pre>
+                {% else %}
+                  <div class="variant-placeholder">
+                    {{ 'code' | placeholder_svg_tag }}
+                    <p>Add a Code Snippet to display code for this variant</p>
+                  </div>
+                {% endif %}
               </div>
             </div>
           </div>
         {% endfor %}
       {% else %}
-        <div class="header-showcase-variant-wrapper">
-          <div class="header-showcase-box-header">
-            <h3 class="header-showcase-box-title">{{ section.settings.box_title }}</h3>
-
-            <div class="header-showcase-box-actions">
-              <button class="header-showcase-tab-btn active" type="button">
-                {{ section.settings.preview_button_text }}
-              </button>
-              <button class="header-showcase-tab-btn" type="button">
-                {{ section.settings.code_button_text }}
-              </button>
-            </div>
-          </div>
-
-          <div class="header-showcase-preview-box">
-            <div class="header-showcase-iframe-wrapper" style="min-height: {{ section.settings.iframe_height }}px;">
-              <div class="header-showcase-placeholder">
-                {{ 'lifestyle-2' | placeholder_svg_tag }}
-                <p>No variants found. Add Component Variants to the metaobject.</p>
-              </div>
-            </div>
-          </div>
+        <div class="empty-state">
+          {{ 'collection' | placeholder_svg_tag }}
+          <h3>No Variants Found</h3>
+          <p>Add Component Variants to the metaobject to showcase your components.</p>
         </div>
       {% endif %}
     </div>
@@ -403,13 +523,14 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const variantWrappers = document.querySelectorAll('.header-showcase-variant-wrapper');
+      const variantCards = document.querySelectorAll('.component-variant-card');
 
-      variantWrappers.forEach((wrapper) => {
-        const variantIndex = wrapper.getAttribute('data-variant-index');
-        const tabButtons = wrapper.querySelectorAll('.header-showcase-tab-btn');
-        const previewWrapper = wrapper.querySelector('[data-content="preview"][data-variant="' + variantIndex + '"]');
-        const codeWrapper = wrapper.querySelector('[data-content="code"][data-variant="' + variantIndex + '"]');
+      variantCards.forEach((card) => {
+        const variantIndex = card.getAttribute('data-variant-index');
+        const tabButtons = card.querySelectorAll('.variant-tab-btn');
+        const previewWrapper = card.querySelector('[data-content="preview"][data-variant="' + variantIndex + '"]');
+        const codeWrapper = card.querySelector('[data-content="code"][data-variant="' + variantIndex + '"]');
+        const copyBtn = card.querySelector('.copy-code-btn[data-variant="' + variantIndex + '"]');
 
         tabButtons.forEach((button) => {
           button.addEventListener('click', function () {
@@ -427,38 +548,47 @@
             }
           });
         });
+
+        if (copyBtn) {
+          copyBtn.addEventListener('click', function () {
+            const codeBlock = document.getElementById('code-block-' + variantIndex);
+            const codeText = codeBlock.textContent;
+
+            navigator.clipboard
+              .writeText(codeText)
+              .then(function () {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                copyBtn.style.background = 'rgba(34, 197, 94, 0.2)';
+                copyBtn.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+
+                setTimeout(function () {
+                  copyBtn.textContent = originalText;
+                  copyBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+                  copyBtn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                }, 2000);
+              })
+              .catch(function (err) {
+                console.error('Failed to copy code:', err);
+              });
+          });
+        }
       });
     });
   </script>
 
 {% else %}
-  <section class="header-showcase-section">
-    <div class="header-showcase-container">
-      <h2 class="header-showcase-title">{{ section.settings.section_title }}</h2>
-      <p class="header-showcase-description">{{ section.settings.section_description }}</p>
+  <section class="component-showcase-section">
+    <div class="component-showcase-container">
+      <div class="component-showcase-header">
+        <h1 class="component-showcase-title">{{ section.settings.section_title }}</h1>
+        <p class="component-showcase-description">{{ section.settings.section_description }}</p>
+      </div>
 
-      <div class="header-showcase-variant-wrapper">
-        <div class="header-showcase-box-header">
-          <h3 class="header-showcase-box-title">{{ section.settings.box_title }}</h3>
-
-          <div class="header-showcase-box-actions">
-            <button class="header-showcase-tab-btn active" type="button">
-              {{ section.settings.preview_button_text }}
-            </button>
-            <button class="header-showcase-tab-btn" type="button">
-              {{ section.settings.code_button_text }}
-            </button>
-          </div>
-        </div>
-
-        <div class="header-showcase-preview-box">
-          <div class="header-showcase-iframe-wrapper" style="min-height: {{ section.settings.iframe_height }}px;">
-            <div class="header-showcase-placeholder">
-              {{ 'lifestyle-2' | placeholder_svg_tag }}
-              <p>Add Component Reference metafield to this page to display content</p>
-            </div>
-          </div>
-        </div>
+      <div class="empty-state">
+        {{ 'collection' | placeholder_svg_tag }}
+        <h3>No Component Reference Found</h3>
+        <p>Add a Component Reference metafield to this page to display your component library.</p>
       </div>
     </div>
   </section>
@@ -468,7 +598,7 @@
 {
   "name": "Component Showcase",
   "tag": "section",
-  "class": "header-showcase-wrapper",
+  "class": "component-showcase-wrapper",
   "settings": [
     {
       "type": "header",
@@ -488,17 +618,11 @@
       "type": "textarea",
       "id": "section_description",
       "label": "Section Description",
-      "default": "Explore our collection of customizable components built for modern websites."
+      "default": "Explore our collection of beautiful, responsive, and customizable components built for modern web experiences."
     },
     {
       "type": "header",
-      "content": "Preview Box Settings"
-    },
-    {
-      "type": "text",
-      "id": "box_title",
-      "label": "Box Title",
-      "default": "Component Example"
+      "content": "Display Settings"
     },
     {
       "type": "text",
