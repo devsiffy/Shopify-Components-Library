@@ -280,6 +280,7 @@
       {%- if component_metaobject.variants.value.size > 0 -%}
         <div class="variants-grid">
           {%- for variant in component_metaobject.variants.value -%}
+            {{ variant.variant_name }}
             <div class="variant-card">
               {%- comment -%} Preview Box with Tabs {%- endcomment -%}
               <div class="variant-preview-box">
