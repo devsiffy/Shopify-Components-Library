@@ -28,6 +28,14 @@
     max-width: 800px;
   }
 
+  .header-showcase-variant-wrapper {
+    margin-bottom: 60px;
+  }
+
+  .header-showcase-variant-wrapper:last-child {
+    margin-bottom: 0;
+  }
+
   .header-showcase-box-header {
     display: flex;
     align-items: center;
@@ -92,6 +100,12 @@
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   }
 
+  .header-showcase-content-wrapper {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+  }
+
   .header-showcase-iframe-wrapper {
     width: 100%;
     height: 100%;
@@ -106,6 +120,12 @@
     width: 100%;
     height: 100%;
     border: none;
+  }
+
+  .header-showcase-iframe-wrapper img {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 
   .header-showcase-code-wrapper {
@@ -174,6 +194,10 @@
       margin-bottom: 32px;
     }
 
+    .header-showcase-variant-wrapper {
+      margin-bottom: 40px;
+    }
+
     .header-showcase-box-header {
       flex-direction: column;
       align-items: flex-start;
@@ -190,6 +214,10 @@
     }
 
     .header-showcase-preview-box {
+      min-height: 500px;
+    }
+
+    .header-showcase-content-wrapper {
       min-height: 500px;
     }
 
@@ -221,6 +249,10 @@
       min-height: 450px;
     }
 
+    .header-showcase-content-wrapper {
+      min-height: 450px;
+    }
+
     .header-showcase-iframe-wrapper {
       min-height: 450px;
     }
@@ -238,7 +270,6 @@
 
 {% if page.metafields.custom.component_reference.value %}
   {% assign component = page.metafields.custom.component_reference.value %}
-  {% assign variant = component.variants.value %}
 
   <section class="header-showcase-section">
     <div class="header-showcase-container">
@@ -258,106 +289,143 @@
         {% endif %}
       </p>
 
-      <div class="header-showcase-box-header">
-        <h3 class="header-showcase-box-title">
-          {% if variant.variant_name.value != blank %}
-            {{ variant.variant_name.value }}
-          {% else %}
-            {{ section.settings.box_title }}
-          {% endif %}
-        </h3>
+      {% if component.variants.value %}
+        {% for variant in component.variants.value %}
+          <div class="header-showcase-variant-wrapper" data-variant-index="{{ forloop.index }}">
+            <div class="header-showcase-box-header">
+              <h3 class="header-showcase-box-title">
+                {% if variant.variant_name.value != blank %}
+                  {{ variant.variant_name.value }}
+                {% else %}
+                  Variant {{ forloop.index }}
+                {% endif %}
+              </h3>
 
-        <div class="header-showcase-box-actions">
-          <button class="header-showcase-tab-btn active" type="button" data-tab="preview">
-            {{ section.settings.preview_button_text }}
-          </button>
-          <button class="header-showcase-tab-btn" type="button" data-tab="code">
-            {{ section.settings.code_button_text }}
-          </button>
-        </div>
-      </div>
-
-      <div class="header-showcase-preview-box">
-        <div
-          class="header-showcase-iframe-wrapper active"
-          data-content="preview"
-          style="min-height: {{ section.settings.iframe_height }}px;"
-        >
-          {% if variant.demo_url.value != blank %}
-            <iframe
-              src="{{ variant.demo_url.value }}"
-              width="100%"
-              height="{{ section.settings.iframe_height }}"
-              title="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}{{ section.settings.box_title }}{% endif %}"
-              loading="lazy"
-            ></iframe>
-          {% elsif variant.preview_image.value %}
-            {% assign preview_img = variant.preview_image.value %}
-            {% if preview_img.preview_image %}
-              <img
-                src="{{ preview_img.preview_image | image_url: width: 1200 }}"
-                alt="{{ variant.variant_name.value }}"
-                width="1200"
-                height="800"
-                loading="lazy"
-                style="max-width: 100%; height: auto; display: block;"
-              >
-            {% else %}
-              <img
-                src="{{ preview_img | image_url: width: 1200 }}"
-                alt="{{ variant.variant_name.value }}"
-                width="1200"
-                height="800"
-                loading="lazy"
-                style="max-width: 100%; height: auto; display: block;"
-              >
-            {% endif %}
-          {% else %}
-            <div class="header-showcase-placeholder">
-              {{ 'lifestyle-2' | placeholder_svg_tag }}
-              <p>Add a Demo URL or Preview Image in the metaobject to display content</p>
+              <div class="header-showcase-box-actions">
+                <button
+                  class="header-showcase-tab-btn {% if forloop.first %}active{% endif %}"
+                  type="button"
+                  data-tab="preview"
+                  data-variant="{{ forloop.index }}"
+                >
+                  {{ section.settings.preview_button_text }}
+                </button>
+                <button
+                  class="header-showcase-tab-btn"
+                  type="button"
+                  data-tab="code"
+                  data-variant="{{ forloop.index }}"
+                >
+                  {{ section.settings.code_button_text }}
+                </button>
+              </div>
             </div>
-          {% endif %}
-        </div>
 
-        <div
-          class="header-showcase-code-wrapper"
-          data-content="code"
-          style="min-height: {{ section.settings.iframe_height }}px;"
-        >
-          {% if variant.code_snippet.value != blank %}
-            <pre><code>{{ variant.code_snippet.value }}</code></pre>
-          {% else %}
-            <div class="header-showcase-placeholder">
-              {{ 'code' | placeholder_svg_tag }}
-              <p>Add Code Snippet in the metaobject to display code</p>
+            <div class="header-showcase-preview-box">
+              <div class="header-showcase-content-wrapper">
+                <div
+                  class="header-showcase-iframe-wrapper"
+                  data-content="preview"
+                  data-variant="{{ forloop.index }}"
+                  style="min-height: {{ section.settings.iframe_height }}px;"
+                >
+                  {% if variant.demo_url.value != blank %}
+                    <iframe
+                      src="{{ variant.demo_url.value }}"
+                      width="100%"
+                      height="{{ section.settings.iframe_height }}"
+                      title="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
+                      loading="lazy"
+                    ></iframe>
+                  {% elsif variant.preview_image.value %}
+                    {% assign preview_img = variant.preview_image.value %}
+                    <img
+                      src="{{ preview_img | image_url: width: 1200 }}"
+                      alt="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
+                      width="1200"
+                      height="800"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="header-showcase-placeholder">
+                      {{ 'lifestyle-2' | placeholder_svg_tag }}
+                      <p>Add a Demo URL or Preview Image to this variant</p>
+                    </div>
+                  {% endif %}
+                </div>
+
+                <div
+                  class="header-showcase-code-wrapper"
+                  data-content="code"
+                  data-variant="{{ forloop.index }}"
+                  style="min-height: {{ section.settings.iframe_height }}px;"
+                >
+                  {% if variant.code_snippet.value != blank %}
+                    <pre><code>{{ variant.code_snippet.value }}</code></pre>
+                  {% else %}
+                    <div class="header-showcase-placeholder">
+                      {{ 'code' | placeholder_svg_tag }}
+                      <p>Add Code Snippet to this variant</p>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
             </div>
-          {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="header-showcase-variant-wrapper">
+          <div class="header-showcase-box-header">
+            <h3 class="header-showcase-box-title">{{ section.settings.box_title }}</h3>
+
+            <div class="header-showcase-box-actions">
+              <button class="header-showcase-tab-btn active" type="button">
+                {{ section.settings.preview_button_text }}
+              </button>
+              <button class="header-showcase-tab-btn" type="button">
+                {{ section.settings.code_button_text }}
+              </button>
+            </div>
+          </div>
+
+          <div class="header-showcase-preview-box">
+            <div class="header-showcase-iframe-wrapper" style="min-height: {{ section.settings.iframe_height }}px;">
+              <div class="header-showcase-placeholder">
+                {{ 'lifestyle-2' | placeholder_svg_tag }}
+                <p>No variants found. Add Component Variants to the metaobject.</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      {% endif %}
     </div>
   </section>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const tabButtons = document.querySelectorAll('.header-showcase-tab-btn');
-      const previewWrapper = document.querySelector('[data-content="preview"]');
-      const codeWrapper = document.querySelector('[data-content="code"]');
+      const variantWrappers = document.querySelectorAll('.header-showcase-variant-wrapper');
 
-      tabButtons.forEach((button) => {
-        button.addEventListener('click', function () {
-          const tab = this.getAttribute('data-tab');
+      variantWrappers.forEach((wrapper) => {
+        const variantIndex = wrapper.getAttribute('data-variant-index');
+        const tabButtons = wrapper.querySelectorAll('.header-showcase-tab-btn');
+        const previewWrapper = wrapper.querySelector('[data-content="preview"][data-variant="' + variantIndex + '"]');
+        const codeWrapper = wrapper.querySelector('[data-content="code"][data-variant="' + variantIndex + '"]');
 
-          tabButtons.forEach((btn) => btn.classList.remove('active'));
-          this.classList.add('active');
+        tabButtons.forEach((button) => {
+          button.addEventListener('click', function () {
+            const tab = this.getAttribute('data-tab');
 
-          if (tab === 'preview') {
-            previewWrapper.style.display = 'flex';
-            codeWrapper.style.display = 'none';
-          } else if (tab === 'code') {
-            previewWrapper.style.display = 'none';
-            codeWrapper.style.display = 'block';
-          }
+            tabButtons.forEach((btn) => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            if (tab === 'preview') {
+              previewWrapper.style.display = 'flex';
+              codeWrapper.style.display = 'none';
+            } else if (tab === 'code') {
+              previewWrapper.style.display = 'none';
+              codeWrapper.style.display = 'block';
+            }
+          });
         });
       });
     });
@@ -369,24 +437,26 @@
       <h2 class="header-showcase-title">{{ section.settings.section_title }}</h2>
       <p class="header-showcase-description">{{ section.settings.section_description }}</p>
 
-      <div class="header-showcase-box-header">
-        <h3 class="header-showcase-box-title">{{ section.settings.box_title }}</h3>
+      <div class="header-showcase-variant-wrapper">
+        <div class="header-showcase-box-header">
+          <h3 class="header-showcase-box-title">{{ section.settings.box_title }}</h3>
 
-        <div class="header-showcase-box-actions">
-          <button class="header-showcase-tab-btn active" type="button">
-            {{ section.settings.preview_button_text }}
-          </button>
-          <button class="header-showcase-tab-btn" type="button">
-            {{ section.settings.code_button_text }}
-          </button>
+          <div class="header-showcase-box-actions">
+            <button class="header-showcase-tab-btn active" type="button">
+              {{ section.settings.preview_button_text }}
+            </button>
+            <button class="header-showcase-tab-btn" type="button">
+              {{ section.settings.code_button_text }}
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div class="header-showcase-preview-box">
-        <div class="header-showcase-iframe-wrapper" style="min-height: {{ section.settings.iframe_height }}px;">
-          <div class="header-showcase-placeholder">
-            {{ 'lifestyle-2' | placeholder_svg_tag }}
-            <p>Add Component Reference metafield to this page to display content</p>
+        <div class="header-showcase-preview-box">
+          <div class="header-showcase-iframe-wrapper" style="min-height: {{ section.settings.iframe_height }}px;">
+            <div class="header-showcase-placeholder">
+              {{ 'lifestyle-2' | placeholder_svg_tag }}
+              <p>Add Component Reference metafield to this page to display content</p>
+            </div>
           </div>
         </div>
       </div>
@@ -396,7 +466,7 @@
 
 {% schema %}
 {
-  "name": "Header Showcase Section",
+  "name": "Component Showcase",
   "tag": "section",
   "class": "header-showcase-wrapper",
   "settings": [
@@ -412,13 +482,13 @@
       "type": "text",
       "id": "section_title",
       "label": "Section Title",
-      "default": "Header navigations"
+      "default": "Component Library"
     },
     {
       "type": "textarea",
       "id": "section_description",
       "label": "Section Description",
-      "default": "Powerful and customizable React header navigation components built for modern and responsive websites. These header navigations are built using React Aria and styled with Tailwind CSS."
+      "default": "Explore our collection of customizable components built for modern websites."
     },
     {
       "type": "header",
@@ -428,7 +498,7 @@
       "type": "text",
       "id": "box_title",
       "label": "Box Title",
-      "default": "Header navigation example"
+      "default": "Component Example"
     },
     {
       "type": "text",
@@ -445,7 +515,7 @@
     {
       "type": "range",
       "id": "iframe_height",
-      "label": "iFrame/Content Height",
+      "label": "Content Height",
       "min": 400,
       "max": 1000,
       "step": 50,
@@ -455,7 +525,7 @@
   ],
   "presets": [
     {
-      "name": "Header Showcase Section"
+      "name": "Component Showcase Section"
     }
   ]
 }
