@@ -41,12 +41,23 @@
             "button_text": "View Component",
             "component_page": ""
           }
+        },
+        "component_card_PK6qRr": {
+          "type": "component_card",
+          "name": "Card Section",
+          "settings": {
+            "title": "Card Section",
+            "description": "Stylish cards to display products or features clearly.",
+            "button_text": "View Component",
+            "component_page": ""
+          }
         }
       },
       "block_order": [
         "component_card_9dY8rD",
         "component_card_7AFK6h",
-        "component_card_xHmEj7"
+        "component_card_xHmEj7",
+        "component_card_PK6qRr"
       ],
       "settings": {
         "logo": "shopify://shop_images/logo.png",
