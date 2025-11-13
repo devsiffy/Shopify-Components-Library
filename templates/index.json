@@ -11,8 +11,22 @@
   "sections": {
     "custom-main-hero": {
       "type": "custom-main-hero",
+      "blocks": {
+        "component_card_n6kcTP": {
+          "type": "component_card",
+          "settings": {
+            "image": "shopify://shop_images/footer.webp",
+            "title": "Footer",
+            "description": "5 Components",
+            "button_text": "View",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "component_card_n6kcTP"
+      ],
       "settings": {
-        "color_scheme": "1",
         "logo": "shopify://shop_images/logo.png",
         "logo_alt": "Logo",
         "subtitle": "UI Components",
@@ -21,7 +35,24 @@
         "button_1_text": "Documentation",
         "button_1_url": "",
         "button_2_text": "GitHub",
-        "button_2_url": ""
+        "button_2_url": "",
+        "components_heading": "Featured Components",
+        "components_description": "Explore our collection of production-ready Shopify components",
+        "show_cta": true,
+        "cta_heading": "Ready to Build Something Amazing?",
+        "cta_description": "Get started with our component library and create beautiful Shopify stores in minutes, not hours.",
+        "cta_button_1_text": "Get Started",
+        "cta_button_1_url": "",
+        "cta_button_2_text": "View All Components",
+        "cta_button_2_url": "",
+        "show_footer": true,
+        "footer_text": "© 2024 Shopify Component Library. All rights reserved.",
+        "footer_link_1_text": "Documentation",
+        "footer_link_1_url": "",
+        "footer_link_2_text": "GitHub",
+        "footer_link_2_url": "",
+        "footer_link_3_text": "Support",
+        "footer_link_3_url": ""
       }
     }
   },
