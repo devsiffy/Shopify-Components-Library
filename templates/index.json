@@ -12,22 +12,13 @@
     "custom-main-hero": {
       "type": "custom-main-hero",
       "blocks": {
-        "component_card_n6kcTP": {
-          "type": "component_card",
-          "settings": {
-            "image": "shopify://shop_images/footer.webp",
-            "title": "Footer",
-            "description": "5 Components",
-            "button_text": "View",
-            "button_url": ""
-          }
-        },
         "component_card_dxa9Qq": {
           "type": "component_card",
           "settings": {
-            "title": "Component Name",
-            "description": "Description of the component and its features",
-            "button_text": "View Component",
+            "image": "shopify://shop_images/header.webp",
+            "title": "Header",
+            "description": "5 Components",
+            "button_text": "View",
             "button_url": ""
           }
         },
@@ -37,6 +28,16 @@
             "title": "Component Name",
             "description": "Description of the component and its features",
             "button_text": "View Component",
+            "button_url": ""
+          }
+        },
+        "component_card_n6kcTP": {
+          "type": "component_card",
+          "settings": {
+            "image": "shopify://shop_images/footer.webp",
+            "title": "Footer",
+            "description": "5 Components",
+            "button_text": "View",
             "button_url": ""
           }
         },
@@ -69,9 +70,9 @@
         }
       },
       "block_order": [
-        "component_card_n6kcTP",
         "component_card_dxa9Qq",
         "component_card_rfdcdN",
+        "component_card_n6kcTP",
         "component_card_twhJXH",
         "component_card_zNcU7A",
         "component_card_HDTkRE"
