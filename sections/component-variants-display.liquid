@@ -269,6 +269,7 @@
     {%- assign component_metaobject = page.metafields.custom.component_reference.value -%}
     {{ 'Hello World' }}
     {{ component_metaobject.variants.value.variant_name }}
+    {{ component_metaobject.variants.value.demo_url }}
 
     {%- if component_metaobject -%}
       <div class="component-variants-header">
