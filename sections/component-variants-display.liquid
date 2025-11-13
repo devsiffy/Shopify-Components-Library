@@ -265,13 +265,14 @@
 
 <section class="component-variants-wrapper">
   <div class="component-variants-container">
-
     {%- comment -%} Get the component data from page metafield {%- endcomment -%}
     {%- assign component_metaobject = page.metafields.custom.component_reference.value -%}
-    {{ "Hello World" }}
-    {{ component_metaobject }}
+    {{ 'Hello World' }}
+    {% for element in component_metaobject %}
+      {{ element }}
+    {% endfor %}
 
-      {%- if component_metaobject -%}
+    {%- if component_metaobject -%}
       <div class="component-variants-header">
         <h1 class="component-variants-title">{{ component_metaobject.component_name.value }}</h1>
         <p class="component-variants-description">{{ component_metaobject.component_description.value }}</p>
@@ -282,7 +283,6 @@
         <div class="variants-grid">
           {%- for variant in component_metaobject.variants.value -%}
             <div class="variant-card">
-
               {%- comment -%} Preview Box with Tabs {%- endcomment -%}
               <div class="variant-preview-box">
                 <div class="variant-preview-header">
@@ -291,13 +291,15 @@
                     <button
                       class="variant-tab-btn active"
                       data-target="preview-{{ forloop.index }}"
-                      onclick="switchTab(event, 'preview-{{ forloop.index }}')">
+                      onclick="switchTab(event, 'preview-{{ forloop.index }}')"
+                    >
                       Preview
                     </button>
                     <button
                       class="variant-tab-btn"
                       data-target="code-{{ forloop.index }}"
-                      onclick="switchTab(event, 'code-{{ forloop.index }}')">
+                      onclick="switchTab(event, 'code-{{ forloop.index }}')"
+                    >
                       Code
                     </button>
                   </div>
@@ -311,7 +313,8 @@
                       width="100%"
                       height="450"
                       title="{{ variant.variant_name.value }}"
-                      loading="lazy"></iframe>
+                      loading="lazy"
+                    ></iframe>
                   {%- elsif variant.preview_image.value -%}
                     <img
                       src="{{ variant.preview_image.value | image_url: width: 800 }}"
@@ -319,7 +322,8 @@
                       class="variant-preview-image"
                       loading="lazy"
                       width="100"
-                      height="100">
+                      height="100"
+                    >
                   {%- else -%}
                     <div style="display: flex; align-items: center; justify-content: center; min-height: 450px; color: #9ca3af;">
                       No preview available
@@ -329,7 +333,7 @@
 
                 {%- comment -%} Code Tab Content {%- endcomment -%}
                 <div id="code-{{ forloop.index }}" class="variant-code-wrapper tab-content">
-<pre><code>{{ variant.code_snippet.value | escape }}</code></pre>
+                  <pre><code>{{ variant.code_snippet.value | escape }}</code></pre>
                 </div>
               </div>
 
@@ -347,7 +351,8 @@
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
-                      stroke="currentColor">
+                      stroke="currentColor"
+                    >
                       <path
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -360,13 +365,15 @@
                     <a
                       href="{{ variant.demo_url.value }}"
                       target="_blank"
-                      class="variant-btn variant-btn-secondary">
+                      class="variant-btn variant-btn-secondary"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
-                        stroke="currentColor">
+                        stroke="currentColor"
+                      >
                         <path
                           stroke-linecap="round"
                           stroke-linejoin="round"
@@ -409,24 +416,24 @@
   function switchTab(event, targetId) {
     const button = event.currentTarget;
     const previewBox = button.closest('.variant-preview-box');
-    
+
     // Remove active class from all tabs in this preview box
-    previewBox.querySelectorAll('.variant-tab-btn').forEach(btn => {
+    previewBox.querySelectorAll('.variant-tab-btn').forEach((btn) => {
       btn.classList.remove('active');
     });
-    
+
     // Add active class to clicked button
     button.classList.add('active');
-    
+
     // Hide all tab contents in this preview box
-    previewBox.querySelectorAll('.tab-content').forEach(content => {
+    previewBox.querySelectorAll('.tab-content').forEach((content) => {
       if (content.classList.contains('variant-iframe-wrapper')) {
         content.classList.add('hidden');
       } else if (content.classList.contains('variant-code-wrapper')) {
         content.classList.remove('active');
       }
     });
-    
+
     // Show target content
     const targetContent = document.getElementById(targetId);
     if (targetContent.classList.contains('variant-iframe-wrapper')) {
@@ -438,10 +445,10 @@
 </script>
 
 {% schema %}
-  {
-    "name": "Component Variants",
-    "tag": "section",
-    "class": "component-variants-section",
-    "settings": []
-  }
+{
+  "name": "Component Variants",
+  "tag": "section",
+  "class": "component-variants-section",
+  "settings": []
+}
 {% endschema %}
