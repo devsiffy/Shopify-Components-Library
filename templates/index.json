@@ -31,11 +31,22 @@
             "button_text": "View Component",
             "component_page": ""
           }
+        },
+        "component_card_xHmEj7": {
+          "type": "component_card",
+          "name": "Grid Section",
+          "settings": {
+            "title": "Grid Section",
+            "description": "Flexible layout to showcase products or content neatly.",
+            "button_text": "View Component",
+            "component_page": ""
+          }
         }
       },
       "block_order": [
         "component_card_9dY8rD",
-        "component_card_7AFK6h"
+        "component_card_7AFK6h",
+        "component_card_xHmEj7"
       ],
       "settings": {
         "logo": "shopify://shop_images/logo.png",
