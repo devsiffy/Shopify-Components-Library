@@ -1,88 +1,58 @@
 <style>
-  .component-variants-wrapper {
+  .header-showcase-section {
     width: 100%;
     padding: 60px 0;
     background: #ffffff;
   }
 
-  .component-variants-container {
+  .header-showcase-container {
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 32px;
   }
 
-  .component-variants-header {
-    margin-bottom: 48px;
-  }
-
-  .component-variants-title {
-    font-size: 42px;
+  .header-showcase-title {
+    font-size: 36px;
     font-weight: 700;
     color: #000000;
     margin: 0 0 16px;
     line-height: 1.2;
   }
 
-  .component-variants-description {
-    font-size: 18px;
+  .header-showcase-description {
+    font-size: 16px;
     font-weight: 400;
     color: #6b7280;
-    margin: 0;
+    margin: 0 0 48px;
     line-height: 1.6;
     max-width: 800px;
   }
 
-  .variants-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 32px;
-    margin-bottom: 48px;
-  }
-
-  .variant-card {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .variant-card:hover {
-    border-color: #16A34A;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transform: translateY(-4px);
-  }
-
-  .variant-preview-box {
-    width: 100%;
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-  }
-
-  .variant-preview-header {
+  .header-showcase-box-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 20px;
-    background: #f9fafb;
-    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 16px;
+    gap: 20px;
   }
 
-  .variant-preview-title {
-    font-size: 14px;
+  .header-showcase-box-title {
+    font-size: 18px;
     font-weight: 600;
     color: #000000;
     margin: 0;
+    line-height: 1.3;
   }
 
-  .variant-preview-tabs {
+  .header-showcase-box-actions {
     display: flex;
+    align-items: center;
     gap: 0;
   }
 
-  .variant-tab-btn {
-    padding: 6px 12px;
-    font-size: 13px;
+  .header-showcase-tab-btn {
+    padding: 8px 16px;
+    font-size: 14px;
     font-weight: 500;
     color: #6b7280;
     background: #ffffff;
@@ -91,364 +61,402 @@
     transition: all 0.2s ease;
   }
 
-  .variant-tab-btn:first-child {
+  .header-showcase-tab-btn:first-child {
     border-radius: 6px 0 0 6px;
   }
 
-  .variant-tab-btn:last-child {
+  .header-showcase-tab-btn:last-child {
     border-radius: 0 6px 6px 0;
     border-left: none;
   }
 
-  .variant-tab-btn:hover {
+  .header-showcase-tab-btn:hover {
     color: #000000;
-    background: #f3f4f6;
+    background: #f9fafb;
   }
 
-  .variant-tab-btn.active {
+  .header-showcase-tab-btn.active {
     color: #ffffff;
     background: #000000;
     border-color: #000000;
     z-index: 1;
   }
 
-  .variant-iframe-wrapper {
+  .header-showcase-preview-box {
     width: 100%;
-    min-height: 450px;
-    background: #fafafa;
-    display: block;
+    min-height: 600px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   }
 
-  .variant-iframe-wrapper.hidden {
-    display: none;
-  }
-
-  .variant-iframe-wrapper iframe {
+  .header-showcase-iframe-wrapper {
     width: 100%;
     height: 100%;
-    min-height: 450px;
-    border: none;
-    display: block;
+    min-height: 600px;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .variant-code-wrapper {
-    display: none;
+  .header-showcase-iframe-wrapper iframe {
     width: 100%;
-    min-height: 450px;
-    background: #1e293b;
-    padding: 20px;
-    overflow: auto;
+    height: 100%;
+    border: none;
   }
 
-  .variant-code-wrapper.active {
+  .header-showcase-code-wrapper {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    background: #1e1e1e;
+    padding: 24px;
+    overflow: auto;
+    display: none;
+  }
+
+  .header-showcase-code-wrapper.active {
     display: block;
   }
 
-  .variant-code-wrapper pre {
+  .header-showcase-code-wrapper pre {
     margin: 0;
-    color: #e2e8f0;
-    font-family: 'Courier New'
-    , monospace;
-    font-size: 13px;
+    color: #d4d4d4;
+    font-size: 14px;
     line-height: 1.6;
     white-space: pre-wrap;
     word-wrap: break-word;
   }
 
-  .variant-preview-image {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    display: block;
+  .header-showcase-placeholder {
+    text-align: center;
+    padding: 60px 40px;
   }
 
-  .variant-content {
-    padding: 24px;
+  .header-showcase-placeholder svg {
+    width: 180px;
+    height: 180px;
+    opacity: 0.3;
+    margin-bottom: 20px;
   }
 
-  .variant-name {
-    font-size: 20px;
-    font-weight: 600;
-    color: #000000;
-    margin: 0 0 12px;
-  }
-
-  .variant-description {
+  .header-showcase-placeholder p {
     font-size: 15px;
-    color: #6b7280;
-    line-height: 1.6;
-    margin: 0 0 20px;
+    color: #9ca3af;
+    margin: 0;
   }
 
-  .variant-actions {
-    display: flex;
-    gap: 12px;
-  }
-
-  .variant-btn {
-    flex: 1;
-    padding: 10px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border: none;
-  }
-
-  .variant-btn-primary {
-    background: #16A34A;
-    color: white;
-  }
-
-  .variant-btn-primary:hover {
-    background: #15803D;
-    transform: translateY(-2px);
-  }
-
-  .variant-btn-secondary {
-    background: transparent;
-    color: #000000;
-    border: 1px solid #e5e7eb;
-  }
-
-  .variant-btn-secondary:hover {
-    background: #f9fafb;
-    border-color: #d1d5db;
-  }
-
-  .variant-btn svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .no-variants-message {
-    text-align: center;
-    padding: 80px 20px;
-    color: #6b7280;
-    font-size: 16px;
+  @media (max-width: 1024px) {
+    .header-showcase-container {
+      padding: 0 24px;
+    }
   }
 
   @media (max-width: 768px) {
-    .component-variants-wrapper {
+    .header-showcase-section {
       padding: 40px 0;
     }
 
-    .component-variants-container {
+    .header-showcase-container {
       padding: 0 20px;
     }
 
-    .component-variants-title {
-      font-size: 32px;
+    .header-showcase-title {
+      font-size: 28px;
+      margin-bottom: 12px;
     }
 
-    .variants-grid {
-      grid-template-columns: 1fr;
-      gap: 24px;
+    .header-showcase-description {
+      font-size: 15px;
+      margin-bottom: 32px;
     }
 
-    .variant-actions {
+    .header-showcase-box-header {
       flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
     }
 
-    .variant-btn {
+    .header-showcase-box-actions {
       width: 100%;
+    }
+
+    .header-showcase-tab-btn {
+      flex: 1;
+      text-align: center;
+    }
+
+    .header-showcase-preview-box {
+      min-height: 500px;
+    }
+
+    .header-showcase-iframe-wrapper {
+      min-height: 500px;
+    }
+
+    .header-showcase-code-wrapper {
+      min-height: 500px;
+      padding: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-showcase-container {
+      padding: 0 16px;
+    }
+
+    .header-showcase-title {
+      font-size: 24px;
+    }
+
+    .header-showcase-tab-btn {
+      padding: 7px 12px;
+      font-size: 13px;
+    }
+
+    .header-showcase-preview-box {
+      min-height: 450px;
+    }
+
+    .header-showcase-iframe-wrapper {
+      min-height: 450px;
+    }
+
+    .header-showcase-code-wrapper {
+      min-height: 450px;
+      padding: 12px;
+    }
+
+    .header-showcase-code-wrapper pre {
+      font-size: 12px;
     }
   }
 </style>
 
-<section class="component-variants-wrapper">
-  <div class="component-variants-container">
-    {%- comment -%} Get the component data from page metafield {%- endcomment -%}
-    {%- assign component_metaobject = page.metafields.custom.component_reference.value -%}
-    {{ 'Hello World' }}
-    {{ component_metaobject.variants.value.variant_name }}
-    {{ component_metaobject.variants.value.demo_url }}
+{% if page.metafields.custom.component_reference.value %}
+  {% assign component = page.metafields.custom.component_reference.value %}
+  {% assign variant = component.variants.value %}
 
-    {%- if component_metaobject -%}
-      <div class="component-variants-header">
-        <h1 class="component-variants-title">{{ component_metaobject.component_name.value }}</h1>
-        <p class="component-variants-description">{{ component_metaobject.component_description.value }}</p>
+  <section class="header-showcase-section">
+    <div class="header-showcase-container">
+      <h2 class="header-showcase-title">
+        {% if component.component_name.value != blank %}
+          {{ component.component_name.value }}
+        {% else %}
+          {{ section.settings.section_title }}
+        {% endif %}
+      </h2>
+
+      <p class="header-showcase-description">
+        {% if component.component_description.value != blank %}
+          {{ component.component_description.value }}
+        {% else %}
+          {{ section.settings.section_description }}
+        {% endif %}
+      </p>
+
+      <div class="header-showcase-box-header">
+        <h3 class="header-showcase-box-title">
+          {% if variant.variant_name.value != blank %}
+            {{ variant.variant_name.value }}
+          {% else %}
+            {{ section.settings.box_title }}
+          {% endif %}
+        </h3>
+
+        <div class="header-showcase-box-actions">
+          <button class="header-showcase-tab-btn active" type="button" data-tab="preview">
+            {{ section.settings.preview_button_text }}
+          </button>
+          <button class="header-showcase-tab-btn" type="button" data-tab="code">
+            {{ section.settings.code_button_text }}
+          </button>
+        </div>
       </div>
 
-      {%- comment -%} Check if variants exist {%- endcomment -%}
-      {%- if component_metaobject.variants.value.size > 0 -%}
-        <div class="variants-grid">
-          {%- for variant in component_metaobject.variants.value -%}
-            {{ variant.variant_name }}
-            <div class="variant-card">
-              {%- comment -%} Preview Box with Tabs {%- endcomment -%}
-              <div class="variant-preview-box">
-                <div class="variant-preview-header">
-                  <h3 class="variant-preview-title">{{ variant.variant_name.value }}</h3>
-                  <div class="variant-preview-tabs">
-                    <button
-                      class="variant-tab-btn active"
-                      data-target="preview-{{ forloop.index }}"
-                      onclick="switchTab(event, 'preview-{{ forloop.index }}')"
-                    >
-                      Preview
-                    </button>
-                    <button
-                      class="variant-tab-btn"
-                      data-target="code-{{ forloop.index }}"
-                      onclick="switchTab(event, 'code-{{ forloop.index }}')"
-                    >
-                      Code
-                    </button>
-                  </div>
-                </div>
-
-                {%- comment -%} Preview Tab Content {%- endcomment -%}
-                <div id="preview-{{ forloop.index }}" class="variant-iframe-wrapper tab-content">
-                  {%- if variant.demo_url.value != blank -%}
-                    <iframe
-                      src="{{ variant.demo_url.value }}"
-                      width="100%"
-                      height="450"
-                      title="{{ variant.variant_name.value }}"
-                      loading="lazy"
-                    ></iframe>
-                  {%- elsif variant.preview_image.value -%}
-                    <img
-                      src="{{ variant.preview_image.value | image_url: width: 800 }}"
-                      alt="{{ variant.variant_name.value }}"
-                      class="variant-preview-image"
-                      loading="lazy"
-                      width="100"
-                      height="100"
-                    >
-                  {%- else -%}
-                    <div style="display: flex; align-items: center; justify-content: center; min-height: 450px; color: #9ca3af;">
-                      No preview available
-                    </div>
-                  {%- endif -%}
-                </div>
-
-                {%- comment -%} Code Tab Content {%- endcomment -%}
-                <div id="code-{{ forloop.index }}" class="variant-code-wrapper tab-content">
-                  <pre><code>{{ variant.code_snippet.value | escape }}</code></pre>
-                </div>
-              </div>
-
-              {%- comment -%} Variant Info and Actions {%- endcomment -%}
-              <div class="variant-content">
-                <h2 class="variant-name">{{ variant.variant_name.value }}</h2>
-                {%- if variant.description.value != blank -%}
-                  <p class="variant-description">{{ variant.description.value }}</p>
-                {%- endif -%}
-
-                <div class="variant-actions">
-                  <button class="variant-btn variant-btn-primary" onclick="copyCode{{ forloop.index }}()">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
-                    </svg>
-                    Copy Code
-                  </button>
-
-                  {%- if variant.demo_url.value != blank -%}
-                    <a
-                      href="{{ variant.demo_url.value }}"
-                      target="_blank"
-                      class="variant-btn variant-btn-secondary"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                      </svg>
-                      View Demo
-                    </a>
-                  {%- endif -%}
-                </div>
-
-                <script>
-                  function copyCode{{ forloop.index }}() {
-                    const codeText = {{ variant.code_snippet.value | json }};
-                    navigator.clipboard.writeText(codeText).then(() => {
-                      alert('Code copied to clipboard!');
-                    }).catch(err => {
-                      console.error('Failed to copy:', err);
-                    });
-                  }
-                </script>
-              </div>
+      <div class="header-showcase-preview-box">
+        <div
+          class="header-showcase-iframe-wrapper active"
+          data-content="preview"
+          style="min-height: {{ section.settings.iframe_height }}px;"
+        >
+          {% if variant.demo_url.value != blank %}
+            <iframe
+              src="{{ variant.demo_url.value }}"
+              width="100%"
+              height="{{ section.settings.iframe_height }}"
+              title="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}{{ section.settings.box_title }}{% endif %}"
+              loading="lazy"
+            ></iframe>
+          {% elsif variant.preview_image.value %}
+            {% assign preview_img = variant.preview_image.value %}
+            {% if preview_img.preview_image %}
+              <img
+                src="{{ preview_img.preview_image | image_url: width: 1200 }}"
+                alt="{{ variant.variant_name.value }}"
+                width="1200"
+                height="800"
+                loading="lazy"
+                style="max-width: 100%; height: auto; display: block;"
+              >
+            {% else %}
+              <img
+                src="{{ preview_img | image_url: width: 1200 }}"
+                alt="{{ variant.variant_name.value }}"
+                width="1200"
+                height="800"
+                loading="lazy"
+                style="max-width: 100%; height: auto; display: block;"
+              >
+            {% endif %}
+          {% else %}
+            <div class="header-showcase-placeholder">
+              {{ 'lifestyle-2' | placeholder_svg_tag }}
+              <p>Add a Demo URL or Preview Image in the metaobject to display content</p>
             </div>
-          {%- endfor -%}
+          {% endif %}
         </div>
-      {%- else -%}
-        <div class="no-variants-message">
-          <p>No variants available for this component yet.</p>
-        </div>
-      {%- endif -%}
 
-    {%- else -%}
-      <div class="no-variants-message">
-        <p>No component data found. Please assign a component metaobject to this page.</p>
+        <div
+          class="header-showcase-code-wrapper"
+          data-content="code"
+          style="min-height: {{ section.settings.iframe_height }}px;"
+        >
+          {% if variant.code_snippet.value != blank %}
+            <pre><code>{{ variant.code_snippet.value }}</code></pre>
+          {% else %}
+            <div class="header-showcase-placeholder">
+              {{ 'code' | placeholder_svg_tag }}
+              <p>Add Code Snippet in the metaobject to display code</p>
+            </div>
+          {% endif %}
+        </div>
       </div>
-    {%- endif -%}
-  </div>
-</section>
+    </div>
+  </section>
 
-<script>
-  function switchTab(event, targetId) {
-    const button = event.currentTarget;
-    const previewBox = button.closest('.variant-preview-box');
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const tabButtons = document.querySelectorAll('.header-showcase-tab-btn');
+      const previewWrapper = document.querySelector('[data-content="preview"]');
+      const codeWrapper = document.querySelector('[data-content="code"]');
 
-    // Remove active class from all tabs in this preview box
-    previewBox.querySelectorAll('.variant-tab-btn').forEach((btn) => {
-      btn.classList.remove('active');
+      tabButtons.forEach((button) => {
+        button.addEventListener('click', function () {
+          const tab = this.getAttribute('data-tab');
+
+          tabButtons.forEach((btn) => btn.classList.remove('active'));
+          this.classList.add('active');
+
+          if (tab === 'preview') {
+            previewWrapper.style.display = 'flex';
+            codeWrapper.style.display = 'none';
+          } else if (tab === 'code') {
+            previewWrapper.style.display = 'none';
+            codeWrapper.style.display = 'block';
+          }
+        });
+      });
     });
+  </script>
 
-    // Add active class to clicked button
-    button.classList.add('active');
+{% else %}
+  <section class="header-showcase-section">
+    <div class="header-showcase-container">
+      <h2 class="header-showcase-title">{{ section.settings.section_title }}</h2>
+      <p class="header-showcase-description">{{ section.settings.section_description }}</p>
 
-    // Hide all tab contents in this preview box
-    previewBox.querySelectorAll('.tab-content').forEach((content) => {
-      if (content.classList.contains('variant-iframe-wrapper')) {
-        content.classList.add('hidden');
-      } else if (content.classList.contains('variant-code-wrapper')) {
-        content.classList.remove('active');
-      }
-    });
+      <div class="header-showcase-box-header">
+        <h3 class="header-showcase-box-title">{{ section.settings.box_title }}</h3>
 
-    // Show target content
-    const targetContent = document.getElementById(targetId);
-    if (targetContent.classList.contains('variant-iframe-wrapper')) {
-      targetContent.classList.remove('hidden');
-    } else if (targetContent.classList.contains('variant-code-wrapper')) {
-      targetContent.classList.add('active');
-    }
-  }
-</script>
+        <div class="header-showcase-box-actions">
+          <button class="header-showcase-tab-btn active" type="button">
+            {{ section.settings.preview_button_text }}
+          </button>
+          <button class="header-showcase-tab-btn" type="button">
+            {{ section.settings.code_button_text }}
+          </button>
+        </div>
+      </div>
+
+      <div class="header-showcase-preview-box">
+        <div class="header-showcase-iframe-wrapper" style="min-height: {{ section.settings.iframe_height }}px;">
+          <div class="header-showcase-placeholder">
+            {{ 'lifestyle-2' | placeholder_svg_tag }}
+            <p>Add Component Reference metafield to this page to display content</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
 
 {% schema %}
 {
-  "name": "Component Variants",
+  "name": "Header Showcase Section",
   "tag": "section",
-  "class": "component-variants-section",
-  "settings": []
+  "class": "header-showcase-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Fallback Content"
+    },
+    {
+      "type": "paragraph",
+      "content": "These settings are used when no Component Reference metafield is assigned to the page."
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Header navigations"
+    },
+    {
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "Powerful and customizable React header navigation components built for modern and responsive websites. These header navigations are built using React Aria and styled with Tailwind CSS."
+    },
+    {
+      "type": "header",
+      "content": "Preview Box Settings"
+    },
+    {
+      "type": "text",
+      "id": "box_title",
+      "label": "Box Title",
+      "default": "Header navigation example"
+    },
+    {
+      "type": "text",
+      "id": "preview_button_text",
+      "label": "Preview Button Text",
+      "default": "Preview"
+    },
+    {
+      "type": "text",
+      "id": "code_button_text",
+      "label": "Code Button Text",
+      "default": "Code"
+    },
+    {
+      "type": "range",
+      "id": "iframe_height",
+      "label": "iFrame/Content Height",
+      "min": 400,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "default": 600
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header Showcase Section"
+    }
+  ]
 }
 {% endschema %}
