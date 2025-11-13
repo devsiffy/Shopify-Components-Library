@@ -141,19 +141,88 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    padding: 20px;
   }
 
-  .variant-preview-wrapper iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
+  .variant-preview-link {
     display: block;
+    width: 100%;
+    max-width: 100%;
+    transition: all 0.3s ease;
+    position: relative;
   }
 
-  .variant-preview-wrapper img {
-    max-width: 100%;
+  .variant-preview-link:hover {
+    transform: scale(1.02);
+  }
+
+  .variant-preview-link:hover .preview-overlay {
+    opacity: 1;
+  }
+
+  .variant-preview-image {
+    width: 100%;
     height: auto;
     display: block;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+  }
+
+  .preview-overlay-content {
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .preview-overlay-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .preview-overlay-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #ffffff;
+  }
+
+  .preview-overlay-text {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .variant-placeholder-wrapper {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+  }
+
+  .variant-placeholder-wrapper svg {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    opacity: 0.3;
   }
 
   .variant-code-wrapper {
@@ -322,6 +391,10 @@
       min-height: 450px;
     }
 
+    .variant-preview-wrapper {
+      padding: 16px;
+    }
+
     .variant-code-wrapper {
       padding: 20px;
     }
@@ -331,6 +404,20 @@
       right: 16px;
       padding: 8px 12px;
       font-size: 12px;
+    }
+
+    .preview-overlay-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .preview-overlay-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .preview-overlay-text {
+      font-size: 14px;
     }
   }
 
@@ -383,6 +470,10 @@
       min-height: 400px;
     }
 
+    .variant-preview-wrapper {
+      padding: 12px;
+    }
+
     .variant-code-wrapper {
       padding: 16px;
     }
@@ -394,6 +485,20 @@
     .copy-code-btn {
       padding: 7px 10px;
       font-size: 11px;
+    }
+
+    .preview-overlay-icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    .preview-overlay-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .preview-overlay-text {
+      font-size: 13px;
     }
   }
 </style>
@@ -468,26 +573,51 @@
                 style="min-height: {{ section.settings.iframe_height }}px;"
               >
                 {% if variant.demo_url.value != blank %}
-                  <iframe
-                    src="{{ variant.demo_url.value }}"
-                    width="100%"
-                    height="{{ section.settings.iframe_height }}"
-                    title="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
-                    loading="lazy"
-                  ></iframe>
-                {% elsif variant.preview_image.value %}
-                  {% assign preview_img = variant.preview_image.value %}
-                  <img
-                    src="{{ preview_img | image_url: width: 1400 }}"
-                    alt="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
-                    width="1400"
-                    height="900"
-                    loading="lazy"
+                  <a
+                    href="{{ variant.demo_url.value }}"
+                    class="variant-preview-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
+                    {% if variant.preview_image.value %}
+                      <img
+                        src="{{ variant.preview_image.value | image_url: width: 1400 }}"
+                        alt="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
+                        width="1400"
+                        height="900"
+                        loading="lazy"
+                        class="variant-preview-image"
+                      >
+                    {% else %}
+                      <div class="variant-placeholder-wrapper">
+                        {{ 'product-1' | placeholder_svg_tag: 'variant-preview-image' }}
+                      </div>
+                    {% endif %}
+                    <div class="preview-overlay">
+                      <div class="preview-overlay-content">
+                        <div class="preview-overlay-icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </div>
+                        <p class="preview-overlay-text">View Live Demo</p>
+                      </div>
+                    </div>
+                  </a>
                 {% else %}
-                  <div class="variant-placeholder">
-                    {{ 'lifestyle-2' | placeholder_svg_tag }}
-                    <p>Add a Demo URL or Preview Image to display this variant</p>
+                  <div class="variant-placeholder-wrapper">
+                    {% if variant.preview_image.value %}
+                      <img
+                        src="{{ variant.preview_image.value | image_url: width: 1400 }}"
+                        alt="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
+                        width="1400"
+                        height="900"
+                        loading="lazy"
+                        class="variant-preview-image"
+                      >
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    {% endif %}
                   </div>
                 {% endif %}
               </div>
