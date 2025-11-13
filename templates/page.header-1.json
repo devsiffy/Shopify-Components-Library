@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "header-v1": {
+      "type": "header-v1",
+      "settings": {}
+    }
+  },
+  "order": [
+    "header-v1"
+  ]
+}
+

@@ -1,0 +1,249 @@
+{{ 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' | stylesheet_tag }}
+
+<style>
+  .custom-navbar {
+    background-color: {{ section.settings.navbar_bg_color }};
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .custom-navbar a,
+  .custom-navbar .dropdown {
+    font-size: 16px;
+    color: {{ section.settings.navbar_text_color }};
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .dropdown {
+    position: static;
+  }
+  .dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: {{ section.settings.navbar_text_color }};
+    padding: 14px 16px;
+    background-color: inherit;
+    font: inherit;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .custom-navbar a:hover,
+  .dropdown:hover .dropbtn {
+    background-color: {{ section.settings.navbar_hover_color }};
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 100vw;
+    left: 0;
+    top: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.07);
+    z-index: 999;
+    padding: 25px 60px;
+    flex-direction: row;
+    gap: 50px;
+  }
+  .dropdown:hover .dropdown-content {
+    display: flex;
+  }
+  .mega-left {
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mega-left h3 {
+    font-size: 18px;
+    margin-bottom: 18px;
+    color: #333;
+  }
+  .mega-left a {
+    display: block;
+    color: #777;
+    padding: 10px 0;
+    text-align: left;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  .mega-left a:hover {
+    color: #000;
+    background: none;
+  }
+  .mega-right {
+    display: flex;
+    gap: 30px;
+  }
+  .mega-card {
+    position: relative;
+    width: 270px;
+    height: 170px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 8px #0002;
+  }
+  .mega-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .mega-card-title {
+    position: absolute;
+    bottom: 10px;
+    left: 14px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 20px;
+    text-shadow: 0 2px 6px #0007;
+  }
+  @media (max-width: 900px) {
+    .custom-navbar {
+      flex-direction: column;
+    }
+    .dropdown-content {
+      flex-direction: column;
+      gap: 25px;
+      padding: 20px;
+    }
+    .mega-right {
+      gap: 20px;
+      flex-direction: column;
+    }
+    .mega-card {
+      width: 100%;
+      height: 110px;
+    }
+  }
+</style>
+
+<div class="custom-navbar">
+  {%- for link in section.settings.main_menu.links -%}
+    {%- if link.links != blank -%}
+      <div class="dropdown">
+        <button class="dropbtn">
+          {{ link.title }}
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <div class="mega-left">
+            <h3>{{ section.settings.mega_menu_heading }}</h3>
+            {%- for child_link in link.links -%}
+              <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+            {%- endfor -%}
+          </div>
+          <div class="mega-right">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.parent_menu_item == link.title -%}
+                <div class="mega-card">
+                  {%- if block.settings.card_image != blank -%}
+                    <img src="{{ block.settings.card_image | image_url: width: 600 }}" alt="{{ block.settings.card_title | escape }}" loading="lazy">
+                  {%- else -%}
+                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                  <div class="mega-card-title">{{ block.settings.card_title }}</div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    {%- else -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Mega Menu Navigation",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Main Menu",
+      "default": "main-menu",
+      "info": "Select the menu with dropdown items for mega menu"
+    },
+    {
+      "type": "text",
+      "id": "mega_menu_heading",
+      "label": "Mega Menu Heading",
+      "default": "Categories"
+    },
+    {
+      "type": "color",
+      "id": "navbar_bg_color",
+      "label": "Navbar Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "navbar_text_color",
+      "label": "Navbar Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "navbar_hover_color",
+      "label": "Navbar Hover Color",
+      "default": "#f0f0f0"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mega_card",
+      "name": "Mega Menu Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "parent_menu_item",
+          "label": "Parent Menu Item",
+          "info": "Enter the exact name of the menu item this card belongs to (e.g., 'Bedding')"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image",
+          "info": "Recommended size: 600x400px"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card Title",
+          "default": "Category Name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mega Menu Navigation",
+      "blocks": [
+        {
+          "type": "mega_card",
+          "settings": {
+            "parent_menu_item": "Bedding",
+            "card_title": "Bedding"
+          }
+        },
+        {
+          "type": "mega_card",
+          "settings": {
+            "parent_menu_item": "Bedding",
+            "card_title": "Pillows & Duvets"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
