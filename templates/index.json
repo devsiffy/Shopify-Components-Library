@@ -59,7 +59,7 @@
             "title": "Footer",
             "description": "Compact section for links, contact, and copyright info.",
             "button_text": "View Component",
-            "component_page": ""
+            "component_page": "footer"
           }
         }
       },
