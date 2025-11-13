@@ -272,6 +272,10 @@
       <p>{{ key }}</p>
     {% endfor %}
 
+    {% for value in component_metaobject.values %}
+      <p>{{ value }}</p>
+    {% endfor %}
+
     {%- if component_metaobject -%}
       <div class="component-variants-header">
         <h1 class="component-variants-title">{{ component_metaobject.component_name.value }}</h1>
