@@ -9,12 +9,13 @@
  */
 {
   "sections": {
-    "header-v2": {
-      "type": "header-v2",
+    "header-v1": {
+      "type": "header-v1",
       "settings": {}
     }
   },
   "order": [
-    "header-v2"
+    "header-v1"
   ]
 }
+

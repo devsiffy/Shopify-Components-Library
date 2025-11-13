@@ -9,12 +9,12 @@
  */
 {
   "sections": {
-    "header-v2": {
-      "type": "header-v2",
+    "component-variants": {
+      "type": "component-variants",
       "settings": {}
     }
   },
   "order": [
-    "header-v2"
+    "component-variants"
   ]
 }
