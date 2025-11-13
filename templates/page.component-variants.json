@@ -9,12 +9,12 @@
  */
 {
   "sections": {
-    "component_variants_display": {
-      "type": "component-variants-display",
+    "component-variants": {
+      "type": "component-variants",
       "settings": {}
     }
   },
   "order": [
-    "component_variants_display"
+    "component-variants"
   ]
 }
