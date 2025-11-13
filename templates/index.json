@@ -12,70 +12,30 @@
     "custom-main-hero": {
       "type": "custom-main-hero",
       "blocks": {
-        "component_card_dxa9Qq": {
+        "component_card_9dY8rD": {
           "type": "component_card",
+          "name": "Header",
           "settings": {
-            "image": "shopify://shop_images/header.webp",
             "title": "Header",
-            "description": "5 Components",
-            "button_text": "View",
-            "component_page": "header-components"
-          }
-        },
-        "component_card_n6kcTP": {
-          "type": "component_card",
-          "settings": {
-            "image": "shopify://shop_images/footer.webp",
-            "title": "Footer",
-            "description": "5 Components",
-            "button_text": "View",
-            "component_page": ""
-          }
-        },
-        "component_card_rfdcdN": {
-          "type": "component_card",
-          "settings": {
-            "title": "Component Name",
-            "description": "Description of the component and its features",
+            "description": "Clean, responsive navigation for brand and links.",
             "button_text": "View Component",
             "component_page": ""
           }
         },
-        "component_card_twhJXH": {
+        "component_card_7AFK6h": {
           "type": "component_card",
+          "name": "Hero Section",
           "settings": {
-            "title": "Component Name",
-            "description": "Description of the component and its features",
-            "button_text": "View Component",
-            "component_page": ""
-          }
-        },
-        "component_card_zNcU7A": {
-          "type": "component_card",
-          "settings": {
-            "title": "Component Name",
-            "description": "Description of the component and its features",
-            "button_text": "View Component",
-            "component_page": ""
-          }
-        },
-        "component_card_HDTkRE": {
-          "type": "component_card",
-          "settings": {
-            "title": "Component Name",
-            "description": "Description of the component and its features",
+            "title": "Hero Section",
+            "description": "Bold banner highlighting key message or offer.",
             "button_text": "View Component",
             "component_page": ""
           }
         }
       },
       "block_order": [
-        "component_card_dxa9Qq",
-        "component_card_n6kcTP",
-        "component_card_rfdcdN",
-        "component_card_twhJXH",
-        "component_card_zNcU7A",
-        "component_card_HDTkRE"
+        "component_card_9dY8rD",
+        "component_card_7AFK6h"
       ],
       "settings": {
         "logo": "shopify://shop_images/logo.png",
