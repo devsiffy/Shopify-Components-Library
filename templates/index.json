@@ -21,10 +21,40 @@
             "button_text": "View",
             "button_url": ""
           }
+        },
+        "component_card_dxa9Qq": {
+          "type": "component_card",
+          "settings": {
+            "title": "Component Name",
+            "description": "Description of the component and its features",
+            "button_text": "View Component",
+            "button_url": ""
+          }
+        },
+        "component_card_rfdcdN": {
+          "type": "component_card",
+          "settings": {
+            "title": "Component Name",
+            "description": "Description of the component and its features",
+            "button_text": "View Component",
+            "button_url": ""
+          }
+        },
+        "component_card_HDTkRE": {
+          "type": "component_card",
+          "settings": {
+            "title": "Component Name",
+            "description": "Description of the component and its features",
+            "button_text": "View Component",
+            "button_url": ""
+          }
         }
       },
       "block_order": [
-        "component_card_n6kcTP"
+        "component_card_n6kcTP",
+        "component_card_dxa9Qq",
+        "component_card_rfdcdN",
+        "component_card_HDTkRE"
       ],
       "settings": {
         "logo": "shopify://shop_images/logo.png",
