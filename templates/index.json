@@ -29,7 +29,7 @@
             "title": "Hero Section",
             "description": "Bold banner highlighting key message or offer.",
             "button_text": "View Component",
-            "component_page": ""
+            "component_page": "hero-section"
           }
         },
         "component_card_xHmEj7": {
@@ -39,7 +39,7 @@
             "title": "Grid Section",
             "description": "Flexible layout to showcase products or content neatly.",
             "button_text": "View Component",
-            "component_page": ""
+            "component_page": "grid-section"
           }
         },
         "component_card_PK6qRr": {
@@ -49,7 +49,7 @@
             "title": "Card Section",
             "description": "Stylish cards to display products or features clearly.",
             "button_text": "View Component",
-            "component_page": ""
+            "component_page": "card-section"
           }
         },
         "component_card_PXgMQ4": {
