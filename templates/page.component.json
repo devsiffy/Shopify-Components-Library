@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "component_variants_display": {
+      "type": "component-variants-display"
+    }
+  },
+  "order": [
+    "component_variants_display"
+  ]
+}
