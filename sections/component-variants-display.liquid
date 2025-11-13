@@ -268,7 +268,7 @@
     {%- comment -%} Get the component data from page metafield {%- endcomment -%}
     {%- assign component_metaobject = page.metafields.custom.component_reference.value -%}
     {{ 'Hello World' }}
-    {{ component_metaobject.variants.value.size }}
+    {{ component_metaobject.variants.value.variant_name }}
 
     {%- if component_metaobject -%}
       <div class="component-variants-header">
