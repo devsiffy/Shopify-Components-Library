@@ -135,7 +135,7 @@
 
   .variant-preview-wrapper {
     width: 100%;
-    min-height: 600px;
+    aspect-ratio: 1 / 1;
     background: #ffffff;
     display: flex;
     align-items: center;
@@ -149,6 +149,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    height: 100%;
     max-width: 100%;
     transition: all 0.3s ease;
     position: relative;
@@ -165,23 +166,25 @@
   .variant-preview-image {
     width: 100%;
     max-width: 100%;
-    height: auto;
+    height: 100%;
+    max-height: 100%;
+    object-fit: contain;
     display: block;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     margin: 0 auto;
   }
 
   .variant-placeholder-wrapper {
     width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .variant-placeholder-wrapper svg {
-    width: 100%;
-    max-width: 600px;
+    width: 60%;
+    max-width: 400px;
     height: auto;
     opacity: 0.3;
     display: block;
@@ -191,10 +194,11 @@
   .variant-placeholder-wrapper img {
     width: 100%;
     max-width: 100%;
-    height: auto;
+    height: 100%;
+    max-height: 100%;
+    object-fit: contain;
     display: block;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     margin: 0 auto;
   }
 
@@ -244,7 +248,7 @@
 
   .variant-code-wrapper {
     width: 100%;
-    min-height: 600px;
+    aspect-ratio: 1 / 1;
     background: #0f172a;
     padding: 32px;
     overflow: auto;
@@ -284,6 +288,7 @@
     cursor: pointer;
     transition: all 0.2s ease;
     backdrop-filter: blur(10px);
+    z-index: 10;
   }
 
   .copy-code-btn:hover {
@@ -293,18 +298,23 @@
 
   .variant-placeholder {
     text-align: center;
-    padding: 80px 40px;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
   }
 
   .variant-placeholder svg {
-    width: 140px;
-    height: 140px;
+    width: 100px;
+    height: 100px;
     opacity: 0.15;
-    margin: 0 auto 24px;
+    margin-bottom: 16px;
   }
 
   .variant-placeholder p {
-    font-size: 16px;
+    font-size: 14px;
     color: #94a3b8;
     margin: 0;
     line-height: 1.6;
@@ -350,11 +360,6 @@
 
     .variant-card-header {
       padding: 20px 24px;
-    }
-
-    .variant-preview-wrapper,
-    .variant-code-wrapper {
-      min-height: 500px;
     }
   }
 
@@ -403,11 +408,6 @@
       font-size: 13px;
     }
 
-    .variant-preview-wrapper,
-    .variant-code-wrapper {
-      min-height: 450px;
-    }
-
     .variant-preview-wrapper {
       padding: 16px;
     }
@@ -435,6 +435,15 @@
 
     .preview-overlay-text {
       font-size: 14px;
+    }
+
+    .variant-placeholder svg {
+      width: 80px;
+      height: 80px;
+    }
+
+    .variant-placeholder p {
+      font-size: 13px;
     }
   }
 
@@ -482,11 +491,6 @@
       font-size: 12px;
     }
 
-    .variant-preview-wrapper,
-    .variant-code-wrapper {
-      min-height: 400px;
-    }
-
     .variant-preview-wrapper {
       padding: 12px;
     }
@@ -497,6 +501,7 @@
 
     .variant-code-wrapper pre {
       font-size: 12px;
+      line-height: 1.6;
     }
 
     .copy-code-btn {
@@ -516,6 +521,15 @@
 
     .preview-overlay-text {
       font-size: 13px;
+    }
+
+    .variant-placeholder svg {
+      width: 70px;
+      height: 70px;
+    }
+
+    .variant-placeholder p {
+      font-size: 12px;
     }
   }
 </style>
@@ -587,7 +601,6 @@
                 class="variant-preview-wrapper"
                 data-content="preview"
                 data-variant="{{ forloop.index }}"
-                style="min-height: {{ section.settings.iframe_height }}px;"
               >
                 {% if variant.demo_url.value != blank %}
                   <a
@@ -601,7 +614,7 @@
                         src="{{ variant.preview_image.value | image_url: width: 1400 }}"
                         alt="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
                         width="1400"
-                        height="900"
+                        height="1400"
                         loading="lazy"
                         class="variant-preview-image"
                       >
@@ -628,7 +641,7 @@
                         src="{{ variant.preview_image.value | image_url: width: 1400 }}"
                         alt="{% if variant.variant_name.value != blank %}{{ variant.variant_name.value }}{% else %}Variant {{ forloop.index }}{% endif %}"
                         width="1400"
-                        height="900"
+                        height="1400"
                         loading="lazy"
                         class="variant-preview-image"
                       >
@@ -643,7 +656,6 @@
                 class="variant-code-wrapper"
                 data-content="code"
                 data-variant="{{ forloop.index }}"
-                style="min-height: {{ section.settings.iframe_height }}px;"
               >
                 {% if variant.code_snippet.value != blank %}
                   <button class="copy-code-btn" type="button" data-variant="{{ forloop.index }}">Copy Code</button>
@@ -782,16 +794,6 @@
       "id": "code_button_text",
       "label": "Code Button Text",
       "default": "Code"
-    },
-    {
-      "type": "range",
-      "id": "iframe_height",
-      "label": "Content Height",
-      "min": 400,
-      "max": 1000,
-      "step": 50,
-      "unit": "px",
-      "default": 600
     }
   ],
   "presets": [
