@@ -9,12 +9,23 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "custom-main-hero": {
+      "type": "custom-main-hero",
+      "settings": {
+        "color_scheme": "1",
+        "logo": "shopify://shop_images/logo.png",
+        "logo_alt": "Logo",
+        "subtitle": "UI Components",
+        "heading": "Shopify Component Library",
+        "description": "Pre-built Shopify theme components. Responsive, customizable, and ready to use.",
+        "button_1_text": "Documentation",
+        "button_1_url": "",
+        "button_2_text": "GitHub",
+        "button_2_url": ""
+      }
     }
   },
   "order": [
-    "main"
+    "custom-main-hero"
   ]
 }
