@@ -8,18 +8,13 @@
  * ------------------------------------------------------------
  */
 {
-  "type": "header",
-  "name": "t:general.header",
   "sections": {
-    "header": {
-      "type": "header",
-      "disabled": true,
-      "settings": {
-        "menu": ""
-      }
+    "component-variants": {
+      "type": "component-variants",
+      "settings": {}
     }
   },
   "order": [
-    "header"
+    "component-variants"
   ]
 }
