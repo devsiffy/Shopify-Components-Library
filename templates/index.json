@@ -22,21 +22,11 @@
             "component_page": "header-components"
           }
         },
-        "component_card_7AFK6h": {
-          "type": "component_card",
-          "name": "Hero Section",
-          "settings": {
-            "title": "Hero Section",
-            "description": "Bold banner highlighting key message or offer.",
-            "button_text": "View Component",
-            "component_page": "hero-section"
-          }
-        },
         "component_card_xHmEj7": {
           "type": "component_card",
-          "name": "Grid Section",
+          "name": "Product Grids",
           "settings": {
-            "title": "Grid Section",
+            "title": "Product Grids",
             "description": "Flexible layout to showcase products or content neatly.",
             "button_text": "View Component",
             "component_page": "grid-section"
@@ -44,31 +34,19 @@
         },
         "component_card_PK6qRr": {
           "type": "component_card",
-          "name": "Card Section",
+          "name": "Collections",
           "settings": {
-            "title": "Card Section",
+            "title": "Collections",
             "description": "Stylish cards to display products or features clearly.",
             "button_text": "View Component",
             "component_page": "card-section"
-          }
-        },
-        "component_card_PXgMQ4": {
-          "type": "component_card",
-          "name": "Footer",
-          "settings": {
-            "title": "Footer",
-            "description": "Compact section for links, contact, and copyright info.",
-            "button_text": "View Component",
-            "component_page": "footer"
           }
         }
       },
       "block_order": [
         "component_card_9dY8rD",
-        "component_card_7AFK6h",
         "component_card_xHmEj7",
-        "component_card_PK6qRr",
-        "component_card_PXgMQ4"
+        "component_card_PK6qRr"
       ],
       "settings": {
         "logo": "shopify://shop_images/logo.png",
