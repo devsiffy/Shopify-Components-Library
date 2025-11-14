@@ -17,31 +17,33 @@
           "settings": {
             "image": "shopify://shop_images/p_img_2_1_2a918677-b00e-4902-a15c-7f95dda96af1.webp",
             "hover_image": "shopify://shop_images/support-01.jpg",
-            "background": "https://via.placeholder.com/290x340",
+            "background": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&h=400&fit=crop",
             "alt": "Product",
             "title": "Lillypilly Hand Wash$3",
             "price": "$300",
             "compare": "$250",
             "sale": true,
-            "swatch1": "",
-            "swatch2": "",
-            "swatch3": "",
-            "swatch4": ""
+            "swatch1": "40x40",
+            "swatch2": "40x40",
+            "swatch3": "40x40",
+            "swatch4": "40x40"
           }
         },
         "product_Hggzyd": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/p_img_3_1.webp",
+            "hover_image": "shopify://shop_images/p_img_2_1.webp",
             "background": "https://via.placeholder.com/290x340",
             "alt": "Product",
-            "title": "",
-            "price": "",
-            "compare": "",
+            "title": "Flannel Flower Hair Wash",
+            "price": "$450",
+            "compare": "$400",
             "sale": false,
-            "swatch1": "",
-            "swatch2": "",
-            "swatch3": "",
-            "swatch4": ""
+            "swatch1": "40x90",
+            "swatch2": "40x90",
+            "swatch3": "40x90",
+            "swatch4": "40x90"
           }
         },
         "product_X6nmch": {
