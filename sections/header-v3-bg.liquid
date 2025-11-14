@@ -1,0 +1,239 @@
+<style>
+  .header-v3-bg-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: {{ section.settings.bg_height }}vh;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .header-v3-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: {{ section.settings.image_fit }};
+    object-position: {{ section.settings.image_position }};
+  }
+
+  .header-v3-bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+    pointer-events: none;
+  }
+
+  .header-v3-bg-spacer {
+    height: {{ section.settings.bg_height }}vh;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .header-v3-bg-wrapper {
+      height: {{ section.settings.bg_height_mobile }}vh;
+    }
+
+    .header-v3-bg-spacer {
+      height: {{ section.settings.bg_height_mobile }}vh;
+    }
+
+    .header-v3-bg-image {
+      object-position: {{ section.settings.image_position_mobile }};
+    }
+  }
+</style>
+
+<div class="header-v3-bg-wrapper">
+  {% if section.settings.background_image != blank %}
+    <img
+      src="{{ section.settings.background_image | image_url: width: 2400 }}"
+      srcset="
+        {{ section.settings.background_image | image_url: width: 800 }} 800w,
+        {{ section.settings.background_image | image_url: width: 1200 }} 1200w,
+        {{ section.settings.background_image | image_url: width: 1600 }} 1600w,
+        {{ section.settings.background_image | image_url: width: 2400 }} 2400w
+      "
+      sizes="100vw"
+      alt="{{ section.settings.background_image.alt | escape }}"
+      class="header-v3-bg-image"
+      loading="eager"
+      width="{{ section.settings.background_image.width }}"
+      height="{{ section.settings.background_image.height }}">
+  {% else %}
+    {{ 'hero-apparel-1' | placeholder_svg_tag: 'header-v3-bg-image' }}
+  {% endif %}
+
+  {% if section.settings.show_overlay %}
+    <div class="header-v3-bg-overlay"></div>
+  {% endif %}
+</div>
+
+<!-- Spacer to push content below the background -->
+<div class="header-v3-bg-spacer"></div>
+
+{% schema %}
+  {
+    "name": "Header V3 Background",
+    "tag": "section",
+    "class": "header-v3-bg-section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Background Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background Image",
+        "info": "Recommended size: 2400x1600px (3:2 ratio)"
+      },
+      {
+        "type": "header",
+        "content": "Image Settings"
+      },
+      {
+        "type": "select",
+        "id": "image_fit",
+        "label": "Image Fit",
+        "options": [
+          {
+            "value": "cover",
+            "label": "Cover (fill area)"
+          }, {
+            "value": "contain",
+            "label": "Contain (fit within area)"
+          }, {
+            "value": "fill",
+            "label": "Fill (stretch to fit)"
+          }
+        ],
+        "default": "cover"
+      }, {
+        "type": "select",
+        "id": "image_position",
+        "label": "Image Position (Desktop)",
+        "options": [
+          {
+            "value": "center center",
+            "label": "Center"
+          },
+          {
+            "value": "top center",
+            "label": "Top Center"
+          },
+          {
+            "value": "bottom center",
+            "label": "Bottom Center"
+          },
+          {
+            "value": "center left",
+            "label": "Center Left"
+          }, {
+            "value": "center right",
+            "label": "Center Right"
+          }, {
+            "value": "top left",
+            "label": "Top Left"
+          }, {
+            "value": "top right",
+            "label": "Top Right"
+          }, {
+            "value": "bottom left",
+            "label": "Bottom Left"
+          }, {
+            "value": "bottom right",
+            "label": "Bottom Right"
+          }
+        ],
+        "default": "center center"
+      }, {
+        "type": "select",
+        "id": "image_position_mobile",
+        "label": "Image Position (Mobile)",
+        "options": [
+          {
+            "value": "center center",
+            "label": "Center"
+          },
+          {
+            "value": "top center",
+            "label": "Top Center"
+          },
+          {
+            "value": "bottom center",
+            "label": "Bottom Center"
+          },
+          {
+            "value": "center left",
+            "label": "Center Left"
+          }, {
+            "value": "center right",
+            "label": "Center Right"
+          }, {
+            "value": "top left",
+            "label": "Top Left"
+          }, {
+            "value": "top right",
+            "label": "Top Right"
+          }, {
+            "value": "bottom left",
+            "label": "Bottom Left"
+          }, {
+            "value": "bottom right",
+            "label": "Bottom Right"
+          }
+        ],
+        "default": "center center"
+      }, {
+        "type": "header",
+        "content": "Background Height"
+      }, {
+        "type": "range",
+        "id": "bg_height",
+        "label": "Background Height (Desktop)",
+        "min": 30,
+        "max": 100,
+        "step": 5,
+        "default": 70,
+        "unit": "vh",
+        "info": "Viewport height percentage"
+      }, {
+        "type": "range",
+        "id": "bg_height_mobile",
+        "label": "Background Height (Mobile)",
+        "min": 30,
+        "max": 100,
+        "step": 5,
+        "default": 60,
+        "unit": "vh",
+        "info": "Viewport height percentage for mobile devices"
+      }, {
+        "type": "header",
+        "content": "Overlay Settings"
+      }, {
+        "type": "checkbox",
+        "id": "show_overlay",
+        "label": "Show Overlay",
+        "default": true
+      }, {
+        "type": "range",
+        "id": "overlay_opacity",
+        "label": "Overlay Opacity",
+        "min": 0,
+        "max": 80,
+        "step": 5,
+        "default": 20,
+        "unit": "%",
+        "info": "Darkens the background image"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Header V3 Background"
+      }
+    ]
+  }
+{% endschema %}

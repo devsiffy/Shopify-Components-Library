@@ -1,0 +1,1324 @@
+<style>
+  .header-v3-wrapper {
+    position: fixed;
+    top: {{ section.settings.header_top_spacing }}px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: calc(100% - 40px);
+    max-width: {{ section.settings.header_max_width }}px;
+    padding: 0;
+  }
+
+  .header-v3-container {
+    background: rgba({{ section.settings.bg_color_r }}, {{ section.settings.bg_color_g }}, {{ section.settings.bg_color_b }}, {{ section.settings.bg_opacity | divided_by: 100.0 }});
+    backdrop-filter: blur({{ section.settings.blur_amount }}px);
+    -webkit-backdrop-filter: blur({{ section.settings.blur_amount }}px);
+    border-radius: {{ section.settings.border_radius }}px;
+    padding: 0 {{ section.settings.horizontal_padding }}px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: {{ section.settings.header_height }}px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, {{ section.settings.shadow_opacity | divided_by: 100.0 }});
+  }
+
+  .header-v3-nav-left {
+    display: flex;
+    align-items: center;
+    gap: {{ section.settings.nav_gap }}px;
+    flex: 1;
+  }
+
+  .header-v3-nav-item {
+    position: relative;
+  }
+
+  .header-v3-nav-left a {
+    color: {{ section.settings.nav_text_color }};
+    text-decoration: none;
+    font-size: {{ section.settings.nav_font_size }}px;
+    font-weight: {{ section.settings.nav_font_weight }};
+    letter-spacing: 0.2px;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+    display: block;
+    padding: 8px 0;
+  }
+
+  .header-v3-nav-left a:hover {
+    opacity: 0.7;
+  }
+
+  /* Desktop Dropdown Menu */
+  .header-v3-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba({{ section.settings.bg_color_r }}, {{ section.settings.bg_color_g }}, {{ section.settings.bg_color_b }}, 0.95);
+    backdrop-filter: blur({{ section.settings.blur_amount }}px);
+    -webkit-backdrop-filter: blur({{ section.settings.blur_amount }}px);
+    border-radius: 16px;
+    padding: 16px;
+    min-width: 220px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease
+    , visibility 0.3s ease
+    , transform 0.3s ease;
+    transform: translateX(-50%) translateY(-10px);
+    z-index: 1000;
+  }
+
+  /* Create an invisible bridge between nav item and dropdown */
+  .header-v3-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: transparent;
+  }
+
+  .header-v3-nav-item:hover .header-v3-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .header-v3-dropdown-item {
+    display: block;
+    padding: 12px 16px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 10px;
+    transition: background 0.2s ease
+    , opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .header-v3-dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    opacity: 1;
+  }
+
+  .header-v3-hamburger {
+    display: none;
+    background: #ffffff;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: opacity 0.2s ease;
+    position: relative;
+  }
+
+  .header-v3-hamburger:hover {
+    opacity: 0.9;
+  }
+
+  .header-v3-hamburger svg {
+    width: 20px;
+    height: 20px;
+    stroke: #000000;
+    fill: none;
+    stroke-width: 2.5;
+    transition: opacity 0.2s ease;
+    position: absolute;
+  }
+
+  .header-v3-hamburger .header-v3-hamburger-icon {
+    opacity: 1;
+  }
+
+  .header-v3-hamburger .header-v3-close-icon {
+    opacity: 0;
+  }
+
+  .header-v3-hamburger.active .header-v3-hamburger-icon {
+    opacity: 0;
+  }
+
+  .header-v3-hamburger.active .header-v3-close-icon {
+    opacity: 1;
+  }
+
+  .header-v3-logo {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 48px;
+  }
+
+  .header-v3-logo img {
+    height: {{ section.settings.logo_height }}px;
+    width: auto;
+    display: block;
+  }
+
+  .header-v3-actions {
+    display: flex;
+    align-items: center;
+    gap: {{ section.settings.icon_gap }}px;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .header-v3-icon-btn {
+    background: transparent;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+    color: {{ section.settings.icon_color }};
+  }
+
+  .header-v3-icon-btn:hover {
+    opacity: 0.7;
+  }
+
+  .header-v3-icon-btn svg {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    stroke: {{ section.settings.icon_color }};
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  .header-v3-search-desktop {
+    display: flex;
+  }
+
+  /* Mobile Menu Dropdown */
+  .header-v3-mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease
+    , visibility 0.3s ease;
+    display: none;
+  }
+
+  .header-v3-mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .header-v3-mobile-menu-content {
+    position: fixed;
+    top: calc({{ section.settings.header_top_spacing }}px + {{ section.settings.header_height }}px + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    width: calc(100% - 24px);
+    max-width: 550px;
+    background: rgba(80, 80, 80, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 16px;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease
+    , visibility 0.3s ease
+    , transform 0.3s ease;
+    max-height: calc(100vh - {{ section.settings.header_top_spacing }}px - {{ section.settings.header_height }}px - 32px);
+    overflow-y: auto;
+
+    /* Hide scrollbar for all browsers */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .header-v3-mobile-menu-content::-webkit-scrollbar {
+    display: none;
+  }
+
+  .header-v3-mobile-menu.active .header-v3-mobile-menu-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .header-v3-mobile-search {
+    padding: 20px 16px 16px;
+    background: transparent;
+  }
+
+  .header-v3-search-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .header-v3-search-input {
+    width: 100%;
+    background: #4A8FE7;
+    border: 2px solid #6BA3EC;
+    border-radius: 50px;
+    padding: 16px 56px 16px 24px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+  }
+
+  .header-v3-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .header-v3-search-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .header-v3-search-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: #ffffff;
+    stroke-width: 2;
+  }
+
+  .header-v3-mobile-menu-items {
+    padding: 8px 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .header-v3-menu-item-wrapper {
+    background: #E8DED0;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .header-v3-menu-item {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: left;
+    transition: opacity 0.2s ease;
+    text-decoration: none;
+    width: 100%;
+  }
+
+  .header-v3-menu-item:hover {
+    opacity: 0.9;
+  }
+
+  .header-v3-menu-item span {
+    color: #1a1a1a;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .header-v3-menu-item-icon {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #1a1a1a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .header-v3-menu-item-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: #1a1a1a;
+    stroke-width: 2.5;
+    fill: none;
+    transition: transform 0.3s ease;
+  }
+
+  .header-v3-menu-item.expanded .header-v3-menu-item-icon svg {
+    transform: rotate(180deg);
+  }
+
+  .header-v3-menu-item-arrow {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #1a1a1a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .header-v3-menu-item-arrow svg {
+    width: 14px;
+    height: 14px;
+    stroke: #1a1a1a;
+    stroke-width: 2.5;
+    fill: none;
+  }
+
+  /* Submenu Styles - Inside the beige box */
+  .header-v3-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0 24px;
+  }
+
+  .header-v3-submenu.expanded {
+    max-height: 1000px;
+    padding: 0 24px 16px;
+  }
+
+  .header-v3-submenu-item {
+    background: transparent;
+    border: none;
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: left;
+    text-decoration: none;
+    width: 100%;
+    transition: opacity 0.2s ease;
+    border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+  }
+
+  .header-v3-submenu-item:last-child {
+    border-bottom: none;
+  }
+
+  .header-v3-submenu-item:hover {
+    opacity: 0.7;
+  }
+
+  .header-v3-submenu-item span {
+    color: #1a1a1a;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .header-v3-submenu-item-icon {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #1a1a1a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .header-v3-submenu-item-icon svg {
+    width: 12px;
+    height: 12px;
+    stroke: #1a1a1a;
+    stroke-width: 2.5;
+    fill: none;
+  }
+
+  @media (max-width: 1200px) {
+    .header-v3-wrapper {
+      max-width: 95%;
+    }
+
+    .header-v3-container {
+      padding: 0 24px;
+    }
+
+    .header-v3-nav-left {
+      gap: 24px;
+    }
+
+    .header-v3-logo {
+      margin: 0 32px;
+    }
+  }
+
+  @media (max-width: 968px) {
+    .header-v3-container {
+      padding: 0 20px;
+      height: 56px;
+    }
+
+    .header-v3-nav-left {
+      gap: 20px;
+    }
+
+    .header-v3-nav-left a {
+      font-size: 14px;
+    }
+
+    .header-v3-logo {
+      margin: 0 24px;
+    }
+
+    .header-v3-logo img {
+      height: 26px;
+    }
+
+    .header-v3-actions {
+      gap: 14px;
+    }
+
+    .header-v3-icon-btn svg {
+      width: 19px;
+      height: 19px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-v3-wrapper {
+      top: 12px;
+      width: calc(100% - 24px);
+    }
+
+    .header-v3-container {
+      padding: 0 18px;
+      height: 54px;
+      border-radius: 40px;
+    }
+
+    /* Hide desktop nav items on mobile */
+    .header-v3-nav-item {
+      display: none;
+    }
+
+    .header-v3-hamburger {
+      display: flex;
+      width: 38px;
+      height: 38px;
+    }
+
+    .header-v3-hamburger svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .header-v3-nav-left {
+      flex: 0 0 auto;
+      gap: 0;
+    }
+
+    .header-v3-logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+    }
+
+    .header-v3-logo img {
+      height: 26px;
+    }
+
+    .header-v3-search-desktop {
+      display: none;
+    }
+
+    .header-v3-actions {
+      gap: 14px;
+      flex: 0 0 auto;
+    }
+
+    .header-v3-icon-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .header-v3-mobile-menu {
+      display: block;
+    }
+
+    .header-v3-mobile-menu-content {
+      top: calc(12px + 54px + 8px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-v3-wrapper {
+      top: 10px;
+      width: calc(100% - 20px);
+    }
+
+    .header-v3-container {
+      padding: 0 16px;
+      height: 52px;
+      border-radius: 36px;
+    }
+
+    .header-v3-hamburger {
+      width: 36px;
+      height: 36px;
+    }
+
+    .header-v3-hamburger svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .header-v3-logo img {
+      height: 24px;
+    }
+
+    .header-v3-actions {
+      gap: 12px;
+    }
+
+    .header-v3-icon-btn svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .header-v3-mobile-menu-content {
+      top: calc(10px + 52px + 8px);
+      width: calc(100% - 20px);
+    }
+  }
+</style>
+
+<div class="header-v3-wrapper">
+  <header class="header-v3-container">
+    <!-- Left Side: Desktop Nav / Mobile Hamburger -->
+    <nav class="header-v3-nav-left">
+      <!-- Hamburger/Close Toggle (Mobile Only) -->
+      <button
+        type="button"
+        class="header-v3-hamburger"
+        id="menuToggle"
+        aria-label="Menu"
+        onclick="toggleMobileMenu()">
+        <svg
+          class="header-v3-hamburger-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2.5"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+        <svg
+          class="header-v3-close-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2.5"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Desktop Navigation Links with Dropdowns -->
+      {% if section.settings.menu != blank %}
+        {% for link in linklists[section.settings.menu].links %}
+          <div class="header-v3-nav-item">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+
+            {% if link.links.size > 0 %}
+              <div class="header-v3-dropdown">
+                {% for child_link in link.links %}
+                  <a href="{{ child_link.url }}" class="header-v3-dropdown-item">
+                    {{ child_link.title }}
+                  </a>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="header-v3-nav-item">
+          <a href="{{ routes.collections_url }}">Shop</a>
+          <div class="header-v3-dropdown">
+            <a href="{{ routes.collections_url }}" class="header-v3-dropdown-item">New Arrivals</a>
+            <a href="{{ routes.collections_url }}" class="header-v3-dropdown-item">Best Sellers</a>
+            <a href="{{ routes.collections_url }}" class="header-v3-dropdown-item">Sale</a>
+          </div>
+        </div>
+        <div class="header-v3-nav-item">
+          <a href="{{ routes.collections_url }}">Collections</a>
+        </div>
+        <div class="header-v3-nav-item">
+          <a href="/pages/vessi-world">Vessi World</a>
+        </div>
+      {% endif %}
+    </nav>
+
+    <!-- Logo (Centered on Mobile) -->
+    <div class="header-v3-logo">
+      {% if section.settings.logo != blank %}
+        <a href="{{ routes.root_url }}">
+          <img
+            src="{{ section.settings.logo | image_url: width: 240 }}"
+            alt="{{ shop.name }}"
+            width="112"
+            height="{{ section.settings.logo_height }}"
+            loading="eager">
+        </a>
+      {% else %}
+        <a href="{{ routes.root_url }}" style="color: #ffffff; font-size: 26px; font-weight: 600; text-decoration: none; letter-spacing: -0.5px;">
+          {{ shop.name }}
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Right Actions -->
+    <div class="header-v3-actions">
+      <!-- Profile Icon -->
+      <a
+        href="{{ routes.account_url }}"
+        class="header-v3-icon-btn"
+        aria-label="Account">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+        </svg>
+      </a>
+
+      <!-- Search Icon (Desktop Only) -->
+      <button
+        type="button"
+        class="header-v3-icon-btn header-v3-search-desktop"
+        aria-label="Search"
+        onclick="openSearchModal()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
+      </button>
+
+      <!-- Cart Icon -->
+      <a
+        href="{{ routes.cart_url }}"
+        class="header-v3-icon-btn"
+        aria-label="Cart">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+
+<!-- Mobile Menu Dropdown -->
+<div class="header-v3-mobile-menu" id="mobileMenu">
+  <div class="header-v3-mobile-menu-content">
+    <!-- Search Bar -->
+    <div class="header-v3-mobile-search">
+      <div class="header-v3-search-wrapper">
+        <input
+          type="text"
+          class="header-v3-search-input"
+          placeholder="What are you looking for?"
+          aria-label="Search">
+        <button
+          type="button"
+          class="header-v3-search-btn"
+          aria-label="Submit Search">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu Items -->
+    <div class="header-v3-mobile-menu-items">
+      {% if section.settings.mobile_menu != blank %}
+        {% for link in linklists[section.settings.mobile_menu].links %}
+          <div class="header-v3-menu-item-wrapper">
+            {% if link.links.size > 0 %}
+              <!-- Link with Dropdown - Plus/Minus Icon -->
+              <button
+                type="button"
+                class="header-v3-menu-item"
+                onclick="toggleSubmenu(this)">
+                <span>{{ link.title }}</span>
+                <div class="header-v3-menu-item-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2.5"
+                    stroke="currentColor">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                  </svg>
+                </div>
+              </button>
+
+              <!-- Submenu inside the same beige box -->
+              <div class="header-v3-submenu">
+                {% for child_link in link.links %}
+                  {% if child_link.links.size > 0 %}
+                    <!-- Child with sub-children - Minus Icon -->
+                    <button type="button" class="header-v3-submenu-item">
+                      <span>{{ child_link.title }}</span>
+                      <div class="header-v3-submenu-item-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="2.5"
+                          stroke="currentColor">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M18 12H6" />
+                        </svg>
+                      </div>
+                    </button>
+                  {% else %}
+                    <!-- Child without sub-children - No Icon -->
+                    <a href="{{ child_link.url }}" class="header-v3-submenu-item">
+                      <span>{{ child_link.title }}</span>
+                    </a>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% else %}
+              <!-- Link without Dropdown - Arrow Icon -->
+              <a href="{{ link.url }}" class="header-v3-menu-item">
+                <span>{{ link.title }}</span>
+                <div class="header-v3-menu-item-arrow">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2.5"
+                    stroke="currentColor">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </div>
+              </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <!-- Default Menu Items -->
+        <div class="header-v3-menu-item-wrapper">
+          <button
+            type="button"
+            class="header-v3-menu-item"
+            onclick="toggleSubmenu(this)">
+            <span>Women</span>
+            <div class="header-v3-menu-item-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
+          </button>
+          <div class="header-v3-submenu">
+            <a href="{{ routes.cart_url }}" class="header-v3-submenu-item">
+              <span>Sneakers</span>
+            </a>
+            <a href="{{ routes.cart_url }}" class="header-v3-submenu-item">
+              <span>Boots</span>
+            </a>
+            <a href="{{ routes.cart_url }}" class="header-v3-submenu-item">
+              <span>Shop All Women</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="header-v3-menu-item-wrapper">
+          <button
+            type="button"
+            class="header-v3-menu-item"
+            onclick="toggleSubmenu(this)">
+            <span>Men</span>
+            <div class="header-v3-menu-item-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
+          </button>
+          <div class="header-v3-submenu">
+            <a href="{{ routes.cart_url }}" class="header-v3-submenu-item">
+              <span>Sneakers</span>
+            </a>
+            <a href="{{ routes.cart_url }}" class="header-v3-submenu-item">
+              <span>Boots</span>
+            </a>
+            <a href="{{ routes.cart_url }}" class="header-v3-submenu-item">
+              <span>Shop All Men</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="header-v3-menu-item-wrapper">
+          <button
+            type="button"
+            class="header-v3-menu-item"
+            onclick="toggleSubmenu(this)">
+            <span>Kids</span>
+            <div class="header-v3-menu-item-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
+          </button>
+          <div class="header-v3-submenu">
+            <button type="button" class="header-v3-submenu-item">
+              <span>Waterproof Shoes</span>
+              <div class="header-v3-submenu-item-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2.5"
+                  stroke="currentColor">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M18 12H6" />
+                </svg>
+              </div>
+            </button>
+            <a href="{{ routes.cart_url }}" class="header-v3-submenu-item">
+              <span>Weekend Sneaker</span>
+            </a>
+            <a href="{{ routes.cart_url }}" class="header-v3-submenu-item">
+              <span>Classic Chelsea</span>
+            </a>
+            <a href="{{ routes.cart_url }}" class="header-v3-submenu-item">
+              <span>Shop All Kids Shoes</span>
+            </a>
+            <button type="button" class="header-v3-submenu-item">
+              <span>Trending</span>
+              <div class="header-v3-submenu-item-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2.5"
+                  stroke="currentColor">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="header-v3-menu-item-wrapper">
+          <a href="/pages/black-friday" class="header-v3-menu-item">
+            <span>Pre-Black Friday</span>
+            <div class="header-v3-menu-item-arrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </div>
+          </a>
+        </div>
+
+        <div class="header-v3-menu-item-wrapper">
+          <a href="/pages/community" class="header-v3-menu-item">
+            <span>Community</span>
+            <div class="header-v3-menu-item-arrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </div>
+          </a>
+        </div>
+
+        <div class="header-v3-menu-item-wrapper">
+          <a href="/pages/help" class="header-v3-menu-item">
+            <span>Help</span>
+            <div class="header-v3-menu-item-arrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </div>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  function openSearchModal() {
+    console.log('Search clicked');
+  }
+  
+  function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuToggle = document.getElementById('menuToggle');
+    
+    mobileMenu.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+    
+    // Prevent body scroll when menu is open
+    if (mobileMenu.classList.contains('active')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
+  
+  function toggleSubmenu(element) {
+    const wrapper = element.closest('.header-v3-menu-item-wrapper');
+    const submenu = wrapper.querySelector('.header-v3-submenu');
+    
+    // Toggle expanded class on button and submenu
+    element.classList.toggle('expanded');
+    submenu.classList.toggle('expanded');
+  }
+  
+  // Close menu when clicking on backdrop
+  document.getElementById('mobileMenu').addEventListener('click', function(e) {
+    if (e.target === this) {
+      toggleMobileMenu();
+    }
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Header V3",
+    "tag": "section",
+    "class": "header-v3-section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo Settings"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo Image",
+        "info": "Recommended size: 224x56px"
+      },
+      {
+        "type": "range",
+        "id": "logo_height",
+        "label": "Logo Height",
+        "min": 20,
+        "max": 50,
+        "step": 2,
+        "default": 28,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Navigation Settings"
+      }, {
+        "type": "link_list",
+        "id": "menu",
+        "label": "Desktop Navigation Menu",
+        "default": "main-menu",
+        "info": "Select menu for desktop navigation links"
+      }, {
+        "type": "link_list",
+        "id": "mobile_menu",
+        "label": "Mobile Navigation Menu",
+        "default": "main-menu",
+        "info": "Select menu for mobile dropdown. Supports nested menus with expand/collapse"
+      }, {
+        "type": "range",
+        "id": "nav_font_size",
+        "label": "Navigation Font Size",
+        "min": 12,
+        "max": 18,
+        "step": 1,
+        "default": 15,
+        "unit": "px"
+      }, {
+        "type": "select",
+        "id": "nav_font_weight",
+        "label": "Navigation Font Weight",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light"
+          }, {
+            "value": "400",
+            "label": "Normal"
+          }, {
+            "value": "500",
+            "label": "Medium"
+          }, {
+            "value": "600",
+            "label": "Semi Bold"
+          }
+        ],
+        "default": "400"
+      }, {
+        "type": "range",
+        "id": "nav_gap",
+        "label": "Navigation Items Gap",
+        "min": 16,
+        "max": 48,
+        "step": 4,
+        "default": 32,
+        "unit": "px"
+      }, {
+        "type": "color",
+        "id": "nav_text_color",
+        "label": "Navigation Text Color",
+        "default": "#ffffff"
+      }, {
+        "type": "header",
+        "content": "Icon Settings"
+      }, {
+        "type": "range",
+        "id": "icon_size",
+        "label": "Icon Size",
+        "min": 16,
+        "max": 28,
+        "step": 2,
+        "default": 20,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "icon_gap",
+        "label": "Icon Gap",
+        "min": 8,
+        "max": 24,
+        "step": 2,
+        "default": 16,
+        "unit": "px"
+      }, {
+        "type": "color",
+        "id": "icon_color",
+        "label": "Icon Color",
+        "default": "#ffffff"
+      }, {
+        "type": "header",
+        "content": "Header Style"
+      }, {
+        "type": "range",
+        "id": "header_max_width",
+        "label": "Maximum Width",
+        "min": 1000,
+        "max": 1400,
+        "step": 20,
+        "default": 1160,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "header_height",
+        "label": "Header Height",
+        "min": 50,
+        "max": 80,
+        "step": 2,
+        "default": 60,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "header_top_spacing",
+        "label": "Top Spacing",
+        "min": 10,
+        "max": 40,
+        "step": 2,
+        "default": 20,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "horizontal_padding",
+        "label": "Horizontal Padding",
+        "min": 20,
+        "max": 50,
+        "step": 2,
+        "default": 32,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "border_radius",
+        "label": "Border Radius",
+        "min": 0,
+        "max": 30,
+        "step": 2,
+        "default": 12,
+        "unit": "px"
+      }, {
+        "type": "header",
+        "content": "Background Settings"
+      }, {
+        "type": "range",
+        "id": "bg_color_r",
+        "label": "Background Red (RGB)",
+        "min": 0,
+        "max": 255,
+        "step": 5,
+        "default": 75,
+        "info": "Red channel value (0-255)"
+      }, {
+        "type": "range",
+        "id": "bg_color_g",
+        "label": "Background Green (RGB)",
+        "min": 0,
+        "max": 255,
+        "step": 5,
+        "default": 75,
+        "info": "Green channel value (0-255)"
+      }, {
+        "type": "range",
+        "id": "bg_color_b",
+        "label": "Background Blue (RGB)",
+        "min": 0,
+        "max": 255,
+        "step": 5,
+        "default": 75,
+        "info": "Blue channel value (0-255)"
+      }, {
+        "type": "range",
+        "id": "bg_opacity",
+        "label": "Background Opacity",
+        "min": 50,
+        "max": 100,
+        "step": 5,
+        "default": 85,
+        "unit": "%"
+      }, {
+        "type": "range",
+        "id": "blur_amount",
+        "label": "Blur Amount",
+        "min": 0,
+        "max": 40,
+        "step": 5,
+        "default": 25,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "shadow_opacity",
+        "label": "Shadow Opacity",
+        "min": 0,
+        "max": 30,
+        "step": 5,
+        "default": 15,
+        "unit": "%"
+      }
+    ]
+  }
+{% endschema %}
