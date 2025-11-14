@@ -49,31 +49,35 @@
         "product_X6nmch": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/support-01.jpg",
+            "hover_image": "shopify://shop_images/p_img_2_1_2a918677-b00e-4902-a15c-7f95dda96af1.webp",
             "background": "https://via.placeholder.com/290x340",
             "alt": "Product",
-            "title": "",
-            "price": "",
-            "compare": "",
+            "title": "Flannel Flower",
+            "price": "$200",
+            "compare": "$150",
             "sale": false,
-            "swatch1": "",
-            "swatch2": "",
-            "swatch3": "",
-            "swatch4": ""
+            "swatch1": "90x80",
+            "swatch2": "90x80",
+            "swatch3": "90x80",
+            "swatch4": "90x80"
           }
         },
         "product_QphfKL": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/support-01.jpg",
+            "hover_image": "shopify://shop_images/p_img_2_1_2a918677-b00e-4902-a15c-7f95dda96af1.webp",
             "background": "https://via.placeholder.com/290x340",
             "alt": "Product",
-            "title": "",
-            "price": "",
-            "compare": "",
+            "title": "Buddha Wood Hand Wash",
+            "price": "$560",
+            "compare": "$500",
             "sale": false,
-            "swatch1": "",
-            "swatch2": "",
-            "swatch3": "",
-            "swatch4": ""
+            "swatch1": "60x70",
+            "swatch2": "60x70",
+            "swatch3": "60x70",
+            "swatch4": "60x70"
           }
         }
       },
