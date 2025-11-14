@@ -1,11 +1,56 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-   "sections": {
-      "header-v3-bg": {
-         "type": "header-v3-bg"
-      },
-      "header-v3": {
-         "type": "header-v3"
+  "sections": {
+    "header-v3-bg": {
+      "type": "header-v3-bg",
+      "settings": {
+        "background_image": "shopify://shop_images/bg_img_001.webp",
+        "image_fit": "cover",
+        "image_position": "center center",
+        "image_position_mobile": "center center",
+        "bg_height": 100,
+        "bg_height_mobile": 100,
+        "show_overlay": true,
+        "overlay_opacity": 60
       }
-   },
-   "order": ["header-v3-bg", "header-v3"]
+    },
+    "header-v3": {
+      "type": "header-v3",
+      "settings": {
+        "logo_height": 28,
+        "menu": "main-menu",
+        "mobile_menu": "main-menu",
+        "nav_font_size": 15,
+        "nav_font_weight": "400",
+        "nav_gap": 32,
+        "nav_text_color": "#ffffff",
+        "icon_size": 20,
+        "icon_gap": 16,
+        "icon_color": "#ffffff",
+        "header_max_width": 1160,
+        "header_height": 60,
+        "header_top_spacing": 20,
+        "horizontal_padding": 32,
+        "border_radius": 12,
+        "bg_color_r": 75,
+        "bg_color_g": 75,
+        "bg_color_b": 75,
+        "bg_opacity": 85,
+        "blur_amount": 25,
+        "shadow_opacity": 15
+      }
+    }
+  },
+  "order": [
+    "header-v3-bg",
+    "header-v3"
+  ]
 }
