@@ -25,6 +25,7 @@
     "header-v3": {
       "type": "header-v3",
       "settings": {
+        "logo": "shopify://shop_images/as_a_logo.png",
         "logo_height": 28,
         "menu": "main-menu",
         "mobile_menu": "main-menu",
