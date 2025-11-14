@@ -1,0 +1,11 @@
+{
+   "sections": {
+      "header-v3-bg": {
+         "type": "header-v3-bg"
+      },
+      "header-v3": {
+         "type": "header-v3"
+      }
+   },
+   "order": ["header-v3-bg", "header-v3"]
+}
