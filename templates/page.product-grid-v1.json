@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "product-grid-v1": {
+      "type": "product-grid-v1",
+      "settings": {}
+    }
+  },
+  "order": [
+    "product-grid-v1"
+  ]
+}
+

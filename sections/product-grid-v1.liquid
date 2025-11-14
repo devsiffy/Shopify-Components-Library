@@ -1,0 +1,327 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    gap: 0 18px;
+    padding: 0;
+    margin: 24px 0;
+  }
+  .product-card {
+    position: relative;
+    overflow: hidden;
+    background: #faf7f4;
+    transition: background 0.3s;
+    width: 290px;
+    display: inline-block;
+    vertical-align: top;
+    flex: 0 0 290px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  .product-card-wrapper {
+    border: #222 solid 1px;
+    padding: 10px;
+    width: 290px;
+    box-sizing: border-box;
+    background: #faf7f4;
+    margin-right: 18px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .product-card .main-image {
+    width: 100%;
+    display: block;
+    transition: opacity 0.3s;
+    height: 340px;
+    object-fit: cover;
+    background: #faf7f4;
+  }
+  .product-card .hover-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 0.4s;
+  }
+  .product-card:hover .hover-bg {
+    opacity: 1;
+  }
+  .product-card .action-icons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.3s, transform 0.4s cubic-bezier(0.4, 1.2, 0.4, 1);
+  }
+  .product-card:hover .action-icons {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .product-card .action-icons button,
+  .product-card .action-icons a {
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: box-shadow 0.2s;
+  }
+  .product-card .action-icons button:hover,
+  .product-card .action-icons a:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  }
+  .product-card .badge-sale {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    background: #222;
+    color: #fff;
+    font-size: 13px;
+    border-radius: 3px;
+    padding: 4px 10px;
+    font-weight: 600;
+  }
+  /* info row customization */
+  .product-info {
+    padding: 0;
+    margin: 10px 0 0 0;
+    min-height: 34px;
+  }
+  .product-title {
+    font-size: 15px;
+    font-weight: 400;
+    color: #222;
+    min-height: 22px;
+    margin: 0 0 2px 0;
+    line-height: 1.25;
+  }
+  .price-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .product-price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+  }
+  .compare-price {
+    font-size: 15px;
+    color: #aa9999;
+    text-decoration: line-through;
+    font-weight: 400;
+  }
+  .variant-swatches {
+    display: flex;
+    gap: 8px;
+    margin-top: 17px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 8px;
+    position: absolute;
+    left: 0;
+    bottom: 22px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(60px);
+    z-index: 3;
+    transition: opacity 0.35s, transform 0.45s cubic-bezier(0.4, 1.2, 0.4, 1);
+    pointer-events: none;
+  }
+  .product-card:hover .variant-swatches, .product-card-wrapper:hover .variant-swatches {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .variant-swatch {
+    border: 1px solid #e0e0e0;
+    font-size: 13px;
+    padding: 0 7px;
+    border-radius: 3px;
+    background: #f9f9f9;
+    min-width: 36px;
+    min-height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 900px) {
+    .product-grid {
+      gap: 16px 0;
+    }
+    .product-card, .product-card-wrapper { max-width: 48vw; }
+    .product-card .main-image { height: 180px; }
+    .product-card-wrapper { margin-right: 2vw; }
+  }
+  @media (max-width: 600px) {
+    .product-card, .product-card-wrapper {
+      width: 98vw;
+      min-width: 160px;
+      max-width: unset;
+      margin: 0 0 18px 0;
+      padding: 12px;
+    }
+    .product-card .main-image, .product-card .hover-bg {
+      height: 140px;
+      object-fit: cover;
+    }
+    .product-info { margin-top: 7px; }
+    .variant-swatches { bottom: 10px; }
+  }
+</style>
+
+<ul class="product-grid">
+  {% for block in section.blocks %}
+    <div class="product-card-wrapper">
+      <li
+        class="product-card"
+        style="
+          background-image: url('{{ block.settings.background | escape }}');
+          background-repeat:no-repeat;
+          background-position:center;
+          background-size:cover;
+        "
+      >
+        <img
+          class="main-image"
+          src="{{ block.settings.image | escape }}"
+          alt="{{ block.settings.alt | escape }}"
+        >
+        {% if block.settings.hover_image != blank %}
+          <div
+            class="hover-bg"
+            style="background-image:url('{{ block.settings.hover_image | escape }}'); background-repeat:no-repeat; background-position:center; background-size:cover;"
+          ></div>
+        {% endif %}
+        {% if block.settings.sale %}
+          <span class="badge-sale">Sale</span>
+        {% endif %}
+        <div class="action-icons">
+          <a href="#" aria-label="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+          <a href="#" aria-label="View details"><i class="fa fa-eye"></i></a>
+          <button aria-label="Add to wishlist"><i class="fa fa-heart"></i></button>
+        </div>
+        <div class="variant-swatches">
+          {% if block.settings.swatch1 != blank %}<span class="variant-swatch">{{ block.settings.swatch1 }}</span>{% endif %}
+          {% if block.settings.swatch2 != blank %}<span class="variant-swatch">{{ block.settings.swatch2 }}</span>{% endif %}
+          {% if block.settings.swatch3 != blank %}<span class="variant-swatch">{{ block.settings.swatch3 }}</span>{% endif %}
+          {% if block.settings.swatch4 != blank %}<span class="variant-swatch">{{ block.settings.swatch4 }}</span>{% endif %}
+        </div>
+      </li>
+      <div class="product-info">
+        <div class="product-title">{{ block.settings.title }}</div>
+        <div class="price-row">
+          <span class="product-price">{{ block.settings.price }}</span>
+          {% if block.settings.compare != blank %}
+            <span class="compare-price">{{ block.settings.compare }}</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</ul>
+
+{% schema %}
+{
+  "name": "Static Product Showcase",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Main Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "hover_image",
+          "label": "Hover Image"
+        },
+        {
+          "type": "text",
+          "id": "background",
+          "label": "Background Image URL",
+          "default": ""
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Main Image Alt",
+          "default": "Product"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product Title"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Product Price"
+        },
+        {
+          "type": "text",
+          "id": "compare",
+          "label": "Compare Price"
+        },
+        {
+          "type": "checkbox",
+          "id": "sale",
+          "label": "Show Sale Badge"
+        },
+        {
+          "type": "text",
+          "id": "swatch1",
+          "label": "Swatch 1"
+        },
+        {
+          "type": "text",
+          "id": "swatch2",
+          "label": "Swatch 2"
+        },
+        {
+          "type": "text",
+          "id": "swatch3",
+          "label": "Swatch 3"
+        },
+        {
+          "type": "text",
+          "id": "swatch4",
+          "label": "Swatch 4"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Static Product Showcase",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
