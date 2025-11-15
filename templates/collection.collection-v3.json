@@ -1,8 +1,83 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "collection-v3": {
       "type": "collection-v3",
-      "settings": {}
+      "blocks": {
+        "collection_card_6ETgaH": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/25Q4_Holiday_Site_ColorGrid-01_Desktop-Mobile_1x1_7dab5524-41ce-4ade-a48e-16efbf1d6cac.webp",
+            "subheading": "",
+            "heading": "",
+            "button_text": ""
+          }
+        },
+        "collection_card_37a4wi": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/25Q4_Holiday_Batch2_Site_ColorGrid-02_Womens_MaryJaneDesktop-Mobile_1x1_b80f3bc7-419a-43e0-bab5-98db12f96994.jpg",
+            "subheading": "",
+            "heading": "",
+            "button_text": ""
+          }
+        },
+        "collection_card_JRBDdB": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/25Q4_Holiday_Site_ColorGrid-01_Desktop-Mobile_1x1_7dab5524-41ce-4ade-a48e-16efbf1d6cac.webp",
+            "subheading": "",
+            "heading": "",
+            "button_text": ""
+          }
+        },
+        "collection_card_gGYbND": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/25Q4_Holiday_Site_ColorGrid-01_Desktop-Mobile_1x1_565e2d02-794c-483e-9d0b-15386857e996.webp",
+            "subheading": "",
+            "heading": "",
+            "button_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_card_6ETgaH",
+        "collection_card_37a4wi",
+        "collection_card_JRBDdB",
+        "collection_card_gGYbND"
+      ],
+      "settings": {
+        "container_width": 1400,
+        "container_padding": 20,
+        "grid_gap": 16,
+        "card_radius": 16,
+        "mobile_container_padding": 8,
+        "mobile_grid_gap": 8,
+        "heading_size": 48,
+        "subheading_size": 14,
+        "button_size": 14,
+        "background_color": "#ffffff",
+        "text_color": "#ffffff",
+        "button_bg": "#ffffff",
+        "button_text_color": "#000000",
+        "button_radius": 30,
+        "overlay_opacity": 0.6,
+        "padding_top": 50,
+        "padding_bottom": 50
+      }
     }
   },
   "order": [
