@@ -29,7 +29,7 @@
             "title": "Product Grids",
             "description": "Flexible layout to showcase products or content neatly.",
             "button_text": "View Component",
-            "component_page": "grid-section"
+            "component_page": "product-grids"
           }
         },
         "component_card_PK6qRr": {
@@ -39,7 +39,7 @@
             "title": "Collections",
             "description": "Stylish cards to display products or features clearly.",
             "button_text": "View Component",
-            "component_page": "card-section"
+            "component_page": "collections"
           }
         }
       },
