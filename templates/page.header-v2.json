@@ -11,7 +11,27 @@
   "sections": {
     "header-v2": {
       "type": "header-v2",
-      "settings": {}
+      "settings": {
+        "logo_width": 150,
+        "menu": "header-main-menu",
+        "header_height": 65,
+        "container_width": 1400,
+        "enable_sticky": true,
+        "enable_transparent": false,
+        "enable_search": true,
+        "enable_account": true,
+        "enable_cart": true,
+        "show_announcement": false,
+        "announcement_text": "Free shipping on orders over $50!",
+        "announcement_bg": "#00b67a",
+        "announcement_color": "#ffffff",
+        "color_primary": "#00b67a",
+        "color_text": "#1a1a1a",
+        "color_bg": "#ffffff",
+        "color_border": "#e5e7eb",
+        "nav_font_size": 15,
+        "mobile_menu_width": 400
+      }
     }
   },
   "order": [
