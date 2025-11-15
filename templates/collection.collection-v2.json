@@ -1,8 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-   "sections": {
-      "collection-v2": {
-         "type": "collection-v2"
+  "sections": {
+    "collection-v2": {
+      "type": "collection-v2",
+      "settings": {
+        "section_background_color": "#ffffff",
+        "section_padding_top": 40,
+        "section_padding_bottom": 40,
+        "overlay_color": "#0000001a",
+        "primary_button_font_size": 12,
+        "primary_button_text_color": "#ffffff",
+        "primary_button_border_color": "#ffffff",
+        "primary_button_hover_bg": "#ffffff",
+        "primary_button_hover_text": "#000000",
+        "secondary_button_font_size": 12,
+        "secondary_button_text_color": "#ffffff",
+        "secondary_button_border_color": "#ffffff",
+        "secondary_button_hover_bg": "#ffffff",
+        "secondary_button_hover_text": "#000000",
+        "collection_1": "collection-3",
+        "title_1": "",
+        "button_text_1": "Shop Now",
+        "collection_2": "collection-3",
+        "title_2": "",
+        "button_text_2": "Shop Now",
+        "collection_3": "collection-3",
+        "title_3": "",
+        "button_text_3": "Shop Now",
+        "collection_4": "collection-3",
+        "title_4": "",
+        "button_text_4": "Shop Now"
       }
-   },
-   "order": ["collection-v2"]
+    }
+  },
+  "order": [
+    "collection-v2"
+  ]
 }
