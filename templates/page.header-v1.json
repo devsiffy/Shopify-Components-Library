@@ -1,12 +1,92 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "header-v1": {
       "type": "header-v1",
-      "settings": {}
+      "blocks": {
+        "link_MTzwR7": {
+          "type": "link",
+          "settings": {
+            "label": "New",
+            "link": ""
+          }
+        },
+        "link_nNTTKF": {
+          "type": "link",
+          "settings": {
+            "label": "Bedding",
+            "link": ""
+          }
+        },
+        "mega_menu_KeAwpV": {
+          "type": "mega_menu",
+          "settings": {
+            "menu_title": "Mattresses",
+            "category_title": "Categories",
+            "menu_links": "main-menu",
+            "card1_image": "shopify://shop_images/bath.jpg",
+            "card1_title": "Featured Item",
+            "card2_image": "shopify://shop_images/bath3.jpg",
+            "card2_title": "Featured Item",
+            "card3_image": "shopify://shop_images/bath1.jpg",
+            "card3_title": "Featured Item"
+          }
+        },
+        "link_DkH6E3": {
+          "type": "link",
+          "settings": {
+            "label": "Bath",
+            "link": ""
+          }
+        },
+        "mega_menu_QchCJF": {
+          "type": "mega_menu",
+          "settings": {
+            "menu_title": "Decor",
+            "category_title": "Categories",
+            "menu_links": "customer-account-main-menu",
+            "card1_image": "shopify://shop_images/bath.jpg",
+            "card1_title": "Featured Item",
+            "card2_image": "shopify://shop_images/bath3.jpg",
+            "card2_title": "Featured Item",
+            "card3_title": "Featured Item"
+          }
+        },
+        "link_FPEC4R": {
+          "type": "link",
+          "settings": {
+            "label": "Sale",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "link_MTzwR7",
+        "link_nNTTKF",
+        "mega_menu_KeAwpV",
+        "link_DkH6E3",
+        "mega_menu_QchCJF",
+        "link_FPEC4R"
+      ],
+      "settings": {
+        "nav_background": "#ffffff",
+        "text_color": "#000000",
+        "hover_background": "#f0f0f0",
+        "border_color": "#e5e5e5",
+        "dropdown_background": "#f9f9f9",
+        "font_size": 16
+      }
     }
   },
   "order": [
     "header-v1"
   ]
 }
-

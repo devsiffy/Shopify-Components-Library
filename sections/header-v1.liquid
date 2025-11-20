@@ -14,7 +14,8 @@
   }
 
   body {
-    font-family: Arial, sans-serif;
+    font-family: Arial
+    , sans-serif;
   }
 
   .custom-navbar {
@@ -71,11 +72,17 @@
 
   .dropdown-content {
     position: absolute;
-    background-color: {{ section.settings.dropdown_background }};
+    right: 16px;
+    top: 10px;
+    z-index: 1001;
+  }
+
+  .nav-menu {
+    display: none;
     width: 100%;
-    max-width: 100vw;
-    left: 50%;
-    transform: translateX(-50%);
+    flex-direction: column;
+    background-color: #ffffff;
+    position: absolute;
     top: 100%;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.07);
     z-index: 1000;
@@ -101,9 +108,6 @@
   .mega-left {
     min-width: 180px;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    animation: slideInLeft 0.5s ease-out;
   }
 
   .mega-left h3 {
@@ -117,9 +121,8 @@
     color: #777;
     padding: 10px 0;
     text-align: left;
-    text-decoration: none;
-    font-size: 17px;
-    transition: color 0.2s ease;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 14px 20px;
   }
 
   .mega-left a:hover {
@@ -317,6 +320,7 @@
       display: none;
     }
   }
+}
 </style>
 
 <div class="custom-navbar">
@@ -667,23 +671,151 @@
             "label": "Home",
             "link": "/"
           }
-        },
-        {
-          "type": "link",
-          "settings": {
-            "label": "Shop",
-            "link": "/collections"
+        ],
+        "default": "center",
+        "info": "Choose the horizontal alignment of the navigation menu"
+      },
+      {
+        "type": "color",
+        "id": "nav_background",
+        "label": "Navigation Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "hover_background",
+        "label": "Hover Background",
+        "default": "#f0f0f0"
+      }, {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border Color",
+        "default": "#e5e5e5"
+      }, {
+        "type": "color",
+        "id": "dropdown_background",
+        "label": "Dropdown Background",
+        "default": "#f9f9f9"
+      }, {
+        "type": "range",
+        "id": "font_size",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Font Size",
+        "default": 16
+      }
+    ],
+    "blocks": [
+      {
+        "type": "link",
+        "name": "Navigation Link",
+        "settings": [
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Link Label",
+            "default": "Menu Item"
+          }, {
+            "type": "url",
+            "id": "link",
+            "label": "Link URL"
           }
-        },
-        {
-          "type": "mega_menu",
-          "settings": {
-            "menu_title": "Bedding",
-            "category_title": "Bedding Categories"
+        ]
+      }, {
+        "type": "mega_menu",
+        "name": "Mega Menu Dropdown",
+        "settings": [
+          {
+            "type": "text",
+            "id": "menu_title",
+            "label": "Menu Title",
+            "default": "Dropdown"
+          },
+          {
+            "type": "text",
+            "id": "category_title",
+            "label": "Category Title",
+            "default": "Categories"
+          },
+          {
+            "type": "link_list",
+            "id": "menu_links",
+            "label": "Menu Links",
+            "info": "Select a menu from Navigation settings"
+          },
+          {
+            "type": "header",
+            "content": "Featured Card 1"
+          }, {
+            "type": "image_picker",
+            "id": "card1_image",
+            "label": "Card 1 Image"
+          }, {
+            "type": "text",
+            "id": "card1_title",
+            "label": "Card 1 Title",
+            "default": "Featured Item"
+          }, {
+            "type": "header",
+            "content": "Featured Card 2"
+          }, {
+            "type": "image_picker",
+            "id": "card2_image",
+            "label": "Card 2 Image"
+          }, {
+            "type": "text",
+            "id": "card2_title",
+            "label": "Card 2 Title",
+            "default": "Featured Item"
+          }, {
+            "type": "header",
+            "content": "Featured Card 3"
+          }, {
+            "type": "image_picker",
+            "id": "card3_image",
+            "label": "Card 3 Image"
+          }, {
+            "type": "text",
+            "id": "card3_title",
+            "label": "Card 3 Title",
+            "default": "Featured Item"
           }
-        }
-      ]
-    }
-  ]
-}
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Mega Menu Navigation",
+        "blocks": [
+          {
+            "type": "link",
+            "settings": {
+              "label": "Home",
+              "link": "/"
+            }
+          }, {
+            "type": "link",
+            "settings": {
+              "label": "Shop",
+              "link": "/collections"
+            }
+          }, {
+            "type": "mega_menu",
+            "settings": {
+              "menu_title": "Bedding",
+              "category_title": "Bedding Categories"
+            }
+          }
+        ]
+      }
+    ]
+  }
 {% endschema %}

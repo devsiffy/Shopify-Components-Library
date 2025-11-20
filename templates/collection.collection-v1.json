@@ -1,0 +1,77 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collection-v1": {
+      "type": "collection-v1",
+      "blocks": {
+        "tab_gwyzMY": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Collection 1",
+            "collection": "collection-1"
+          }
+        },
+        "tab_Q3VGD4": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Collection 2",
+            "collection": "collection-1"
+          }
+        },
+        "tab_RNDJ4T": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Collection 3",
+            "collection": "collection-1"
+          }
+        }
+      },
+      "block_order": [
+        "tab_gwyzMY",
+        "tab_Q3VGD4",
+        "tab_RNDJ4T"
+      ],
+      "settings": {
+        "section_title": "Our Top Sellers",
+        "button_text": "Add to Cart",
+        "section_padding_top": 74,
+        "section_padding_bottom": 64,
+        "section_padding_inline": 60,
+        "wrapper_margin_top": 3,
+        "tabs_margin_block": 1.4,
+        "title_font_size": 40,
+        "title_color": "#000000",
+        "tab_font_size": 20,
+        "tab_inactive_color": "#6e6e6e",
+        "tab_active_color": "#000000",
+        "tab_border_color": "#c1c1c1",
+        "tab_active_border_color": "#000000",
+        "card_width": 280,
+        "card_height": 400,
+        "card_border_radius": 18,
+        "btn_bg_color": "#ffffff",
+        "btn_text_color": "#1f473e",
+        "btn_hover_bg_color": "#1f473e",
+        "btn_hover_text_color": "#ffffff",
+        "tag_text_color": "#5b5b5b",
+        "tag_border_color": "#c7c7c7",
+        "product_title_color": "#000000",
+        "sale_price_color": "#ff0000",
+        "actual_price_color": "#545454",
+        "pagination_inactive_color": "#d1d1d1",
+        "pagination_active_color": "#000000"
+      }
+    }
+  },
+  "order": [
+    "collection-v1"
+  ]
+}

@@ -1,7 +1,92 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "product-grid-v1": {
       "type": "product-grid-v1",
+      "blocks": {
+        "product_jp4Kzj": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/p_img_2_1_2a918677-b00e-4902-a15c-7f95dda96af1.webp",
+            "hover_image": "shopify://shop_images/support-01.jpg",
+            "background": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&h=400&fit=crop",
+            "alt": "Product",
+            "title": "Lillypilly Hand Wash$3",
+            "price": "$300",
+            "compare": "$250",
+            "sale": true,
+            "swatch1": "40x40",
+            "swatch2": "40x40",
+            "swatch3": "40x40",
+            "swatch4": "40x40"
+          }
+        },
+        "product_Hggzyd": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/p_img_3_1.webp",
+            "hover_image": "shopify://shop_images/p_img_2_1.webp",
+            "background": "https://via.placeholder.com/290x340",
+            "alt": "Product",
+            "title": "Flannel Flower Hair Wash",
+            "price": "$450",
+            "compare": "$400",
+            "sale": false,
+            "swatch1": "40x90",
+            "swatch2": "40x90",
+            "swatch3": "40x90",
+            "swatch4": "40x90"
+          }
+        },
+        "product_X6nmch": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/support-01.jpg",
+            "hover_image": "shopify://shop_images/p_img_2_1_2a918677-b00e-4902-a15c-7f95dda96af1.webp",
+            "background": "https://via.placeholder.com/290x340",
+            "alt": "Product",
+            "title": "Flannel Flower",
+            "price": "$200",
+            "compare": "$150",
+            "sale": false,
+            "swatch1": "90x80",
+            "swatch2": "90x80",
+            "swatch3": "90x80",
+            "swatch4": "90x80"
+          }
+        },
+        "product_QphfKL": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/support-01.jpg",
+            "hover_image": "shopify://shop_images/p_img_2_1_2a918677-b00e-4902-a15c-7f95dda96af1.webp",
+            "background": "https://via.placeholder.com/290x340",
+            "alt": "Product",
+            "title": "Buddha Wood Hand Wash",
+            "price": "$560",
+            "compare": "$500",
+            "sale": false,
+            "swatch1": "60x70",
+            "swatch2": "60x70",
+            "swatch3": "60x70",
+            "swatch4": "60x70"
+          }
+        }
+      },
+      "block_order": [
+        "product_jp4Kzj",
+        "product_Hggzyd",
+        "product_X6nmch",
+        "product_QphfKL"
+      ],
       "settings": {}
     }
   },
@@ -9,4 +94,3 @@
     "product-grid-v1"
   ]
 }
-
