@@ -6,26 +6,35 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
-  html, body {
+
+  html,
+  body {
     overflow-x: hidden;
     max-width: 100%;
   }
-  
+
   body {
     font-family: Arial, sans-serif;
   }
 
   .custom-navbar {
     background-color: {{ section.settings.nav_background }};
-    border-top: 1px solid {{ section.settings.border_color }};
+    border-top: {{ section.settings.border_thickness }}px solid {{ section.settings.border_color }};
     display: flex;
-    justify-content: center;
+    justify-content: {% if section.settings.menu_alignment == 'left' %}flex-start{% elsif section.settings.menu_alignment == 'right' %}flex-end{% else %}center{% endif %};
     align-items: center;
-    position: relative;
+    position: {% if section.settings.sticky_header == 'always' %}sticky{% else %}relative{% endif %};
+    top: 0;
+    width: {% if section.settings.width == 'page' %}100%{% else %}100vw{% endif %};
+    height: {% if section.settings.height == 'compact' %}50px{% else %}70px{% endif %};
     overflow: visible;
+    z-index: 999;
+    padding: 0 20px;
+    {% if section.settings.divider_thickness > 0 %}
+    border-bottom: {{ section.settings.divider_thickness }}px solid {{ section.settings.border_color }};
+    {% endif %}
   }
-  
+
   .custom-navbar a,
   .custom-navbar .dropdown {
     font-size: {{ section.settings.font_size }}px;
@@ -35,11 +44,11 @@
     text-decoration: none;
     display: inline-block;
   }
-  
+
   .dropdown {
     position: static;
   }
-  
+
   .dropdown .dropbtn {
     font-size: {{ section.settings.font_size }}px;
     border: none;
@@ -54,12 +63,12 @@
     align-items: center;
     gap: 5px;
   }
-  
+
   .custom-navbar a:hover,
   .dropdown:hover .dropbtn {
     background-color: {{ section.settings.hover_background }};
   }
-  
+
   .dropdown-content {
     position: absolute;
     background-color: {{ section.settings.dropdown_background }};
@@ -68,21 +77,18 @@
     left: 50%;
     transform: translateX(-50%);
     top: 100%;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.07);
     z-index: 1000;
     padding: 0 60px;
     flex-direction: row;
     gap: 50px;
     box-sizing: border-box;
-    
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: max-height 0.4s ease-out, 
-                opacity 0.3s ease-out, 
-                padding 0.4s ease-out;
+    transition: max-height 0.4s ease-out, opacity 0.3s ease-out, padding 0.4s ease-out;
   }
-  
+
   @media (min-width: 901px) {
     .dropdown:hover .dropdown-content {
       display: flex;
@@ -91,7 +97,7 @@
       padding: 25px 60px;
     }
   }
-  
+
   .mega-left {
     min-width: 180px;
     display: flex;
@@ -99,13 +105,13 @@
     gap: 8px;
     animation: slideInLeft 0.5s ease-out;
   }
-  
+
   .mega-left h3 {
     font-size: 18px;
     margin-bottom: 18px;
     color: #333;
   }
-  
+
   .mega-left a {
     display: block;
     color: #777;
@@ -115,41 +121,41 @@
     font-size: 17px;
     transition: color 0.2s ease;
   }
-  
+
   .mega-left a:hover {
     color: #000;
     background: none;
   }
-  
+
   .mega-right {
     display: flex;
     gap: 30px;
     animation: slideInRight 0.5s ease-out;
   }
-  
+
   .mega-card {
     position: relative;
     width: 270px;
     height: 170px;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  
+
   .mega-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   }
-  
+
   .mega-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
-  
+
   .mega-card-title {
     position: absolute;
     bottom: 10px;
@@ -157,9 +163,9 @@
     color: #fff;
     font-weight: 600;
     font-size: 20px;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
   }
-  
+
   @keyframes slideInLeft {
     from {
       opacity: 0;
@@ -170,7 +176,7 @@
       transform: translateX(0);
     }
   }
-  
+
   @keyframes slideInRight {
     from {
       opacity: 0;
@@ -181,7 +187,7 @@
       transform: translateX(0);
     }
   }
-  
+
   .hamburger {
     display: none;
     flex-direction: column;
@@ -190,7 +196,7 @@
     background: none;
     border: none;
   }
-  
+
   .hamburger span {
     width: 25px;
     height: 3px;
@@ -199,24 +205,24 @@
     transition: 0.4s;
     display: block;
   }
-  
+
   .hamburger.active span:nth-child(1) {
     transform: rotate(-45deg) translate(-5px, 6px);
   }
-  
+
   .hamburger.active span:nth-child(2) {
     opacity: 0;
   }
-  
+
   .hamburger.active span:nth-child(3) {
     transform: rotate(45deg) translate(-5px, -6px);
   }
-  
+
   .nav-menu {
     display: flex;
     align-items: center;
   }
-  
+
   @media (max-width: 900px) {
     .custom-navbar {
       flex-direction: column;
@@ -224,7 +230,7 @@
       padding: 0;
       min-height: 50px;
     }
-    
+
     .hamburger {
       display: flex;
       position: absolute;
@@ -232,7 +238,7 @@
       top: 10px;
       z-index: 1001;
     }
-    
+
     .nav-menu {
       display: none;
       width: 100%;
@@ -241,33 +247,33 @@
       position: absolute;
       top: 100%;
       left: 0;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       z-index: 1000;
     }
-    
+
     .nav-menu.active {
       display: flex;
     }
-    
+
     .nav-menu > a {
       width: 100%;
       text-align: left;
       border-bottom: 1px solid #e5e5e5;
       padding: 14px 20px;
     }
-    
+
     .nav-menu > .dropdown {
       width: 100%;
       position: relative;
     }
-    
+
     .dropdown .dropbtn {
       width: 100%;
       justify-content: space-between;
       text-align: left;
       border-bottom: 1px solid #e5e5e5;
     }
-    
+
     .dropdown-content {
       position: static;
       width: 100%;
@@ -280,7 +286,7 @@
       gap: 0;
       display: none;
     }
-    
+
     .dropdown-content.active {
       display: flex !important;
       max-height: 1000px !important;
@@ -288,25 +294,25 @@
       padding: 10px 0 !important;
       overflow: visible !important;
     }
-    
+
     .mega-left {
       width: 100%;
       min-width: 100%;
       padding: 0 20px;
       animation: none;
     }
-    
+
     .mega-left h3 {
       font-size: 16px;
       margin-bottom: 10px;
     }
-    
+
     .mega-left a {
       padding: 12px 0;
       font-size: 15px;
       border-bottom: 1px solid #e0e0e0;
     }
-    
+
     .mega-right {
       display: none;
     }
@@ -319,12 +325,12 @@
     <span></span>
     <span></span>
   </button>
-  
+
   <div class="nav-menu" id="navMenu-{{ section.id }}">
     {% for block in section.blocks %}
       {% if block.type == 'link' %}
         <a href="{{ block.settings.link }}">{{ block.settings.label }}</a>
-      
+
       {% elsif block.type == 'mega_menu' %}
         <div class="dropdown">
           <button class="dropbtn" data-dropdown="{{ block.id }}">
@@ -347,14 +353,14 @@
                   <div class="mega-card-title">{{ block.settings.card1_title }}</div>
                 </div>
               {% endif %}
-              
+
               {% if block.settings.card2_image != blank %}
                 <div class="mega-card">
                   <img src="{{ block.settings.card2_image | img_url: '600x400', crop: 'center' }}" alt="{{ block.settings.card2_title }}">
                   <div class="mega-card-title">{{ block.settings.card2_title }}</div>
                 </div>
               {% endif %}
-              
+
               {% if block.settings.card3_image != blank %}
                 <div class="mega-card">
                   <img src="{{ block.settings.card3_image | img_url: '600x400', crop: 'center' }}" alt="{{ block.settings.card3_title }}">
@@ -418,6 +424,107 @@
   "class": "mega-menu-section",
   "settings": [
     {
+      "type": "header",
+      "content": "Position"
+    },
+    {
+      "type": "select",
+      "id": "menu_alignment",
+      "label": "Menu Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "info": "Choose the horizontal alignment of the navigation menu"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        {
+          "value": "page",
+          "label": "Page"
+        },
+        {
+          "value": "full",
+          "label": "Full"
+        }
+      ],
+      "default": "page"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height",
+      "options": [
+        {
+          "value": "compact",
+          "label": "Compact"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        }
+      ],
+      "default": "standard"
+    },
+    {
+      "type": "select",
+      "id": "sticky_header",
+      "label": "Sticky header",
+      "options": [
+        {
+          "value": "always",
+          "label": "Always"
+        },
+        {
+          "value": "never",
+          "label": "Never"
+        }
+      ],
+      "default": "always"
+    },
+    {
+      "type": "range",
+      "id": "divider_thickness",
+      "label": "Divider thickness",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_thickness",
+      "label": "Border thickness",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
       "type": "color",
       "id": "nav_background",
       "label": "Navigation Background",
@@ -446,6 +553,10 @@
       "id": "dropdown_background",
       "label": "Dropdown Background",
       "default": "#f9f9f9"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
     },
     {
       "type": "range",

@@ -1,0 +1,362 @@
+{% schema %}
+{
+  "name": "Elegant Footer",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f5e5e2"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#5b5351"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Dividers)",
+      "default": "#e5cfc9"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headings Color",
+      "default": "#736e6b"
+    },
+    {
+      "type": "text",
+      "id": "logo_text_1",
+      "label": "Logo First Line",
+      "default": "Laugh,"
+    },
+    {
+      "type": "text",
+      "id": "logo_text_2",
+      "label": "Logo Second Line",
+      "default": "Cry"
+    },
+    {
+      "type": "text",
+      "id": "logo_text_3",
+      "label": "Logo Third Line",
+      "default": "Toast"
+    },
+    {
+      "type": "number",
+      "id": "logo_font_size",
+      "label": "Logo Font Size (px)",
+      "default": 42
+    },
+    {
+      "type": "select",
+      "id": "logo_font_family",
+      "label": "Logo Font Family",
+      "default": "Sacramento",
+      "options": [
+        { "value": "Sacramento", "label": "Sacramento" },
+        { "value": "Montserrat", "label": "Montserrat" },
+        { "value": "Arial", "label": "Arial" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Contact Section"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Contact Phone",
+      "default": "248.876.0833"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact Email",
+      "default": "info@joyabendmode.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_address",
+      "label": "Contact Address",
+      "default": "506 S. Washington Avenue<br/>Royal Oak, Michigan 48067"
+    },
+    {
+      "type": "number",
+      "id": "contact_font_size",
+      "label": "Contact Font Size (px)",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "contact_font_family",
+      "label": "Contact Font Family",
+      "default": "Montserrat",
+      "options": [
+        { "value": "Montserrat", "label": "Montserrat" },
+        { "value": "Arial", "label": "Arial" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Hours Section"
+    },
+    {
+      "type": "text",
+      "id": "hours_note",
+      "label": "Hours Note",
+      "default": "*by appointment only"
+    },
+    {
+      "type": "text",
+      "id": "hours_days_1",
+      "label": "First Days & Hours",
+      "default": "Tues, Thurs, & Fri | 11AM-5PM"
+    },
+    {
+      "type": "text",
+      "id": "hours_days_2",
+      "label": "Second Days & Hours",
+      "default": "Wed & Sat | 11AM-7PM"
+    },
+    {
+      "type": "text",
+      "id": "hours_close",
+      "label": "Closed Days",
+      "default": "CLOSED SUNDAY & MONDAY"
+    },
+    {
+      "type": "number",
+      "id": "hours_font_size",
+      "label": "Hours Font Size (px)",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "hours_font_family",
+      "label": "Hours Font Family",
+      "default": "Montserrat",
+      "options": [
+        { "value": "Montserrat", "label": "Montserrat" },
+        { "value": "Arial", "label": "Arial" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Information Section"
+    },
+    {
+      "type": "url",
+      "id": "contact_us_link",
+      "label": "Contact Us Link"
+    },
+    {
+      "type": "url",
+      "id": "collections_link",
+      "label": "Browse Collections Link"
+    },
+    {
+      "type": "url",
+      "id": "terms_link",
+      "label": "Terms & Conditions Link"
+    },
+    {
+      "type": "url",
+      "id": "privacy_link",
+      "label": "Privacy Policy Link"
+    },
+    {
+      "type": "number",
+      "id": "info_font_size",
+      "label": "Information Font Size (px)",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "info_font_family",
+      "label": "Information Font Family",
+      "default": "Montserrat",
+      "options": [
+        { "value": "Montserrat", "label": "Montserrat" },
+        { "value": "Arial", "label": "Arial" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Social Links"
+    },
+    {
+      "type": "url",
+      "id": "facebook_link",
+      "label": "Facebook Link"
+    },
+    {
+      "type": "url",
+      "id": "instagram_link",
+      "label": "Instagram Link"
+    },
+    {
+      "type": "url",
+      "id": "pinterest_link",
+      "label": "Pinterest Link"
+    },
+    {
+      "type": "number",
+      "id": "social_icon_size",
+      "label": "Social Icon Size (px)",
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter Label",
+      "default": "STAY IN THE KNOW WITH JOY ABENDMODE:"
+    },
+    {
+      "type": "number",
+      "id": "newsletter_font_size",
+      "label": "Newsletter Font Size (px)",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "newsletter_font_family",
+      "label": "Newsletter Font Family",
+      "default": "Montserrat",
+      "options": [
+        { "value": "Montserrat", "label": "Montserrat" },
+        { "value": "Arial", "label": "Arial" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Elegant Footer"
+    }
+  ]
+}
+{% endschema %}
+
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Montserrat:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<style>
+  .footer-wrapper {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    border-top: 1px solid {{ section.settings.accent_color }};
+    padding-bottom: 30px;
+    width: 100%;
+  }
+  .footer-logo text {
+    font-family: '{{ section.settings.logo_font_family }}', cursive;
+    font-size: {{ section.settings.logo_font_size }}px;
+    fill: {{ section.settings.headline_color }};
+  }
+  .footer-nav {
+    font-size: 17px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+  .footer-content-section {
+    font-size: 16px;
+    font-family: 'Montserrat', Arial, sans-serif;
+  }
+  .footer-contact { font-size: {{ section.settings.contact_font_size }}px; font-family: {{ section.settings.contact_font_family }}; }
+  .footer-hours { font-size: {{ section.settings.hours_font_size }}px; font-family: {{ section.settings.hours_font_family }}; }
+  .footer-info a { font-size: {{ section.settings.info_font_size }}px; font-family: {{ section.settings.info_font_family }}; }
+  .footer-social-icons a { font-size: {{ section.settings.social_icon_size }}px; }
+  .footer-newsletter-text { font-size: {{ section.settings.newsletter_font_size }}px; font-family: {{ section.settings.newsletter_font_family }}; }
+  .footer-newsletter input, .footer-newsletter button { font-family: {{ section.settings.newsletter_font_family }}; font-size: {{ section.settings.newsletter_font_size }}px; }
+</style>
+
+<footer class="footer-wrapper">
+  <div class="footer-logo">
+    <svg class="footer-logo-svg" viewBox="0 0 200 200" fill="none">
+      <circle cx="100" cy="100" r="98" stroke="{{ section.settings.accent_color }}" stroke-width="2" />
+      <text
+        x="50%"
+        y="100"
+        text-anchor="middle"
+        dominant-baseline="middle"
+      >
+        {{ section.settings.logo_text_1 }}
+        <tspan x="50%" dy="1em">{{ section.settings.logo_text_2 }}</tspan>
+        <tspan x="50%" dy="1.05em">{{ section.settings.logo_text_3 }}</tspan>
+      </text>
+    </svg>
+  </div>
+  <nav class="footer-nav">
+    <a href="#">ABOUT US</a>
+    <a href="#">EVENTS</a>
+    <a href="#">CONSULTATIONS</a>
+    <a href="#">OUR JOY FAMILY</a>
+    <a href="#">FAQ</a>
+  </nav>
+  <div class="footer-content-wrapper">
+    <div class="footer-content-section">
+      <h4>Contact</h4>
+      <div class="footer-contact">
+        {{ section.settings.contact_phone }} <br />
+        <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a><br />
+        {{ section.settings.contact_address }}
+      </div>
+    </div>
+    <div class="footer-content-divider"></div>
+    <div class="footer-content-section">
+      <h4>Hours</h4>
+      <div class="footer-hours">
+        <strong>{{ section.settings.hours_note }}</strong><br />
+        {{ section.settings.hours_days_1 }}<br />
+        {{ section.settings.hours_days_2 }}<br />
+        {{ section.settings.hours_close }}
+      </div>
+    </div>
+    <div class="footer-content-divider"></div>
+    <div class="footer-content-section">
+      <h4>Information</h4>
+      <div class="footer-info">
+        <a href="{{ section.settings.contact_us_link }}">Contact Us</a>
+        <a href="{{ section.settings.collections_link }}">Browse Collections</a>
+        <a href="{{ section.settings.terms_link }}">Terms &amp; Conditions</a>
+        <a href="{{ section.settings.privacy_link }}">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-line">
+      <div class="footer-bottom-left-sdie">
+        <span class="footer-connect-text">Let's connect</span>
+        <div class="footer-social-icons">
+          {% if section.settings.facebook_link %}
+            <a href="{{ section.settings.facebook_link }}" aria-label="Facebook"><i class="fa fa-facebook-f"></i></a>
+          {% endif %}
+          {% if section.settings.instagram_link %}
+            <a href="{{ section.settings.instagram_link }}" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+          {% endif %}
+          {% if section.settings.pinterest_link %}
+            <a href="{{ section.settings.pinterest_link }}" aria-label="Pinterest"><i class="fa fa-pinterest-p"></i></a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="footer-bottom-divider"></div>
+      <div>
+        <div class="footer-newsletter-text">
+          {{ section.settings.newsletter_text }}
+        </div>
+        <form class="footer-newsletter">
+          <input type="text" placeholder="Your email" />
+          <button type="submit" aria-label="Subscribe">
+            <i class="fa fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</footer>

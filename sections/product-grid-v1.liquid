@@ -1,15 +1,21 @@
+{% comment %}
+  Product Grid Section
+  This section displays a customizable product grid with hover effects
+{% endcomment %}
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
-  .product-grid {
+  .product-grid-{{ section.id }} {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     list-style: none;
-    gap: 0 18px;
+    gap: 0 {{ section.settings.grid_gap | default: 18 }}px;
     padding: 0;
-    margin: 24px 0;
+    margin: {{ section.settings.card_margin | default: 24 }}px 0;
   }
-  .product-card {
+  .product-grid-{{ section.id }} .product-card {
     position: relative;
     overflow: hidden;
     background: #faf7f4;
@@ -22,27 +28,18 @@
     background-position: center;
     background-size: cover;
   }
-  .product-card-wrapper {
-    border: #222 solid 1px;
-    padding: 10px;
-    width: 290px;
-    box-sizing: border-box;
-    background: #faf7f4;
-    margin-right: 18px;
-    margin-bottom: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .product-grid-{{ section.id }} .product-card-wrapper {
+    border: {{ section.settings.border_color }} solid {{ section.settings.border_width }}px;
+    padding: {{ section.settings.card_padding | default: 10 }}px;
   }
-  .product-card .main-image {
+  .product-grid-{{ section.id }} .product-card .main-image {
     width: 100%;
     display: block;
     transition: opacity 0.3s;
     height: 340px;
     object-fit: cover;
-    background: #faf7f4;
   }
-  .product-card .hover-bg {
+  .product-grid-{{ section.id }} .product-card .hover-bg {
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -52,10 +49,10 @@
     background-repeat: no-repeat;
     transition: opacity 0.4s;
   }
-  .product-card:hover .hover-bg {
+  .product-grid-{{ section.id }} .product-card:hover .hover-bg {
     opacity: 1;
   }
-  .product-card .action-icons {
+  .product-grid-{{ section.id }} .product-card .action-icons {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -67,16 +64,16 @@
     transform: translateX(60px);
     transition: opacity 0.3s, transform 0.4s cubic-bezier(0.4, 1.2, 0.4, 1);
   }
-  .product-card:hover .action-icons {
+  .product-grid-{{ section.id }} .product-card:hover .action-icons {
     opacity: 1;
     transform: translateX(0);
   }
-  .product-card .action-icons button,
-  .product-card .action-icons a {
+  .product-grid-{{ section.id }} .product-card .action-icons button,
+  .product-grid-{{ section.id }} .product-card .action-icons a {
     background: #fff;
     border: none;
     border-radius: 50%;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
     width: 36px;
     height: 36px;
     display: flex;
@@ -86,53 +83,51 @@
     padding: 0;
     transition: box-shadow 0.2s;
   }
-  .product-card .action-icons button:hover,
-  .product-card .action-icons a:hover {
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  .product-grid-{{ section.id }} .product-card .action-icons button:hover,
+  .product-grid-{{ section.id }} .product-card .action-icons a:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   }
-  .product-card .badge-sale {
+  .product-grid-{{ section.id }} .product-card .badge-sale {
     position: absolute;
     top: 12px;
     left: 12px;
     z-index: 2;
-    background: #222;
-    color: #fff;
+    background: {{ section.settings.badge_bg_color }};
+    color: {{ section.settings.badge_text_color }};
     font-size: 13px;
     border-radius: 3px;
     padding: 4px 10px;
     font-weight: 600;
   }
-  /* info row customization */
-  .product-info {
-    padding: 0;
-    margin: 10px 0 0 0;
-    min-height: 34px;
+  .product-grid-{{ section.id }} .product-card .product-info {
+    padding: 16px 8px 8px 8px;
+    background: #fff;
   }
-  .product-title {
-    font-size: 15px;
+  .product-grid-{{ section.id }} .product-card .product-title {
+    font-size: {{ section.settings.title_font_size | default: 15 }}px;
+    text-align: center;
     font-weight: 400;
-    color: #222;
+    color: {{ section.settings.title_color }};
     min-height: 22px;
     margin: 0 0 2px 0;
     line-height: 1.25;
+    padding-top: 10px;
   }
-  .price-row {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
-  .product-price {
-    font-size: 16px;
+  .product-grid-{{ section.id }} .product-card .product-price {
+    font-size: {{ section.settings.price_font_size | default: 16 }}px;
     font-weight: 600;
-    color: #222;
+    width: 100%;
+    text-align: center;
+    color: {{ section.settings.price_color }};
   }
-  .compare-price {
+  .product-grid-{{ section.id }} .product-card .compare-price {
     font-size: 15px;
     color: #aa9999;
     text-decoration: line-through;
+    margin-left: 8px;
     font-weight: 400;
   }
-  .variant-swatches {
+  .product-grid-{{ section.id }} .product-card .variant-swatches {
     display: flex;
     gap: 8px;
     margin-top: 17px;
@@ -149,12 +144,23 @@
     transition: opacity 0.35s, transform 0.45s cubic-bezier(0.4, 1.2, 0.4, 1);
     pointer-events: none;
   }
-  .product-card:hover .variant-swatches, .product-card-wrapper:hover .variant-swatches {
+  .product-grid-{{ section.id }} .product-card .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+  .product-grid-{{ section.id }} .product-card .product-info {
+    padding: 0;
+    margin: 8px auto 0 auto;
+    min-height: 42px;
+  }
+  .product-grid-{{ section.id }} .product-card:hover .variant-swatches {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
   }
-  .variant-swatch {
+  .product-grid-{{ section.id }} .product-card .variant-swatch {
     border: 1px solid #e0e0e0;
     font-size: 13px;
     padding: 0 7px;
@@ -166,161 +172,387 @@
     align-items: center;
     justify-content: center;
   }
+
+  /* Responsive */
   @media (max-width: 900px) {
-    .product-grid {
-      gap: 16px 0;
+    .product-grid-{{ section.id }} {
+      gap: 12px;
+      justify-content: center;
     }
-    .product-card, .product-card-wrapper { max-width: 48vw; }
-    .product-card .main-image { height: 180px; }
-    .product-card-wrapper { margin-right: 2vw; }
+    .product-grid-{{ section.id }} .product-card {
+      width: 47vw;
+      min-width: 220px;
+      max-width: 370px;
+      margin: 0 8px 20px 0;
+      flex: 1 1 45%;
+    }
+    .product-grid-{{ section.id }} .product-card .main-image {
+      height: 180px;
+    }
   }
   @media (max-width: 600px) {
-    .product-card, .product-card-wrapper {
-      width: 98vw;
+    .product-grid-{{ section.id }} {
+      flex-direction: column;
+      gap: 18px;
+      margin: 0;
+    }
+    .product-grid-{{ section.id }} .product-card {
+      width: 95vw;
+      max-width: 430px;
       min-width: 160px;
-      max-width: unset;
-      margin: 0 0 18px 0;
-      padding: 12px;
+      margin: 0 auto 18px auto;
+      display: block;
+      flex: none;
     }
-    .product-card .main-image, .product-card .hover-bg {
-      height: 140px;
-      object-fit: cover;
+    .product-grid-{{ section.id }} .product-card .action-icons {
+      top: 10px;
+      right: 10px;
+      gap: 6px;
     }
-    .product-info { margin-top: 7px; }
-    .variant-swatches { bottom: 10px; }
+    .product-grid-{{ section.id }} .product-card .main-image {
+      height: 180px;
+    }
+    .product-grid-{{ section.id }} .product-card .badge-sale {
+      top: 7px;
+      left: 7px;
+      font-size: 12px;
+      padding: 2px 7px;
+    }
+    .product-grid-{{ section.id }} .product-card .product-title {
+      padding-top: 0px;
+      min-height: 0;
+      font-size: 14px;
+    }
+    .product-grid-{{ section.id }} .product-card .product-info {
+      padding: 11px 6px 7px 6px;
+    }
+    .product-grid-{{ section.id }} .product-card .variant-swatches {
+      bottom: 10px;
+    }
   }
 </style>
 
-<ul class="product-grid">
+<ul class="product-grid product-grid-{{ section.id }}">
   {% for block in section.blocks %}
     <div class="product-card-wrapper">
-      <li
-        class="product-card"
-        style="
-          background-image: url('{{ block.settings.background | escape }}');
-          background-repeat:no-repeat;
-          background-position:center;
-          background-size:cover;
-        "
-      >
-        <img
-          class="main-image"
-          src="{{ block.settings.image | escape }}"
-          alt="{{ block.settings.alt | escape }}"
-        >
-        {% if block.settings.hover_image != blank %}
+      <li class="product-card">
+        {% if block.settings.main_image %}
+          <img
+            class="main-image"
+            src="{{ block.settings.main_image | img_url: '600x400', crop: 'center' }}"
+            alt="{{ block.settings.product_title }}"
+            loading="lazy"
+          >
+        {% endif %}
+
+        {% if block.settings.hover_image %}
           <div
             class="hover-bg"
-            style="background-image:url('{{ block.settings.hover_image | escape }}'); background-repeat:no-repeat; background-position:center; background-size:cover;"
+            style="background-image:url('{{ block.settings.hover_image | img_url: '600x400', crop: 'center' }}'); background-repeat:no-repeat; background-position:center; background-size:cover;"
           ></div>
         {% endif %}
-        {% if block.settings.sale %}
-          <span class="badge-sale">Sale</span>
+
+        {% if block.settings.show_sale_badge %}
+          <span class="badge-sale">{{ block.settings.sale_badge_text }}</span>
         {% endif %}
+
         <div class="action-icons">
-          <a href="#" aria-label="Add to cart"><i class="fa fa-shopping-cart"></i></a>
-          <a href="#" aria-label="View details"><i class="fa fa-eye"></i></a>
-          <button aria-label="Add to wishlist"><i class="fa fa-heart"></i></button>
+          {% if block.settings.product_url %}
+            <a href="{{ block.settings.product_url }}" aria-label="Add to cart">
+              <i class="fa fa-shopping-cart"></i>
+            </a>
+            <a href="{{ block.settings.product_url }}" aria-label="View details">
+              <i class="fa fa-eye"></i>
+            </a>
+          {% endif %}
+        <div class="action-icons">
+  {% if block.settings.product_url %}
+    <!-- View product -->
+    <a href="{{ block.settings.product_url }}" aria-label="View details">
+      <i class="fa fa-eye"></i>
+    </a>
+    <!-- Add to cart -->
+    <a href="{{ block.settings.product_url }}" aria-label="Add to cart">
+      <i class="fa fa-shopping-cart"></i>
+    </a>
+  {% endif %}
+  <!-- Add to wishlist -->
+  <button aria-label="Add to wishlist">
+    <i class="fa fa-heart"></i>
+  </button>
+</div>
+
         </div>
-        <div class="variant-swatches">
-          {% if block.settings.swatch1 != blank %}<span class="variant-swatch">{{ block.settings.swatch1 }}</span>{% endif %}
-          {% if block.settings.swatch2 != blank %}<span class="variant-swatch">{{ block.settings.swatch2 }}</span>{% endif %}
-          {% if block.settings.swatch3 != blank %}<span class="variant-swatch">{{ block.settings.swatch3 }}</span>{% endif %}
-          {% if block.settings.swatch4 != blank %}<span class="variant-swatch">{{ block.settings.swatch4 }}</span>{% endif %}
+
+        {% if block.settings.show_variants %}
+          <div class="variant-swatches">
+            {% if block.settings.variant_1 != blank %}
+              <span class="variant-swatch">{{ block.settings.variant_1 }}</span>
+            {% endif %}
+            {% if block.settings.variant_2 != blank %}
+              <span class="variant-swatch">{{ block.settings.variant_2 }}</span>
+            {% endif %}
+            {% if block.settings.variant_3 != blank %}
+              <span class="variant-swatch">{{ block.settings.variant_3 }}</span>
+            {% endif %}
+            {% if block.settings.variant_4 != blank %}
+              <span class="variant-swatch">{{ block.settings.variant_4 }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="product-info">
+          <h3 class="product-title">{{ block.settings.product_title }}</h3>
+          <div class="price-row">
+            <span class="product-price">
+              {{ block.settings.product_price }}
+              {% if block.settings.compare_price != blank %}
+                <span class="compare-price">{{ block.settings.compare_price }}</span>
+              {% endif %}
+            </span>
+          </div>
         </div>
       </li>
-      <div class="product-info">
-        <div class="product-title">{{ block.settings.title }}</div>
-        <div class="price-row">
-          <span class="product-price">{{ block.settings.price }}</span>
-          {% if block.settings.compare != blank %}
-            <span class="compare-price">{{ block.settings.compare }}</span>
-          {% endif %}
-        </div>
-      </div>
     </div>
   {% endfor %}
 </ul>
 
 {% schema %}
 {
-  "name": "Static Product Showcase",
-  "settings": [],
+  "name": "Product Grid",
+  "tag": "section",
+  "class": "product-grid-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Style Settings"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#222222"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border Width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 1,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Sale Badge Background",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Sale Badge Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Product Title Color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Product Price Color",
+      "default": "#222222"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid Gap",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Product Card Padding",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_margin",
+      "label": "Product Card Margin",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title Font Size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "price_font_size",
+      "label": "Price Font Size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    }
+  ],
   "blocks": [
     {
       "type": "product",
       "name": "Product Card",
       "settings": [
         {
+          "type": "header",
+          "content": "Product Information"
+        },
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Product Title",
+          "default": "Product Name"
+        },
+        {
+          "type": "url",
+          "id": "product_url",
+          "label": "Product URL"
+        },
+        {
+          "type": "text",
+          "id": "product_price",
+          "label": "Product Price",
+          "default": "$29.99"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare at Price (optional)",
+          "info": "Show original price if on sale"
+        },
+        {
+          "type": "header",
+          "content": "Images"
+        },
+        {
           "type": "image_picker",
-          "id": "image",
-          "label": "Main Image"
+          "id": "main_image",
+          "label": "Main Product Image"
         },
         {
           "type": "image_picker",
           "id": "hover_image",
-          "label": "Hover Image"
+          "label": "Hover Image (optional)"
         },
         {
-          "type": "text",
-          "id": "background",
-          "label": "Background Image URL",
-          "default": "https://via.placeholder.com/290x340"
-        },
-        {
-          "type": "text",
-          "id": "alt",
-          "label": "Main Image Alt",
-          "default": "Product"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Product Title"
-        },
-        {
-          "type": "text",
-          "id": "price",
-          "label": "Product Price"
-        },
-        {
-          "type": "text",
-          "id": "compare",
-          "label": "Compare Price"
+          "type": "header",
+          "content": "Sale Badge"
         },
         {
           "type": "checkbox",
-          "id": "sale",
-          "label": "Show Sale Badge"
+          "id": "show_sale_badge",
+          "label": "Show Sale Badge",
+          "default": false
         },
         {
           "type": "text",
-          "id": "swatch1",
-          "label": "Swatch 1"
+          "id": "sale_badge_text",
+          "label": "Sale Badge Text",
+          "default": "Sale"
+        },
+        {
+          "type": "header",
+          "content": "Variant Options"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_variants",
+          "label": "Show Variant Swatches",
+          "default": true
         },
         {
           "type": "text",
-          "id": "swatch2",
-          "label": "Swatch 2"
+          "id": "variant_1",
+          "label": "Variant 1",
+          "default": "40×40"
         },
         {
           "type": "text",
-          "id": "swatch3",
-          "label": "Swatch 3"
+          "id": "variant_2",
+          "label": "Variant 2",
+          "default": "60×60"
         },
         {
           "type": "text",
-          "id": "swatch4",
-          "label": "Swatch 4"
+          "id": "variant_3",
+          "label": "Variant 3",
+          "default": "80×80"
+        },
+        {
+          "type": "text",
+          "id": "variant_4",
+          "label": "Variant 4",
+          "default": "120×120"
         }
       ]
     }
   ],
-  "max_blocks": 8,
   "presets": [
     {
-      "name": "Static Product Showcase",
-      "blocks": []
+      "name": "Product Grid",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "product_title": "Lillypilly Hand Wash",
+            "product_price": "$24.99",
+            "compare_price": "$34.99",
+            "show_sale_badge": true,
+            "sale_badge_text": "Sale"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "product_title": "Flannel Flower Hair Wash",
+            "product_price": "$29.99"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "product_title": "Flannel Flower Body Lotion",
+            "product_price": "$27.99"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "product_title": "Buddha Wood Hand Wash",
+            "product_price": "$32.99"
+          }
+        }
+      ]
     }
   ]
 }

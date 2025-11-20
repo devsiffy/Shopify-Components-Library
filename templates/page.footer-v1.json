@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "footer-v1": {
+      "type": "footer-v1",
+      "settings": {}
+    }
+  },
+  "order": [
+    "footer-v1"
+  ]
+}
+
