@@ -1,6 +1,6 @@
 {% comment %}
   Product Grid Section
-  This section displays a customizable product grid with hover effects
+  This section displays products with hover effects - uses actual product data
 {% endcomment %}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -94,6 +94,18 @@
     z-index: 2;
     background: {{ section.settings.badge_bg_color }};
     color: {{ section.settings.badge_text_color }};
+    font-size: 13px;
+    border-radius: 3px;
+    padding: 4px 10px;
+    font-weight: 600;
+  }
+  .product-grid-{{ section.id }} .product-card .badge-new {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    background: #4CAF50;
+    color: white;
     font-size: 13px;
     border-radius: 3px;
     padding: 4px 10px;
@@ -233,88 +245,167 @@
 </style>
 
 <ul class="product-grid product-grid-{{ section.id }}">
-  {% for block in section.blocks %}
-    <div class="product-card-wrapper">
-      <li class="product-card">
-        {% if block.settings.main_image %}
-          <img
-            class="main-image"
-            src="{{ block.settings.main_image | img_url: '600x400', crop: 'center' }}"
-            alt="{{ block.settings.product_title }}"
-            loading="lazy"
-          >
-        {% endif %}
+  {% if section.settings.collection != blank %}
+    <!-- Dynamic Products from Collection -->
+    {% for product in collections[section.settings.collection].products limit: section.settings.product_limit %}
+      <div class="product-card-wrapper">
+        <li class="product-card">
+          {% if product.images.size > 0 %}
+            <!-- Main Image -->
+            <img
+              class="main-image"
+              src="{{ product.images[0] | img_url: '600x400', crop: 'center' }}"
+              alt="{{ product.title }}"
+              loading="lazy"
+            >
+            
+            <!-- Hover Image (uses second product image if available) -->
+            {% if product.images.size > 1 %}
+              <div
+                class="hover-bg"
+                style="background-image:url('{{ product.images[1] | img_url: '600x400', crop: 'center' }}');"
+              ></div>
+            {% endif %}
+          {% endif %}
 
-        {% if block.settings.hover_image %}
-          <div
-            class="hover-bg"
-            style="background-image:url('{{ block.settings.hover_image | img_url: '600x400', crop: 'center' }}'); background-repeat:no-repeat; background-position:center; background-size:cover;"
-          ></div>
-        {% endif %}
+          <!-- Sale Badge -->
+          {% if product.compare_at_price > product.price %}
+            <span class="badge-sale">Sale</span>
+          {% endif %}
 
-        {% if block.settings.show_sale_badge %}
-          <span class="badge-sale">{{ block.settings.sale_badge_text }}</span>
-        {% endif %}
-
-        <div class="action-icons">
-          {% if block.settings.product_url %}
-            <a href="{{ block.settings.product_url }}" aria-label="Add to cart">
-              <i class="fa fa-shopping-cart"></i>
-            </a>
-            <a href="{{ block.settings.product_url }}" aria-label="View details">
+          <!-- Action Icons -->
+          <div class="action-icons">
+            <!-- View product -->
+            <a href="{{ product.url }}" aria-label="View {{ product.title }}">
               <i class="fa fa-eye"></i>
             </a>
+            <!-- Add to cart -->
+            <form method="post" action="/cart/add" class="add-to-cart-form">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+              <button type="submit" aria-label="Add {{ product.title }} to cart">
+                <i class="fa fa-shopping-cart"></i>
+              </button>
+            </form>
+            <!-- Add to wishlist -->
+            <button class="wishlist-btn" aria-label="Add to wishlist" data-product-handle="{{ product.handle }}">
+              <i class="fa fa-heart"></i>
+            </button>
+          </div>
+
+          <!-- Variant Swatches -->
+          {% if section.settings.show_variants and product.variants.size > 1 %}
+            <div class="variant-swatches">
+              {% for variant in product.variants limit: 4 %}
+                <span class="variant-swatch">{{ variant.title }}</span>
+              {% endfor %}
+            </div>
           {% endif %}
-        <div class="action-icons">
-  {% if block.settings.product_url %}
-    <!-- View product -->
-    <a href="{{ block.settings.product_url }}" aria-label="View details">
-      <i class="fa fa-eye"></i>
-    </a>
-    <!-- Add to cart -->
-    <a href="{{ block.settings.product_url }}" aria-label="Add to cart">
-      <i class="fa fa-shopping-cart"></i>
-    </a>
-  {% endif %}
-  <!-- Add to wishlist -->
-  <button aria-label="Add to wishlist">
-    <i class="fa fa-heart"></i>
-  </button>
-</div>
 
-        </div>
-
-        {% if block.settings.show_variants %}
-          <div class="variant-swatches">
-            {% if block.settings.variant_1 != blank %}
-              <span class="variant-swatch">{{ block.settings.variant_1 }}</span>
-            {% endif %}
-            {% if block.settings.variant_2 != blank %}
-              <span class="variant-swatch">{{ block.settings.variant_2 }}</span>
-            {% endif %}
-            {% if block.settings.variant_3 != blank %}
-              <span class="variant-swatch">{{ block.settings.variant_3 }}</span>
-            {% endif %}
-            {% if block.settings.variant_4 != blank %}
-              <span class="variant-swatch">{{ block.settings.variant_4 }}</span>
-            {% endif %}
+          <!-- Product Info -->
+          <div class="product-info">
+            <h3 class="product-title">{{ product.title }}</h3>
+            <div class="price-row">
+              <span class="product-price">
+                {{ product.price | money }}
+                {% if product.compare_at_price > product.price %}
+                  <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+              </span>
+            </div>
           </div>
-        {% endif %}
-
-        <div class="product-info">
-          <h3 class="product-title">{{ block.settings.product_title }}</h3>
-          <div class="price-row">
-            <span class="product-price">
-              {{ block.settings.product_price }}
-              {% if block.settings.compare_price != blank %}
-                <span class="compare-price">{{ block.settings.compare_price }}</span>
+        </li>
+      </div>
+    {% endfor %}
+  {% else %}
+    <!-- Manual Product Cards using actual products -->
+    {% for block in section.blocks %}
+      {% assign product = all_products[block.settings.product] %}
+      {% if product != blank %}
+        <div class="product-card-wrapper">
+          <li class="product-card">
+            {% if product.images.size > 0 %}
+              <!-- Main Image from selected product -->
+              <img
+                class="main-image"
+                src="{{ product.images[0] | img_url: '600x400', crop: 'center' }}"
+                alt="{{ product.title }}"
+                loading="lazy"
+              >
+              
+              <!-- Hover Image from selected product (uses second image if available) -->
+              {% if product.images.size > 1 %}
+                <div
+                  class="hover-bg"
+                  style="background-image:url('{{ product.images[1] | img_url: '600x400', crop: 'center' }}');"
+                ></div>
+              {% elsif product.images.size > 0 %}
+                <!-- If only one image, use the same image for hover (creates subtle effect) -->
+                <div
+                  class="hover-bg"
+                  style="background-image:url('{{ product.images[0] | img_url: '600x400', crop: 'center' }}'); opacity: 0.8;"
+                ></div>
               {% endif %}
-            </span>
-          </div>
+            {% endif %}
+
+            <!-- Sale Badge -->
+            {% if product.compare_at_price > product.price %}
+              <span class="badge-sale">Sale</span>
+            {% endif %}
+
+            <!-- New Badge -->
+            {% if block.settings.show_new_badge %}
+              {% assign product_creation_date = product.created_at | date: '%s' %}
+              {% assign thirty_days_ago = 'now' | date: '%s' | minus: 2592000 %}
+              {% if product_creation_date > thirty_days_ago %}
+                <span class="badge-new">New</span>
+              {% endif %}
+            {% endif %}
+
+            <!-- Action Icons -->
+            <div class="action-icons">
+              <!-- View product -->
+              <a href="{{ product.url }}" aria-label="View {{ product.title }}">
+                <i class="fa fa-eye"></i>
+              </a>
+              <!-- Add to cart -->
+              <form method="post" action="/cart/add" class="add-to-cart-form">
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <button type="submit" aria-label="Add {{ product.title }} to cart">
+                  <i class="fa fa-shopping-cart"></i>
+                </button>
+              </form>
+              <!-- Add to wishlist -->
+              <button class="wishlist-btn" aria-label="Add to wishlist" data-product-handle="{{ product.handle }}">
+                <i class="fa fa-heart"></i>
+              </button>
+            </div>
+
+            <!-- Variant Swatches -->
+            {% if block.settings.show_variants and product.variants.size > 1 %}
+              <div class="variant-swatches">
+                {% for variant in product.variants limit: 4 %}
+                  <span class="variant-swatch">{{ variant.title }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <!-- Product Info -->
+            <div class="product-info">
+              <h3 class="product-title">{{ product.title }}</h3>
+              <div class="price-row">
+                <span class="product-price">
+                  {{ product.price | money }}
+                  {% if product.compare_at_price > product.price %}
+                    <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                  {% endif %}
+                </span>
+              </div>
+            </div>
+          </li>
         </div>
-      </li>
-    </div>
-  {% endfor %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 </ul>
 
 {% schema %}
@@ -323,6 +414,25 @@
   "tag": "section",
   "class": "product-grid-section",
   "settings": [
+    {
+      "type": "header",
+      "content": "Product Selection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Choose Collection (Optional)",
+      "info": "Select a collection to display products automatically. Leave empty to use manual product cards below."
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Number of products to show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
     {
       "type": "header",
       "content": "Style Settings"
@@ -416,6 +526,12 @@
       "step": 1,
       "default": 16,
       "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_variants",
+      "label": "Show Variant Swatches",
+      "default": true
     }
   ],
   "blocks": [
@@ -425,64 +541,16 @@
       "settings": [
         {
           "type": "header",
-          "content": "Product Information"
+          "content": "Product Selection"
         },
         {
-          "type": "text",
-          "id": "product_title",
-          "label": "Product Title",
-          "default": "Product Name"
-        },
-        {
-          "type": "url",
-          "id": "product_url",
-          "label": "Product URL"
-        },
-        {
-          "type": "text",
-          "id": "product_price",
-          "label": "Product Price",
-          "default": "$29.99"
-        },
-        {
-          "type": "text",
-          "id": "compare_price",
-          "label": "Compare at Price (optional)",
-          "info": "Show original price if on sale"
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
         },
         {
           "type": "header",
-          "content": "Images"
-        },
-        {
-          "type": "image_picker",
-          "id": "main_image",
-          "label": "Main Product Image"
-        },
-        {
-          "type": "image_picker",
-          "id": "hover_image",
-          "label": "Hover Image (optional)"
-        },
-        {
-          "type": "header",
-          "content": "Sale Badge"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_sale_badge",
-          "label": "Show Sale Badge",
-          "default": false
-        },
-        {
-          "type": "text",
-          "id": "sale_badge_text",
-          "label": "Sale Badge Text",
-          "default": "Sale"
-        },
-        {
-          "type": "header",
-          "content": "Variant Options"
+          "content": "Display Options"
         },
         {
           "type": "checkbox",
@@ -491,28 +559,11 @@
           "default": true
         },
         {
-          "type": "text",
-          "id": "variant_1",
-          "label": "Variant 1",
-          "default": "40×40"
-        },
-        {
-          "type": "text",
-          "id": "variant_2",
-          "label": "Variant 2",
-          "default": "60×60"
-        },
-        {
-          "type": "text",
-          "id": "variant_3",
-          "label": "Variant 3",
-          "default": "80×80"
-        },
-        {
-          "type": "text",
-          "id": "variant_4",
-          "label": "Variant 4",
-          "default": "120×120"
+          "type": "checkbox",
+          "id": "show_new_badge",
+          "label": "Show 'New' Badge",
+          "default": true,
+          "info": "Shows 'New' badge for products less than 30 days old"
         }
       ]
     }
@@ -522,35 +573,16 @@
       "name": "Product Grid",
       "blocks": [
         {
-          "type": "product",
-          "settings": {
-            "product_title": "Lillypilly Hand Wash",
-            "product_price": "$24.99",
-            "compare_price": "$34.99",
-            "show_sale_badge": true,
-            "sale_badge_text": "Sale"
-          }
+          "type": "product"
         },
         {
-          "type": "product",
-          "settings": {
-            "product_title": "Flannel Flower Hair Wash",
-            "product_price": "$29.99"
-          }
+          "type": "product"
         },
         {
-          "type": "product",
-          "settings": {
-            "product_title": "Flannel Flower Body Lotion",
-            "product_price": "$27.99"
-          }
+          "type": "product"
         },
         {
-          "type": "product",
-          "settings": {
-            "product_title": "Buddha Wood Hand Wash",
-            "product_price": "$32.99"
-          }
+          "type": "product"
         }
       ]
     }

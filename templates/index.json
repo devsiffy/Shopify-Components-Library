@@ -76,14 +76,9 @@
         "footer_link_3_text": "Support",
         "footer_link_3_url": ""
       }
-    },
-     "product-grid-v1": {
-      "type": "product-grid-v1",
-      "settings": {}
     }
   },
   "order": [
-    "product-grid-v1",
     "custom-main-hero"
   ]
 }
