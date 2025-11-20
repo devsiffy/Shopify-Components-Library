@@ -1,0 +1,837 @@
+{{ 'font-awesome.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .section-search-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .section-search-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: {{ section.settings.header_background }};
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .section-search-title {
+    color: {{ section.settings.title_color }};
+    margin-bottom: 10px;
+    font-size: {{ section.settings.title_size }}px;
+  }
+
+  .section-search-subtitle {
+    color: {{ section.settings.subtitle_color }};
+    font-size: {{ section.settings.subtitle_size }}px;
+  }
+
+  .search-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto 30px;
+  }
+
+  .search-box {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: 2px solid {{ section.settings.border_color }};
+    border-radius: 50px;
+    outline: none;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: {{ section.settings.search_background }};
+    color: {{ section.settings.search_text_color }};
+  }
+
+  .search-box:focus {
+    border-color: {{ section.settings.accent_color }};
+    box-shadow: 0 2px 10px {{ section.settings.accent_color | color_modify: 'alpha', 0.3 }};
+  }
+
+  .search-icon {
+    position: absolute;
+    right: 20px;
+    top: 33%;
+    transform: translateY(-50%);
+    color: {{ section.settings.icon_color }};
+  }
+
+  .results-container {
+    background: {{ section.settings.results_background }};
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    border: 1px solid {{ section.settings.border_color }};
+  }
+
+  .result-item {
+    padding: 12px 20px;
+    border-bottom: 1px solid {{ section.settings.border_color }};
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background 0.2s;
+    color: {{ section.settings.text_color }};
+  }
+
+  .result-item:hover {
+    background: {{ section.settings.hover_background }};
+  }
+
+  .result-item:last-child {
+    border-bottom: none;
+  }
+
+  .result-icon {
+    margin-right: 10px;
+    color: {{ section.settings.accent_color }};
+    width: 20px;
+    text-align: center;
+  }
+
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+  }
+
+  .card {
+    background: {{ section.settings.card_background }};
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-header {
+    padding: 15px 20px;
+    background: {{ section.settings.card_header_background }};
+    color: {{ section.settings.card_header_text }};
+    display: flex;
+    align-items: center;
+  }
+
+  .card-icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid {{ section.settings.border_color }};
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: {{ section.settings.card_title_color }};
+  }
+
+  .card-description {
+    color: {{ section.settings.card_description_color }};
+    margin-bottom: 15px;
+    line-height: 1.5;
+  }
+
+  .card-footer {
+    padding: 15px 20px;
+    background: {{ section.settings.card_footer_background }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    font-size: {{ section.settings.button_font_size }}px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-primary {
+    background: {{ section.settings.primary_button_background }};
+    color: {{ section.settings.primary_button_text }};
+  }
+
+  .btn-primary:hover {
+    background: {{ section.settings.primary_button_hover }};
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: {{ section.settings.secondary_button_background }};
+    color: {{ section.settings.secondary_button_text }};
+  }
+
+  .btn-secondary:hover {
+    background: {{ section.settings.secondary_button_hover }};
+    transform: translateY(-2px);
+  }
+
+  .hero-card {
+    border-top: 4px solid {{ section.settings.hero_accent }};
+  }
+
+  .product-card {
+    border-top: 4px solid {{ section.settings.product_accent }};
+  }
+
+  .collection-card {
+    border-top: 4px solid {{ section.settings.collection_accent }};
+  }
+
+  .footer-card {
+    border-top: 4px solid {{ section.settings.footer_accent }};
+  }
+
+  .testimonial-card {
+    border-top: 4px solid {{ section.settings.testimonial_accent }};
+  }
+
+  .newsletter-card {
+    border-top: 4px solid {{ section.settings.newsletter_accent }};
+  }
+
+  .gallery-card {
+    border-top: 4px solid {{ section.settings.gallery_accent }};
+  }
+
+  .blog-card {
+    border-top: 4px solid {{ section.settings.blog_accent }};
+  }
+
+  .contact-card {
+    border-top: 4px solid {{ section.settings.contact_accent }};
+  }
+
+  .header-card {
+    border-top: 4px solid {{ section.settings.header_accent }};
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: {{ section.settings.muted_text_color }};
+    font-style: italic;
+    font-size: 1.1rem;
+  }
+
+  .shortcut-hint {
+    text-align: center;
+    margin-top: 10px;
+    color: {{ section.settings.muted_text_color }};
+    font-size: 0.9rem;
+  }
+
+  .shortcut-key {
+    display: inline-block;
+    background: {{ section.settings.shortcut_background }};
+    color: {{ section.settings.shortcut_text_color }};
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin: 0 2px;
+  }
+
+  @media (max-width: 768px) {
+    .cards-container {
+      grid-template-columns: 1fr;
+    }
+
+    .card-footer {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .card-image {
+      height: 180px;
+    }
+  }
+</style>
+
+<div class="section-search-container">
+  <div class="section-search-header">
+    <h1 class="section-search-title">{{ section.settings.title }}</h1>
+    <p class="section-search-subtitle">{{ section.settings.subtitle }}</p>
+  </div>
+
+  <div class="search-container">
+    <input type="text" class="search-box" id="searchInput" placeholder="{{ section.settings.search_placeholder }}">
+    <i class="fas fa-search search-icon"></i>
+    <div class="results-container" id="resultsContainer"></div>
+    <div class="shortcut-hint">
+      {{ section.settings.shortcut_text }}
+    </div>
+  </div>
+
+  <div class="cards-container" id="cardsContainer">
+    <!-- Cards will be generated by JavaScript -->
+  </div>
+</div>
+
+<script>
+// Section data from Liquid
+const sections = [
+  {% for block in section.blocks %}
+  {
+    id: {{ block.settings.id | default: forloop.index }},
+    type: '{{ block.settings.type }}',
+    title: '{{ block.settings.title | escape }}',
+    description: '{{ block.settings.description | escape }}',
+    icon: '{{ block.settings.icon }}',
+    image: '{{ block.settings.card_image | img_url: "400x300", crop: "center" }}'
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+];
+
+// DOM Elements
+const searchInput = document.getElementById('searchInput');
+const resultsContainer = document.getElementById('resultsContainer');
+const cardsContainer = document.getElementById('cardsContainer');
+
+// Initialize the page with all cards
+function initializeCards() {
+  cardsContainer.innerHTML = '';
+  sections.forEach(section => {
+    createCard(section);
+  });
+}
+
+// Create a card for a section
+function createCard(section) {
+  const card = document.createElement('div');
+  card.className = `card ${section.type}-card`;
+  card.dataset.id = section.id;
+  
+  card.innerHTML = `
+    <div class="card-header">
+      <i class="${section.icon} card-icon"></i>
+      <h3>${section.title}</h3>
+    </div>
+    ${section.image ? `<img src="${section.image}" alt="${section.title}" class="card-image">` : ''}
+    <div class="card-body">
+      <h4 class="card-title">${section.title}</h4>
+      <p class="card-description">${section.description}</p>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary" onclick="addToPage(${section.id})">
+        <i class="fas fa-plus"></i> Add to Page
+      </button>
+      <button class="btn btn-secondary" onclick="showDemo(${section.id})">
+        <i class="fas fa-eye"></i> Preview
+      </button>
+    </div>
+  `;
+  
+  cardsContainer.appendChild(card);
+}
+
+// Add section to page (simulated)
+function addToPage(sectionId) {
+  const section = sections.find(s => s.id === sectionId);
+  alert(`Added "${section.title}" to your page!`);
+}
+
+// Show demo for section
+function showDemo(sectionId) {
+  const section = sections.find(s => s.id === sectionId);
+  alert(`Showing preview for "${section.title}"`);
+}
+
+// Search functionality
+searchInput.addEventListener('input', function() {
+  const searchTerm = this.value.toLowerCase().trim();
+  
+  if (searchTerm.length === 0) {
+    resultsContainer.style.display = 'none';
+    initializeCards();
+    return;
+  }
+  
+  // Filter sections based on search term
+  const filteredSections = sections.filter(section => 
+    section.type.toLowerCase().includes(searchTerm) || 
+    section.title.toLowerCase().includes(searchTerm) ||
+    section.description.toLowerCase().includes(searchTerm)
+  );
+  
+  // Display search results
+  displaySearchResults(filteredSections, searchTerm);
+  
+  // Update cards display
+  updateCardsDisplay(filteredSections);
+});
+
+// Display search results in dropdown
+function displaySearchResults(filteredSections, searchTerm) {
+  if (filteredSections.length === 0) {
+    resultsContainer.innerHTML = '<div class="no-results">No sections found matching "' + searchTerm + '"</div>';
+  } else {
+    resultsContainer.innerHTML = filteredSections.map(section => `
+      <div class="result-item" data-id="${section.id}">
+        <i class="${section.icon} result-icon"></i>
+        <div>
+          <strong>${section.title}</strong>
+          <div>${section.type} section</div>
+        </div>
+      </div>
+    `).join('');
+    
+    // Add click event to result items
+    resultsContainer.querySelectorAll('.result-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const sectionId = parseInt(this.dataset.id);
+        const section = sections.find(s => s.id === sectionId);
+        searchInput.value = section.title;
+        resultsContainer.style.display = 'none';
+        
+        // Show only the selected section
+        updateCardsDisplay([section]);
+      });
+    });
+  }
+  
+  resultsContainer.style.display = 'block';
+}
+
+// Update cards display based on search
+function updateCardsDisplay(filteredSections) {
+  cardsContainer.innerHTML = '';
+  if (filteredSections.length === 0) {
+    cardsContainer.innerHTML = '<div class="no-results">No sections found matching your search</div>';
+  } else {
+    filteredSections.forEach(section => {
+      createCard(section);
+    });
+  }
+}
+
+// Close results when clicking outside
+document.addEventListener('click', function(e) {
+  if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
+    resultsContainer.style.display = 'none';
+  }
+});
+
+// Keyboard shortcut for search (Ctrl+F)
+document.addEventListener('keydown', function(e) {
+  // Check if Ctrl (or Cmd on Mac) and F are pressed
+  if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+    e.preventDefault(); // Prevent browser's default find behavior
+    searchInput.focus();
+    searchInput.select();
+  }
+});
+
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+  initializeCards();
+});
+</script>
+
+{% schema %}
+{
+  "name": "Section Search Explorer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shopify Section Explorer"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Search and select from different Shopify sections"
+    },
+    {
+      "type": "color",
+      "id": "header_background",
+      "label": "Header Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#2c3e50"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#7f8c8d"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Title Font Size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle Font Size",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Search Settings"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search Placeholder",
+      "default": "Search sections (e.g., 'hero', 'product', 'footer')"
+    },
+    {
+      "type": "text",
+      "id": "shortcut_text",
+      "label": "Shortcut Text",
+      "default": "Press <span class=\"shortcut-key\">Ctrl</span> + <span class=\"shortcut-key\">F</span> to quickly focus search"
+    },
+    {
+      "type": "color",
+      "id": "search_background",
+      "label": "Search Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "search_text_color",
+      "label": "Search Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "results_background",
+      "label": "Results Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "hover_background",
+      "label": "Hover Background",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "header",
+      "content": "Color Scheme"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#3498db"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#dddddd"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Muted Text Color",
+      "default": "#7f8c8d"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#7f8c8d"
+    },
+    {
+      "type": "header",
+      "content": "Card Settings"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_header_background",
+      "label": "Card Header Background",
+      "default": "#2c3e50"
+    },
+    {
+      "type": "color",
+      "id": "card_header_text",
+      "label": "Card Header Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#2c3e50"
+    },
+    {
+      "type": "color",
+      "id": "card_description_color",
+      "label": "Card Description Color",
+      "default": "#7f8c8d"
+    },
+    {
+      "type": "color",
+      "id": "card_footer_background",
+      "label": "Card Footer Background",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_background",
+      "label": "Primary Button Background",
+      "default": "#3498db"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_text",
+      "label": "Primary Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover",
+      "label": "Primary Button Hover",
+      "default": "#2980b9"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_background",
+      "label": "Secondary Button Background",
+      "default": "#e74c3c"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_text",
+      "label": "Secondary Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover",
+      "label": "Secondary Button Hover",
+      "default": "#c0392b"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Font Size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Section Type Accents"
+    },
+    {
+      "type": "color",
+      "id": "hero_accent",
+      "label": "Hero Accent",
+      "default": "#667eea"
+    },
+    {
+      "type": "color",
+      "id": "product_accent",
+      "label": "Product Accent",
+      "default": "#e74c3c"
+    },
+    {
+      "type": "color",
+      "id": "collection_accent",
+      "label": "Collection Accent",
+      "default": "#9b59b6"
+    },
+    {
+      "type": "color",
+      "id": "footer_accent",
+      "label": "Footer Accent",
+      "default": "#34495e"
+    },
+    {
+      "type": "color",
+      "id": "header_accent",
+      "label": "Header Accent",
+      "default": "#2c3e50"
+    },
+    {
+      "type": "color",
+      "id": "testimonial_accent",
+      "label": "Testimonial Accent",
+      "default": "#f39c12"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_accent",
+      "label": "Newsletter Accent",
+      "default": "#1abc9c"
+    },
+    {
+      "type": "color",
+      "id": "gallery_accent",
+      "label": "Gallery Accent",
+      "default": "#e67e22"
+    },
+    {
+      "type": "color",
+      "id": "blog_accent",
+      "label": "Blog Accent",
+      "default": "#8e44ad"
+    },
+    {
+      "type": "color",
+      "id": "contact_accent",
+      "label": "Contact Accent",
+      "default": "#16a085"
+    },
+    {
+      "type": "header",
+      "content": "Shortcut Settings"
+    },
+    {
+      "type": "color",
+      "id": "shortcut_background",
+      "label": "Shortcut Key Background",
+      "default": "#2c3e50"
+    },
+    {
+      "type": "color",
+      "id": "shortcut_text_color",
+      "label": "Shortcut Key Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "section",
+      "name": "Section",
+      "settings": [
+        {
+          "type": "number",
+          "id": "id",
+          "label": "Section ID",
+          "default": 1
+        },
+        {
+          "type": "text",
+          "id": "type",
+          "label": "Section Type",
+          "default": "hero"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section Title",
+          "default": "Hero Banner"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Section Description",
+          "default": "A large banner section with a call-to-action button, perfect for highlighting promotions."
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon Class",
+          "default": "fas fa-star",
+          "info": "Use Font Awesome icon classes (e.g., fas fa-star)"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image",
+          "info": "Recommended size: 400x300px"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Section Search Explorer",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "section",
+          "settings": {
+            "type": "hero",
+            "title": "Hero Banner",
+            "description": "A large banner section with a call-to-action button, perfect for highlighting promotions.",
+            "icon": "fas fa-star"
+          }
+        },
+        {
+          "type": "section",
+          "settings": {
+            "type": "product",
+            "title": "Featured Product",
+            "description": "Showcase a specific product with image, description, and purchase options.",
+            "icon": "fas fa-shopping-bag"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

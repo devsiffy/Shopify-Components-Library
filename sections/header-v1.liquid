@@ -320,7 +320,6 @@
       display: none;
     }
   }
-}
 </style>
 
 <div class="custom-navbar">
@@ -436,21 +435,11 @@
       "id": "menu_alignment",
       "label": "Menu Position",
       "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
       ],
-      "default": "center",
-      "info": "Choose the horizontal alignment of the navigation menu"
+      "default": "center"
     },
     {
       "type": "header",
@@ -461,14 +450,8 @@
       "id": "width",
       "label": "Width",
       "options": [
-        {
-          "value": "page",
-          "label": "Page"
-        },
-        {
-          "value": "full",
-          "label": "Full"
-        }
+        { "value": "page", "label": "Page" },
+        { "value": "full", "label": "Full" }
       ],
       "default": "page"
     },
@@ -477,30 +460,18 @@
       "id": "height",
       "label": "Height",
       "options": [
-        {
-          "value": "compact",
-          "label": "Compact"
-        },
-        {
-          "value": "standard",
-          "label": "Standard"
-        }
+        { "value": "compact", "label": "Compact" },
+        { "value": "standard", "label": "Standard" }
       ],
       "default": "standard"
     },
     {
       "type": "select",
       "id": "sticky_header",
-      "label": "Sticky header",
+      "label": "Sticky Header",
       "options": [
-        {
-          "value": "always",
-          "label": "Always"
-        },
-        {
-          "value": "never",
-          "label": "Never"
-        }
+        { "value": "always", "label": "Always" },
+        { "value": "never", "label": "Never" }
       ],
       "default": "always"
     },
@@ -565,14 +536,15 @@
     {
       "type": "range",
       "id": "font_size",
+      "label": "Font Size",
       "min": 12,
       "max": 24,
       "step": 1,
       "unit": "px",
-      "label": "Font Size",
       "default": 16
     }
   ],
+
   "blocks": [
     {
       "type": "link",
@@ -613,10 +585,8 @@
           "label": "Menu Links",
           "info": "Select a menu from Navigation settings"
         },
-        {
-          "type": "header",
-          "content": "Featured Card 1"
-        },
+
+        { "type": "header", "content": "Featured Card 1" },
         {
           "type": "image_picker",
           "id": "card1_image",
@@ -628,10 +598,8 @@
           "label": "Card 1 Title",
           "default": "Featured Item"
         },
-        {
-          "type": "header",
-          "content": "Featured Card 2"
-        },
+
+        { "type": "header", "content": "Featured Card 2" },
         {
           "type": "image_picker",
           "id": "card2_image",
@@ -643,10 +611,8 @@
           "label": "Card 2 Title",
           "default": "Featured Item"
         },
-        {
-          "type": "header",
-          "content": "Featured Card 3"
-        },
+
+        { "type": "header", "content": "Featured Card 3" },
         {
           "type": "image_picker",
           "id": "card3_image",
@@ -661,6 +627,7 @@
       ]
     }
   ],
+
   "presets": [
     {
       "name": "Mega Menu Navigation",
@@ -671,151 +638,23 @@
             "label": "Home",
             "link": "/"
           }
-        ],
-        "default": "center",
-        "info": "Choose the horizontal alignment of the navigation menu"
-      },
-      {
-        "type": "color",
-        "id": "nav_background",
-        "label": "Navigation Background",
-        "default": "#ffffff"
-      },
-      {
-        "type": "color",
-        "id": "text_color",
-        "label": "Text Color",
-        "default": "#000000"
-      },
-      {
-        "type": "color",
-        "id": "hover_background",
-        "label": "Hover Background",
-        "default": "#f0f0f0"
-      }, {
-        "type": "color",
-        "id": "border_color",
-        "label": "Border Color",
-        "default": "#e5e5e5"
-      }, {
-        "type": "color",
-        "id": "dropdown_background",
-        "label": "Dropdown Background",
-        "default": "#f9f9f9"
-      }, {
-        "type": "range",
-        "id": "font_size",
-        "min": 12,
-        "max": 24,
-        "step": 1,
-        "unit": "px",
-        "label": "Font Size",
-        "default": 16
-      }
-    ],
-    "blocks": [
-      {
-        "type": "link",
-        "name": "Navigation Link",
-        "settings": [
-          {
-            "type": "text",
-            "id": "label",
-            "label": "Link Label",
-            "default": "Menu Item"
-          }, {
-            "type": "url",
-            "id": "link",
-            "label": "Link URL"
+        },
+        {
+          "type": "link",
+          "settings": {
+            "label": "Shop",
+            "link": "/collections"
           }
-        ]
-      }, {
-        "type": "mega_menu",
-        "name": "Mega Menu Dropdown",
-        "settings": [
-          {
-            "type": "text",
-            "id": "menu_title",
-            "label": "Menu Title",
-            "default": "Dropdown"
-          },
-          {
-            "type": "text",
-            "id": "category_title",
-            "label": "Category Title",
-            "default": "Categories"
-          },
-          {
-            "type": "link_list",
-            "id": "menu_links",
-            "label": "Menu Links",
-            "info": "Select a menu from Navigation settings"
-          },
-          {
-            "type": "header",
-            "content": "Featured Card 1"
-          }, {
-            "type": "image_picker",
-            "id": "card1_image",
-            "label": "Card 1 Image"
-          }, {
-            "type": "text",
-            "id": "card1_title",
-            "label": "Card 1 Title",
-            "default": "Featured Item"
-          }, {
-            "type": "header",
-            "content": "Featured Card 2"
-          }, {
-            "type": "image_picker",
-            "id": "card2_image",
-            "label": "Card 2 Image"
-          }, {
-            "type": "text",
-            "id": "card2_title",
-            "label": "Card 2 Title",
-            "default": "Featured Item"
-          }, {
-            "type": "header",
-            "content": "Featured Card 3"
-          }, {
-            "type": "image_picker",
-            "id": "card3_image",
-            "label": "Card 3 Image"
-          }, {
-            "type": "text",
-            "id": "card3_title",
-            "label": "Card 3 Title",
-            "default": "Featured Item"
+        },
+        {
+          "type": "mega_menu",
+          "settings": {
+            "menu_title": "Browse",
+            "category_title": "Collections"
           }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "name": "Mega Menu Navigation",
-        "blocks": [
-          {
-            "type": "link",
-            "settings": {
-              "label": "Home",
-              "link": "/"
-            }
-          }, {
-            "type": "link",
-            "settings": {
-              "label": "Shop",
-              "link": "/collections"
-            }
-          }, {
-            "type": "mega_menu",
-            "settings": {
-              "menu_title": "Bedding",
-              "category_title": "Bedding Categories"
-            }
-          }
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    }
+  ]
+}
 {% endschema %}

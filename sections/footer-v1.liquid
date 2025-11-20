@@ -1,3 +1,127 @@
+<link
+  href="https://fonts.googleapis.com/css2?family=Sacramento&family=Montserrat:wght@400;500&display=swap"
+  rel="stylesheet"
+>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  .footer-wrapper {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    border-top: 1px solid {{ section.settings.accent_color }};
+    padding-bottom: 30px;
+    width: 100%;
+  }
+  .footer-logo text {
+    font-family: '{{ section.settings.logo_font_family }}', cursive;
+    font-size: {{ section.settings.logo_font_size }}px;
+    fill: {{ section.settings.headline_color }};
+  }
+  .footer-nav {
+    font-size: 17px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+  .footer-content-section {
+    font-size: 16px;
+    font-family: 'Montserrat', Arial, sans-serif;
+  }
+  .footer-contact { font-size: {{ section.settings.contact_font_size }}px; font-family: {{ section.settings.contact_font_family }}; }
+  .footer-hours { font-size: {{ section.settings.hours_font_size }}px; font-family: {{ section.settings.hours_font_family }}; }
+  .footer-info a { font-size: {{ section.settings.info_font_size }}px; font-family: {{ section.settings.info_font_family }}; }
+  .footer-social-icons a { font-size: {{ section.settings.social_icon_size }}px; }
+  .footer-newsletter-text { font-size: {{ section.settings.newsletter_font_size }}px; font-family: {{ section.settings.newsletter_font_family }}; }
+  .footer-newsletter input, .footer-newsletter button { font-family: {{ section.settings.newsletter_font_family }}; font-size: {{ section.settings.newsletter_font_size }}px; }
+</style>
+
+<footer class="footer-wrapper">
+  <div class="footer-logo">
+    <svg class="footer-logo-svg" viewBox="0 0 200 200" fill="none">
+      <circle cx="100" cy="100" r="98" stroke="{{ section.settings.accent_color }}" stroke-width="2" />
+      <text
+        x="50%"
+        y="100"
+        text-anchor="middle"
+        dominant-baseline="middle"
+      >
+        {{ section.settings.logo_text_1 }}
+        <tspan x="50%" dy="1em">{{ section.settings.logo_text_2 }}</tspan>
+        <tspan x="50%" dy="1.05em">{{ section.settings.logo_text_3 }}</tspan>
+      </text>
+    </svg>
+  </div>
+  <nav class="footer-nav">
+    <a href="#">ABOUT US</a>
+    <a href="#">EVENTS</a>
+    <a href="#">CONSULTATIONS</a>
+    <a href="#">OUR JOY FAMILY</a>
+    <a href="#">FAQ</a>
+  </nav>
+  <div class="footer-content-wrapper">
+    <div class="footer-content-section">
+      <h4>Contact</h4>
+      <div class="footer-contact">
+        {{ section.settings.contact_phone }}
+        <br>
+        <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a><br>
+        {{ section.settings.contact_address }}
+      </div>
+    </div>
+    <div class="footer-content-divider"></div>
+    <div class="footer-content-section">
+      <h4>Hours</h4>
+      <div class="footer-hours">
+        <strong>{{ section.settings.hours_note }}</strong><br>
+        {{ section.settings.hours_days_1 -}}
+        <br>
+        {{ section.settings.hours_days_2 -}}
+        <br>
+        {{ section.settings.hours_close }}
+      </div>
+    </div>
+    <div class="footer-content-divider"></div>
+    <div class="footer-content-section">
+      <h4>Information</h4>
+      <div class="footer-info">
+        <a href="{{ section.settings.contact_us_link }}">Contact Us</a>
+        <a href="{{ section.settings.collections_link }}">Browse Collections</a>
+        <a href="{{ section.settings.terms_link }}">Terms &amp; Conditions</a>
+        <a href="{{ section.settings.privacy_link }}">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-line">
+      <div class="footer-bottom-left-sdie">
+        <span class="footer-connect-text">Let's connect</span>
+        <div class="footer-social-icons">
+          {% if section.settings.facebook_link %}
+            <a href="{{ section.settings.facebook_link }}" aria-label="Facebook"><i class="fa fa-facebook-f"></i></a>
+          {% endif %}
+          {% if section.settings.instagram_link %}
+            <a href="{{ section.settings.instagram_link }}" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+          {% endif %}
+          {% if section.settings.pinterest_link %}
+            <a href="{{ section.settings.pinterest_link }}" aria-label="Pinterest"><i class="fa fa-pinterest-p"></i></a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="footer-bottom-divider"></div>
+      <div>
+        <div class="footer-newsletter-text">
+          {{ section.settings.newsletter_text }}
+        </div>
+        <form class="footer-newsletter">
+          <input type="text" placeholder="Your email">
+          <button type="submit" aria-label="Subscribe">
+            <i class="fa fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</footer>
+
 {% schema %}
 {
   "name": "Elegant Footer",
@@ -242,121 +366,3 @@
   ]
 }
 {% endschema %}
-
-<link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Montserrat:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-<style>
-  .footer-wrapper {
-    background: {{ section.settings.background_color }};
-    color: {{ section.settings.text_color }};
-    border-top: 1px solid {{ section.settings.accent_color }};
-    padding-bottom: 30px;
-    width: 100%;
-  }
-  .footer-logo text {
-    font-family: '{{ section.settings.logo_font_family }}', cursive;
-    font-size: {{ section.settings.logo_font_size }}px;
-    fill: {{ section.settings.headline_color }};
-  }
-  .footer-nav {
-    font-size: 17px;
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-weight: 500;
-    letter-spacing: 1px;
-  }
-  .footer-content-section {
-    font-size: 16px;
-    font-family: 'Montserrat', Arial, sans-serif;
-  }
-  .footer-contact { font-size: {{ section.settings.contact_font_size }}px; font-family: {{ section.settings.contact_font_family }}; }
-  .footer-hours { font-size: {{ section.settings.hours_font_size }}px; font-family: {{ section.settings.hours_font_family }}; }
-  .footer-info a { font-size: {{ section.settings.info_font_size }}px; font-family: {{ section.settings.info_font_family }}; }
-  .footer-social-icons a { font-size: {{ section.settings.social_icon_size }}px; }
-  .footer-newsletter-text { font-size: {{ section.settings.newsletter_font_size }}px; font-family: {{ section.settings.newsletter_font_family }}; }
-  .footer-newsletter input, .footer-newsletter button { font-family: {{ section.settings.newsletter_font_family }}; font-size: {{ section.settings.newsletter_font_size }}px; }
-</style>
-
-<footer class="footer-wrapper">
-  <div class="footer-logo">
-    <svg class="footer-logo-svg" viewBox="0 0 200 200" fill="none">
-      <circle cx="100" cy="100" r="98" stroke="{{ section.settings.accent_color }}" stroke-width="2" />
-      <text
-        x="50%"
-        y="100"
-        text-anchor="middle"
-        dominant-baseline="middle"
-      >
-        {{ section.settings.logo_text_1 }}
-        <tspan x="50%" dy="1em">{{ section.settings.logo_text_2 }}</tspan>
-        <tspan x="50%" dy="1.05em">{{ section.settings.logo_text_3 }}</tspan>
-      </text>
-    </svg>
-  </div>
-  <nav class="footer-nav">
-    <a href="#">ABOUT US</a>
-    <a href="#">EVENTS</a>
-    <a href="#">CONSULTATIONS</a>
-    <a href="#">OUR JOY FAMILY</a>
-    <a href="#">FAQ</a>
-  </nav>
-  <div class="footer-content-wrapper">
-    <div class="footer-content-section">
-      <h4>Contact</h4>
-      <div class="footer-contact">
-        {{ section.settings.contact_phone }} <br />
-        <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a><br />
-        {{ section.settings.contact_address }}
-      </div>
-    </div>
-    <div class="footer-content-divider"></div>
-    <div class="footer-content-section">
-      <h4>Hours</h4>
-      <div class="footer-hours">
-        <strong>{{ section.settings.hours_note }}</strong><br />
-        {{ section.settings.hours_days_1 }}<br />
-        {{ section.settings.hours_days_2 }}<br />
-        {{ section.settings.hours_close }}
-      </div>
-    </div>
-    <div class="footer-content-divider"></div>
-    <div class="footer-content-section">
-      <h4>Information</h4>
-      <div class="footer-info">
-        <a href="{{ section.settings.contact_us_link }}">Contact Us</a>
-        <a href="{{ section.settings.collections_link }}">Browse Collections</a>
-        <a href="{{ section.settings.terms_link }}">Terms &amp; Conditions</a>
-        <a href="{{ section.settings.privacy_link }}">Privacy Policy</a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-bottom-line">
-      <div class="footer-bottom-left-sdie">
-        <span class="footer-connect-text">Let's connect</span>
-        <div class="footer-social-icons">
-          {% if section.settings.facebook_link %}
-            <a href="{{ section.settings.facebook_link }}" aria-label="Facebook"><i class="fa fa-facebook-f"></i></a>
-          {% endif %}
-          {% if section.settings.instagram_link %}
-            <a href="{{ section.settings.instagram_link }}" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
-          {% endif %}
-          {% if section.settings.pinterest_link %}
-            <a href="{{ section.settings.pinterest_link }}" aria-label="Pinterest"><i class="fa fa-pinterest-p"></i></a>
-          {% endif %}
-        </div>
-      </div>
-      <div class="footer-bottom-divider"></div>
-      <div>
-        <div class="footer-newsletter-text">
-          {{ section.settings.newsletter_text }}
-        </div>
-        <form class="footer-newsletter">
-          <input type="text" placeholder="Your email" />
-          <button type="submit" aria-label="Subscribe">
-            <i class="fa fa-paper-plane"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</footer>
