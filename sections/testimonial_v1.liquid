@@ -1,0 +1,378 @@
+{% comment %}
+  Testimonial Section - Vertical & Horizontal Endless Scroll
+  Includes editable testimonial cards and CSS settings
+{% endcomment %}
+
+<div class="testimonial-section">
+  <div class="testimonial-header">{{ section.settings.header | default: '500+ TRUSTED CUSTOMERS' }}</div>
+  <div class="ropes-container">
+    {% assign num_columns = 4 %}
+    {% for i in (1..num_columns) %}
+      {% assign up_down = 'down' %}
+      {% if forloop.index0 == 1 or forloop.index0 == 3 %}
+        {% assign up_down = 'up' %}
+      {% endif %}
+      <div class="rope-column {{ up_down }}">
+        <div class="rope-track">
+          {% for testimonial in section.blocks offset: forloop.index0 limit: 3 %}
+            <div class="testimonial-card">
+              <div class="testimonial-header-info">
+                <img src="{{ testimonial.settings.avatar | default: 'https://i.pravatar.cc/32?img=1' }}" alt="User">
+                <div class="testimonial-header-info-text">
+                  <span>{{ testimonial.settings.user }}</span>
+                  <span>{{ testimonial.settings.date }}</span>
+                </div>
+              </div>
+              <span class="testimonial-rating">
+                {% for star in (1..testimonial.settings.rating) %}★{% endfor %}
+              </span>
+              <div class="testimonial-title">{{ testimonial.settings.title }}</div>
+              <div class="testimonial-text">{{ testimonial.settings.text }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .testimonial-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    text-align: center;
+    background: {{ section.settings.primaryBackground | default: '#121015' }};
+    color: {{ section.settings.primaryFontColor | default: '#fff' }};
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+  .testimonial-header {
+    font-size: 2.5rem;
+    color: {{ section.settings.accentHeader | default: '#fdd7af' }};
+    font-weight: bold;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+  }
+  .ropes-container {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin: 0 auto;
+  }
+  .rope-column {
+    width: 320px;
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    display: flex;
+  }
+  .rope-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    will-change: transform;
+  }
+  .testimonial-card {
+    background: {{ section.settings.cardBackground | default: '#181820' }};
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    padding: 20px 24px;
+    width: 275px;
+    min-height: 120px;
+    margin: 0 auto;
+  }
+  .testimonial-rating {
+    color: {{ section.settings.accentRating | default: '#ffcb65' }};
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .testimonial-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .testimonial-header-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: {{ section.settings.accentUser | default: '#76ff88' }};
+  }
+  .testimonial-header-info img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .testimonial-header-info-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .testimonial-text {
+    font-size: 0.97rem;
+    margin-bottom: 6px;
+    color: #cccbc7;
+  }
+  .testimonial-user {
+    font-size: 0.97rem;
+    color: {{ section.settings.accentUser | default: '#76ff88' }};
+    font-weight: bold;
+  }
+  .rope-column::before,
+  .rope-column::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .rope-column::before {
+    top: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(18, 16, 21, 0.95) 0%,
+      rgba(18, 16, 21, 0.6) 60%,
+      rgba(18, 16, 21, 0) 100%
+    );
+  }
+  .rope-column::after {
+    bottom: 0;
+    background: linear-gradient(
+      to top,
+      rgba(18, 16, 21, 0.95) 0%,
+      rgba(18, 16, 21, 0.6) 60%,
+      rgba(18, 16, 21, 0) 100%
+    );
+  }
+  @media (max-width: 1024px) {
+    .testimonial-card {
+      width: 200px;
+      min-width: 200px !important;
+      padding: 12px 12px;
+    }
+  }
+  @media (max-width: 768px) {
+    .ropes-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .rope-column {
+      width: 100vw;
+      height: 150px;
+      overflow: hidden;
+    }
+    .rope-track {
+      flex-direction: row !important;
+      width: max-content;
+      gap: 16px;
+    }
+    .testimonial-card {
+      width: 240px;
+      min-width: 240px !important;
+      padding: 12px 12px;
+    }
+    .rope-column::before {
+      top: 0;
+      bottom: 0;
+      width: 70px;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        rgba(18, 16, 21, 0.95) 0%,
+        rgba(18, 16, 21, 0.6) 50%,
+        rgba(18, 16, 21, 0) 100%
+      );
+    }
+    .rope-column::after {
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: auto;
+      width: 70px;
+      height: 100%;
+      background: linear-gradient(
+        to left,
+        rgba(18, 16, 21, 0.95) 0%,
+        rgba(18, 16, 21, 0.6) 50%,
+        rgba(18, 16, 21, 0) 100%
+      );
+    }
+  }
+</style>
+
+<script>
+  let animationFrames = [];
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+  function clearAnimations() {
+    animationFrames.forEach((id) => cancelAnimationFrame(id));
+    animationFrames = [];
+    document.querySelectorAll('.rope-track').forEach((track) => {
+      track.style.transform = 'translateX(0px)';
+      track.style.transform = 'translateY(0px)';
+    });
+  }
+  function startVerticalScroll(col, speed, direction) {
+    const track = col.querySelector('.rope-track');
+    const cards = [...track.children];
+    cards.forEach((card) => track.appendChild(card.cloneNode(true)));
+    let totalHeight = Array.from(track.children).reduce((sum, card) => sum + card.offsetHeight + 16, 0);
+    let pos = 0;
+    function animate() {
+      pos += direction * speed;
+      if (pos > 0) pos -= totalHeight / 2;
+      if (pos < -totalHeight / 2) pos += totalHeight / 2;
+      track.style.transform = `translateY(${pos}px)`;
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }
+  function startHorizontalScroll(col, speed, direction) {
+    const track = col.querySelector('.rope-track');
+    const cards = [...track.children];
+    cards.forEach((card) => track.appendChild(card.cloneNode(true)));
+    let totalWidth = Array.from(track.children).reduce((sum, card) => sum + card.offsetWidth + 16, 0);
+    let pos = 0;
+    function animate() {
+      pos += direction * speed;
+      if (pos > 0) pos -= totalWidth / 2;
+      if (pos < -totalWidth / 2) pos += totalWidth / 2;
+      track.style.transform = `translateX(${pos}px)`;
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }
+  function initAnimation() {
+    clearAnimations();
+    document.querySelectorAll('.rope-column').forEach((col) => {
+      let speed = 0.5 + Math.random() * 0.4;
+      let direction = col.classList.contains('down') ? 1 : -1;
+      if (isMobile()) {
+        startHorizontalScroll(col, speed, direction);
+      } else {
+        startVerticalScroll(col, speed, direction);
+      }
+    });
+  }
+  window.onload = initAnimation;
+  window.onresize = function () {
+    setTimeout(initAnimation, 200);
+  };
+</script>
+
+{% schema %}
+{
+  "name": "Testimonial Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "header",
+      "default": "500+ TRUSTED CUSTOMERS",
+      "label": "Section Header"
+    },
+    {
+      "type": "color",
+      "id": "primaryBackground",
+      "default": "#121015",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "primaryFontColor",
+      "default": "#fff",
+      "label": "Font color"
+    },
+    {
+      "type": "color",
+      "id": "accentHeader",
+      "default": "#fdd7af",
+      "label": "Accent color (Header)"
+    },
+    {
+      "type": "color",
+      "id": "accentRating",
+      "default": "#ffcb65",
+      "label": "Accent color (Rating stars)"
+    },
+    {
+      "type": "color",
+      "id": "accentUser",
+      "default": "#76ff88",
+      "label": "Accent color (User)"
+    },
+    {
+      "type": "color",
+      "id": "cardBackground",
+      "default": "#181820",
+      "label": "Card background"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar Image"
+        },
+        {
+          "type": "text",
+          "id": "user",
+          "label": "User name",
+          "default": "Anonymous"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "default": "2025-01-01"
+        },
+        {
+          "type": "number",
+          "id": "rating",
+          "label": "Rating (1-5)",
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Testimonial Title",
+          "default": "Awesome theme"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Testimonial Content",
+          "default": "This theme is great!"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 16,
+  "presets": [
+    {
+      "name": "Testimonial Section",
+      "category": "Custom",
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" }
+      ]
+    }
+  ]
+}
+{% endschema %}
